@@ -50,4 +50,38 @@ class StringUtilsTest {
         assertTrue(StringUtils.containsSeperatedDouble("abcdefeghi"));
         assertFalse(StringUtils.containsSeperatedDouble("abcdefghi"));
     }
+
+    @Test
+    public void removeQuotation() {
+        assertEquals("\"", StringUtils.removeQuotes("\""));
+        assertEquals("", StringUtils.removeQuotes("\"\""));
+        assertEquals("\"a", StringUtils.removeQuotes("\"a"));
+        assertEquals("a\"", StringUtils.removeQuotes("a\""));
+        assertEquals("a", StringUtils.removeQuotes("\"a\""));
+        assertEquals("\"a\"a", StringUtils.removeQuotes("\"a\"a"));
+    }
+
+    @Test
+    public void sanitize() {
+        assertEquals("\"", StringUtils.sanitize("\\\""));
+        assertEquals("\"\"", StringUtils.sanitize("\\\"\\\""));
+        assertEquals("", StringUtils.sanitize(""));
+        assertEquals("\"a\"", StringUtils.sanitize("\\\"a\\\""));
+        assertEquals("a", StringUtils.sanitize("a"));
+
+        assertEquals("a", StringUtils.sanitize("\\x61"));
+        assertEquals("babab", StringUtils.sanitize("b\\x61b\\x61b"));
+        assertEquals("1a1", StringUtils.sanitize("1\\x611"));
+        assertEquals("\\x6q", StringUtils.sanitize("\\x6q"));
+
+        assertEquals("b\\ab\\ab", StringUtils.sanitize("b\\\\ab\\\\ab"));
+    }
+
+    @Test
+    public void encode() {
+        assertEquals("\"\\\"\\\"\"", StringUtils.encode("\"\""));
+        assertEquals("\"\\\"abc\\\"\"", StringUtils.encode("\"abc\""));
+        assertEquals("\"\\\"aaa\\\\\\\"aaa\\\"\"", StringUtils.encode("\"aaa\\\"aaa\""));
+        assertEquals("\"\\\"\\\\x27\\\"\"", StringUtils.encode("\"\\x27\""));
+    }
 }
