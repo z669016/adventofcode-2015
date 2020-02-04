@@ -1,5 +1,6 @@
-package com.putoet;
+package com.putoet.day10;
 
+import com.putoet.day10.SplitToText;
 import org.junit.jupiter.api.Test;
 import utilities.StringUtils;
 

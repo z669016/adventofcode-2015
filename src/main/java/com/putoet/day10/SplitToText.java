@@ -1,4 +1,4 @@
-package com.putoet;
+package com.putoet.day10;
 
 import java.util.List;
 import java.util.stream.Collectors;
