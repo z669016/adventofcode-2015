@@ -1,5 +1,7 @@
 package com.putoet.day11;
 
+import java.util.Arrays;
+
 public class Password {
     private char[] password;
 
@@ -7,6 +9,41 @@ public class Password {
         assert password != null && password.length() == 8;
         this.password = password.toCharArray();
     }
+
+    public Password next() {
+        char[] newPassword = Arrays.copyOf(password, 8);
+        while (hasIncrement(newPassword)) {
+            newPassword = increment(newPassword);
+
+            if (isValid(newPassword))
+                return new Password(String.valueOf(newPassword));
+        }
+
+        throw new IllegalStateException("Cannot generate next valid password for '" + this + "'");
+    }
+
+    private static final char[] MAX_PASSWORD = new char[] {'z', 'z', 'z', 'z', 'z', 'z', 'z', 'z'};
+    private static boolean hasIncrement(char[] password) {
+        return !Arrays.equals(password, MAX_PASSWORD);
+    }
+
+    private static char[] increment(char[] password) {
+        char[] increment = Arrays.copyOf(password, 8);
+        int idx = 7;
+        increment[idx] = increment(increment[idx]);
+        while((idx > 0) && (increment[idx] > 'z')) {
+            increment[idx] = 'a';
+            idx--;
+
+            increment[idx] = increment(increment[idx]);
+        }
+        return increment;
+    }
+
+    private static char increment(char c) {
+        return (char) (c + 1);
+    }
+
 
     public boolean isValid() {
         return Password.isValid(toString());
