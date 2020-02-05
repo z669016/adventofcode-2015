@@ -59,7 +59,6 @@ public class Reindeer {
     }
 
     public State  state(int elapsedSeconds) {
-        final int fullCycles = elapsedSeconds / (flyingTime + requiredRestingTime);
         final int restSeconds = elapsedSeconds % (flyingTime + requiredRestingTime);
 
         return restSeconds == 0 ? State.RESTING : (restSeconds <= flyingTime ? State.FLYING : State.RESTING);

@@ -9,7 +9,7 @@ public class DistanceScoreSystem implements ScoreSystem {
 
     @Override
     public void update(int elapsedTime, List<Reindeer> reindeer) {
-        reindeer.forEach(r -> this.distance.put(r, r.distance(elapsedTime)));;
+        reindeer.forEach(r -> this.distance.put(r, r.distance(elapsedTime)));
     }
 
     @Override

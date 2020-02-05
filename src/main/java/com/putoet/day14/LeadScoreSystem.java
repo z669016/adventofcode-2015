@@ -18,7 +18,7 @@ public class LeadScoreSystem implements ScoreSystem {
         final int max = distance.values().stream().mapToInt(i -> i).max().getAsInt();
         distance.entrySet().stream()
                 .filter(e -> e.getValue() == max)
-                .map(e -> e.getKey())
+                .map(Map.Entry::getKey)
                 .forEach(r -> score.put(r, score.getOrDefault(r, 0) + 1));
     }
 
