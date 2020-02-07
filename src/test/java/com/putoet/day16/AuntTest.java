@@ -22,6 +22,10 @@ class AuntTest {
         assertFalse(aunt.treesKnown());
         assertFalse(aunt.catsKnown());
         assertFalse(aunt.perfumesKnown());
+
+        assertThrows(AssertionError.class, () -> Aunt.fromDescription(null));
+        assertThrows(AssertionError.class, () -> Aunt.fromDescription(""));
+        assertThrows(AssertionError.class, () -> Aunt.fromDescription("Sue 24, goldfish 7, pomeranians 9, akitas 4"));
     }
 
     @Test
@@ -68,5 +72,26 @@ class AuntTest {
         assertThrows(IllegalArgumentException.class, () -> aunt.setProperty("horses: 11"));
         assertThrows(IllegalArgumentException.class, () -> aunt.setProperty(""));
         assertThrows(IllegalArgumentException.class, () -> aunt.setProperty("cats 1"));
+    }
+
+    @Test
+    void couldMatch() {
+        final Aunt aunt = Aunt.fromDescription("Sue 24: goldfish: 7, pomeranians: 9, akitas: 4");
+        final List<String> properties = List.of(
+                "children: 1",
+                "cats: 1",
+                "samoyeds: 1",
+                "pomeranians: 9",
+                "akitas: 4",
+                "vizslas: 1",
+                "goldfish: 7",
+                "trees: 1",
+                "cars: 1",
+                "perfumes: 1");
+
+        final Aunt unknownAunt = new Aunt("", 0);
+        properties.forEach(unknownAunt::setProperty);
+
+        assertTrue(aunt.couldMatchStrict(unknownAunt));
     }
 }
