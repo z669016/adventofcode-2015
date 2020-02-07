@@ -3,9 +3,8 @@ package com.putoet.day17;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CombinationCalculatorTest {
     private static final List<Integer> dataSet = List.of(5, 5, 10, 15, 20);
