@@ -2,12 +2,16 @@ package com.putoet.day19;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Transformation {
     private final Molecule from;
     private final Molecule to;
 
     public Transformation(Molecule from, Molecule to) {
+        assert from != null;
+        assert to != null;
+
         this.from = from;
         this.to = to;
     }
@@ -39,6 +43,20 @@ public class Transformation {
         }
 
         return transformedMolecules;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Transformation)) return false;
+        Transformation that = (Transformation) o;
+        return from.equals(that.from) &&
+                to.equals(that.to);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(from, to);
     }
 
     @Override

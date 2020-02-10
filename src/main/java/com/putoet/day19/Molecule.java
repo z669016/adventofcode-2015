@@ -28,6 +28,10 @@ public class Molecule {
                 .findFirst();
     }
 
+    public int length() {
+        return element.length();
+    }
+
     @Override
     public String toString() {
         return element;

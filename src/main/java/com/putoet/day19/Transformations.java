@@ -1,8 +1,9 @@
 package com.putoet.day19;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.OptionalInt;
 import java.util.stream.Collectors;
 
 public class Transformations implements Iterable<Transformation> {
@@ -14,10 +15,6 @@ public class Transformations implements Iterable<Transformation> {
         this.transformations = list;
     }
 
-    public int size() {
-        return transformations.size();
-    }
-
     public static Transformations fromList(List<String> list) {
         final List<Transformation> transformations = list.stream()
                 .filter(text -> text.trim().length() > 0)
@@ -26,7 +23,40 @@ public class Transformations implements Iterable<Transformation> {
                 .map(e -> new Transformation(new Molecule(e[0]), new Molecule(e[1])))
                 .collect(Collectors.toList());
 
-         return new Transformations(transformations);
+        return new Transformations(transformations);
+    }
+
+    public int size() {
+        return transformations.size();
+    }
+
+    public List<Molecule> apply(Molecule molecule) {
+        return transformations.stream()
+                .map(t -> t.apply(molecule))
+                .flatMap(Collection::stream)
+                .distinct().collect(Collectors.toList());
+    }
+
+    public List<Molecule> apply(List<Molecule> molecules) {
+        return molecules.stream()
+                .map(m -> transformations.stream()
+                        .map(t -> t.apply(m))
+                        .flatMap(Collection::stream)
+                        .distinct().collect(Collectors.toList()))
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+    }
+
+    public int transfomationsTo(Molecule molecule) {
+        int level = 1;
+        List<Molecule> molecules = apply(new Molecule("e"));
+        while (!molecules.contains(molecule)) {
+            System.out.print("\rLevel: " + level);
+            level++;
+            molecules = apply(molecules);
+        }
+
+        return level;
     }
 
     @Override
@@ -34,9 +64,8 @@ public class Transformations implements Iterable<Transformation> {
         return transformations.iterator();
     }
 
-    public List<Molecule> apply(Molecule molecule) {
-        final List<Molecule> transformedMolecules = new ArrayList<>();
-        transformations.forEach(transformation -> transformedMolecules.addAll(transformation.apply(molecule)));
-        return transformedMolecules.stream().distinct().collect(Collectors.toList());
+    @Override
+    public String toString() {
+        return transformations.toString();
     }
 }
