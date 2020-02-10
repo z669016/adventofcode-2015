@@ -4,11 +4,8 @@ import utilities.ResourceLines;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalInt;
 
 public class Day19 {
-    private static final Molecule e = new Molecule("e");
-
     public static void main(String[] args) {
         final List<String> list = ResourceLines.list("/day19.txt");
         final Transformations transformations = Transformations.fromList(list);

@@ -3,7 +3,6 @@ package com.putoet.day19;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.OptionalInt;
 import java.util.stream.Collectors;
 
 public class Transformations implements Iterable<Transformation> {

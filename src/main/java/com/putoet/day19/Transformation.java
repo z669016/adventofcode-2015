@@ -37,7 +37,7 @@ public class Transformation {
         while (end.contains(element)) {
             final int pos = end.indexOf(element);
             final String before = start + end.substring(0, pos);
-            start.append(end.substring(0, pos + element.length()));
+            start.append(end, 0, pos + element.length());
             end = end.substring(pos + element.length());
             transformedMolecules.add(new Molecule((before + to().element() + end)));
         }
