@@ -33,11 +33,11 @@ public class Store {
     public void sell(Player player, String armamentName) {
 //        if (!stock.containsKey(armamentName))
 //            throw new IllegalArgumentException(armamentName + " not in stock.");
-
-        final Armament armament = stock.get(armamentName);
-        player.pay(armament);
-
-        cash += armament.cost();
+//
+//        final Armament armament = stock.get(armamentName);
+//        player.pay(armament);
+//
+//        cash += armament.cost();
 //        stock.remove(armamentName);
     }
 

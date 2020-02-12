@@ -6,36 +6,33 @@ import java.util.Objects;
 
 public class Player {
     private final String name;
-    private int gold;
     private int hitPoints = 100;
     private int damage = -1;
     private int armor = -1;
     private final List<Armament> armaments = new ArrayList<>();
 
-    public Player(String name, int gold) {
+    public Player(String name) {
         assert name != null;
 
         this.name = name;
-        this.gold = gold;
     }
 
-    public void pay(Armament armament) {
-        if (armament.cost() > gold)
-            throw new IllegalArgumentException("Cannot afford " + armament.name() + " for " + armament.cost() + " gold. I only have " + gold + " gold.");
-
-        gold -= armament.cost();
+    public void pick(Armament armament) {
         armaments.add(armament);
         damage = armor = -1;
     }
 
+    public void pick(List<Armament> armament) {
+        armaments.addAll(armament);
+        damage = armor = -1;
+    }
+
     public String name() { return name; }
-    public int gold() { return gold; }
     public List<Armament> armaments() { return armaments; }
     public int hitPoints() { return hitPoints; }
 
     public void attack(Player player) {
         final int damage = damage();
-        // System.out.println(name() + " is attacking " + player.name() + " with damage " + damage);
         player.defend(damage);
     }
 
@@ -49,7 +46,6 @@ public class Player {
         final int defence = defence();
         final int impact = defence > damage ? 1 : damage - defence;
 
-        // System.out.println(name + " is defending an attack with damage " + damage + " with armor " + defence + ". Impact is " + impact);
         hitPoints -= impact;
     }
 
@@ -69,8 +65,7 @@ public class Player {
         if (this == o) return true;
         if (!(o instanceof Player)) return false;
         Player player = (Player) o;
-        return gold == player.gold &&
-                hitPoints == player.hitPoints &&
+        return hitPoints == player.hitPoints &&
                 damage == player.damage &&
                 armor == player.armor &&
                 name.equals(player.name) &&
@@ -79,7 +74,7 @@ public class Player {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, gold, hitPoints, damage, armor, armaments);
+        return Objects.hash(name, hitPoints, armaments);
     }
 
     public static Player boss(List<String> desscriptions) {
@@ -100,7 +95,7 @@ public class Player {
     }
 
     public static Player boss() {
-        final Player player = new Player("Boss", 0);
+        final Player player = new Player("Boss");
         player.hitPoints = 100;
         player.damage = 6;
         player.armor = 1;

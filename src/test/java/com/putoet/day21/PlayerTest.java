@@ -9,29 +9,24 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlayerTest {
 
     @Test
-    void pay() {
-        final Player player = new Player("One", 100);
+    void pick() {
+        final Player player = new Player("One");
         final Armament sword = new Armament(Armament.Type.WEAPON, "Sword", 99, 1, 2);
         final Armament dagger = new Armament(Armament.Type.WEAPON, "Dagger", 2, 1, 2);
 
-        player.pay(sword);
-        assertEquals(1, player.gold());
-        assertTrue(player.armaments().contains(sword));
-
-        assertThrows(IllegalArgumentException.class, () -> player.pay(dagger));
-        assertEquals(1, player.gold());
+        player.pick(sword);
         assertTrue(player.armaments().contains(sword));
     }
 
     @Test
     void attackDefend() {
-        final Player one = new Player("One", 100);
+        final Player one = new Player("One");
         final Armament sword = new Armament(Armament.Type.WEAPON, "Sword", 99, 4, 2);
-        one.pay(sword);
+        one.pick(sword);
 
-        final Player two = new Player("Two", 100);
+        final Player two = new Player("Two");
         final Armament dagger = new Armament(Armament.Type.WEAPON, "Dagger", 2, 1, 2);
-        two.pay(dagger);
+        two.pick(dagger);
 
         one.attack(two);
         assertEquals(100, one.hitPoints());

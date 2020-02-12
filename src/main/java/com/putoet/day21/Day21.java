@@ -3,78 +3,34 @@ package com.putoet.day21;
 import utilities.Permutator;
 import utilities.ResourceLines;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Day21 {
     public static void main(String[] args) {
         final List<String> descriptions = ResourceLines.list("/day21.txt");
+        final Armory armory = new Armory();
 
-        final List<Player> winners = new ArrayList<>();
-        battleNoWeapons(winners, descriptions);
-        battleSingleWeapon(winners, descriptions);
-        battleSingleWeaponAndOneRing(winners, descriptions);
-        battleSingleWeaponAndTwoRings(winners, descriptions);
+        // Create a map of armament combinations to compare, use the costs as the key for the map
+        final List<Armory.Combination> combinations = armory.combinations();
 
-        System.out.println(winners);
-    }
+        // Get an ordered list of the keys, which means the first key that defeats the boss is the cheapest armament to win
+        combinations.sort(Comparator.comparing(Armory.Combination::costs));
+        combinations.forEach(System.out::println);
 
-    private static void battleSingleWeaponAndTwoRings(List<Player> winners, List<String> descriptions) {
-        final Store store = new Store();
-        final List<Armament> ringList = store.stock(Armament.Type.RING);
-        final Permutator<Armament> permutator = new Permutator<>();
-        final List<List<Armament>> ringCombinations = permutator.combinations(ringList);
+        // Now, battle with the combinations until you have the player that wins (i.e. not the boss)
+        for (Armory.Combination combi : combinations) {
+            final Player you = new Player("You");
+            you.pick(combi.armaments());
 
-        for (Armament weapon : store.stock(Set.of(Armament.Type.WEAPON, Armament.Type.ARMOR))) {
-            for (List<Armament> rings : ringCombinations) {
-                Player boss = Player.boss(descriptions);
-                Player you = new Player("You", 500);
-                store.sell(you, weapon.name());
-                store.sell(you, rings.get(0).name());
-                store.sell(you, rings.get(1).name());
+            final Player boss = Player.boss(descriptions);
 
-                winners.add(battle(you, boss));
+            final Player winner = battle(you, boss);
+            if (winner.name().equals(you.name())) {
+                System.out.println("You won: " + you);
+                System.out.println("Costs have been " + combi.costs());
+                break;
             }
         }
-    }
-
-    private static void battleSingleWeaponAndOneRing(List<Player> winners, List<String> descriptions) {
-        final Store store = new Store();
-
-        for (Armament weapon : store.stock(Set.of(Armament.Type.WEAPON, Armament.Type.ARMOR))) {
-            for (Armament ring : store.stock(Armament.Type.RING)) {
-                Player boss = Player.boss(descriptions);
-                Player you = new Player("You", 500);
-                store.sell(you, weapon.name());
-                store.sell(you, ring.name());
-
-                winners.add(battle(you, boss));
-            }
-        }
-    }
-
-    private static void battleSingleWeapon(List<Player> winners, List<String> descriptions) {
-        final Store store = new Store();
-        for (Armament weapon : store.stock()) {
-            Player boss = Player.boss(descriptions);
-            Player you = new Player("You", 500);
-            store.sell(you, weapon.name());
-            if (isPossibleCheaper(winners, you))
-                winners.add(battle(you, boss));
-        }
-    }
-
-    private static boolean isPossibleCheaper(List<Player> winners, Player you) {
-        int price = you.armaments().stream().mapToInt(Armament::cost).sum();
-        //int
-        return false;
-    }
-
-    private static void battleNoWeapons(List<Player> winners, List<String> descriptions) {
-        Player boss = Player.boss(descriptions);
-        Player you = new Player("You", 500);
-        winners.add(battle(you, boss));
     }
 
     private static Player battle(Player you, Player boss) {

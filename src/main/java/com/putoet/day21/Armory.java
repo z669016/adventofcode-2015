@@ -1,8 +1,8 @@
 package com.putoet.day21;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import utilities.Permutator;
+
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Armory {
@@ -35,5 +35,61 @@ public class Armory {
         return ARMAMENTS.stream()
                 .filter(armament -> types.contains(armament.type()))
                 .collect(Collectors.toList());
+    }
+
+    static class Combination {
+        private final int costs;
+        private final List<Armament> armaments;
+
+        Combination(int costs, List<Armament> armaments) {
+            this.costs = costs;
+            this.armaments = armaments;
+        }
+
+        public int costs() { return costs; }
+        public List<Armament> armaments() { return armaments; }
+
+        @Override
+        public String toString() {
+            return "Combination{" +
+                    "costs=" + costs +
+                    ", armaments=" + armaments +
+                    '}';
+        }
+    }
+
+    public List<Combination> combinations() {
+        final List<Combination> combinations = new ArrayList<>();
+
+        // Exactly one weapon
+        for (Armament weapon : stock(Armament.Type.WEAPON)) {
+            // Try without armor, and without rings
+            combinations.add(new Combination(weapon.cost(), List.of(weapon)));
+
+            // Try with a single ring
+            for (Armament ring : stock(Armament.Type.RING)) {
+                combinations.add(new Combination(weapon.cost() + ring.cost(), List.of(weapon, ring)));
+
+                // And a single ring with a piece of armor
+                for (Armament armor : stock(Armament.Type.ARMOR))
+                    combinations.add(new Combination(weapon.cost() + ring.cost() + armor.cost(),
+                            List.of(weapon, ring, armor)));
+            }
+
+            // Try with two rings
+            final Permutator<Armament> permutator = new Permutator<>();
+            final List<List<Armament>> ringCombinations = permutator.combinations(stock(Armament.Type.RING));
+            for (List<Armament> rings : ringCombinations) {
+                combinations.add(new Combination(weapon.cost() + rings.get(0).cost() + rings.get(1).cost(),
+                        List.of(weapon, rings.get(0), rings.get(1))));
+
+                // And a double ring with a piece of armor
+                for (Armament armor : stock(Armament.Type.ARMOR))
+                    combinations.add(new Combination(weapon.cost() + rings.get(0).cost() + rings.get(1).cost() + armor.cost(),
+                            List.of(weapon, rings.get(0), rings.get(1), armor)));
+            }
+        }
+
+        return combinations;
     }
 }
