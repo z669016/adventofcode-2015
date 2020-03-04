@@ -40,7 +40,7 @@ class WeightBalancerTest {
         System.out.println(cargoList.size());
         cargoList.forEach(cargo -> System.out.println("(QE=" + WeightBalancer.quantumEntanglement(cargo) + ") " + cargo));
 
-        assertEquals(16, cargoList.size());
+        assertEquals(12, cargoList.size());
     }
 
     @Test

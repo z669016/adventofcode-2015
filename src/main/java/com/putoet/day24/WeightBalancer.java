@@ -45,11 +45,19 @@ public class WeightBalancer {
     public int averageWeight() { return averageWeight; }
     public List<Integer> packages() { return packages; }
 
+    /**
+     * Do loadbalancing over 3 containers .... yes, I know that the number of containers should be parameterized
+     * but that is too big of a brain-cracker for now ...
+     *
+     * @return List of Cargo items
+     */
     public List<Cargo> loadBalancing() {
+        assert containers == 3;
+
         final List<Cargo> cargoList = new ArrayList<>();
 
         // Create all possible combinations which add up to the average weight
-        final List<List<Integer>> combinations = SumCombinations.combinations(averageWeight, packages, 2 * averageWeight);
+        final List<List<Integer>> combinations = SumCombinations.combinations(averageWeight, packages, (containers - 1) * averageWeight);
 
         // get the sizes of the possible combinations
         final List<Integer> sizes = sizes(combinations);
@@ -84,6 +92,52 @@ public class WeightBalancer {
         return List.of();
     }
 
+    public List<Cargo> loadBalancingOnFour() {
+        assert containers == 4;
+
+        final List<Cargo> cargoList = new ArrayList<>();
+
+        // Create all possible combinations which add up to the average weight
+        final List<List<Integer>> combinations = SumCombinations.combinations(averageWeight, packages, (containers - 1) * averageWeight);
+
+        // get the sizes of the possible combinations
+        final List<Integer> sizes = sizes(combinations);
+
+        // check all combinations and find all combinations that also add up to the average weight
+        // using only the remainder list, starting with the smallest combinations, ordered by QE
+        for (final int size : sizes) {
+            final List<List<Integer>> sizedCombinations = combinations.stream()
+                    .filter(list -> list.size() == size)
+                    .sorted(Comparator.comparingLong(WeightBalancer::quantumEntanglement))
+                    .collect(Collectors.toList());
+
+            for (List<Integer> combination : sizedCombinations) {
+                final List<Integer> remainder = difference(packages, combination);
+                final List<List<Integer>> subCombinations = SumCombinations.combinations(averageWeight, remainder, (containers - 2) * averageWeight);
+
+                // check all sub combinations and the ones with a left over that sums up to averageWeight are valid
+                for(List<Integer> subCombination : subCombinations) {
+                    final List<Integer> subRemainder = difference(remainder, subCombination);
+                    final List<List<Integer>> subSubCombinations = SumCombinations.combinations(averageWeight, subRemainder, (containers - 3) * averageWeight);
+
+                    subSubCombinations.forEach(subSubCombination -> {
+                        final List<Integer> leftOver = difference(subRemainder, subSubCombination);
+                        if (SumCombinations.sum(leftOver) == averageWeight) {
+                            cargoList.add(new Cargo(combination, subCombination, subSubCombination, leftOver));
+                        }
+                    });
+
+                    // is any combination was found, then the cargoList will now contain the solution
+                    if (cargoList.size() > 0) {
+                        return cargoList;
+                    }
+                }
+            }
+        }
+
+        return List.of();
+    }
+
     private List<Integer> sizes(List<List<Integer>> combinations) {
         return combinations.stream()
                 .mapToInt(List::size)
@@ -94,7 +148,7 @@ public class WeightBalancer {
     }
 
     public static long quantumEntanglement(Cargo cargo) {
-        return quantumEntanglement(cargo.passengerCompartment);
+        return quantumEntanglement(cargo.passengerCompartment());
     }
 
     public static long quantumEntanglement(List<Integer> list) {
