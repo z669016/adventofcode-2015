@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class HappinessMap {
+    public static final String MYSELF = "Myself";
     private final Map<String, Person> persons = new HashMap<>();
 
     private HappinessMap() {
@@ -23,6 +24,19 @@ public class HappinessMap {
 
             updatePersons(map, fromName, (negative ? -1 * value : value), toName);
         });
+
+        return map;
+    }
+
+    public static HappinessMap fromListIncludingMyself(List<String> happinessDescriptions) {
+        final HappinessMap map = fromList(happinessDescriptions);
+
+        final Person myself = new Person(MYSELF);
+        map.persons.values().forEach(person -> {
+            person.addHappinessRelationShip(new PersonToPersonHappiness(person, myself, 0));
+            myself.addHappinessRelationShip(new PersonToPersonHappiness(myself, person, 0));
+        });
+        map.persons.put(MYSELF, myself);
 
         return map;
     }
@@ -45,6 +59,10 @@ public class HappinessMap {
 
     public Set<String> persons() {
         return persons.keySet();
+    }
+
+    public Person person(String name) {
+        return persons.get(name);
     }
 
     public int happiness(List<String> seatingPlan) {

@@ -27,6 +27,14 @@ public class Person {
         return happiness.get(left).happynessImpact() + happiness.get(right).happynessImpact();
     }
 
+    public int happiness(Person neighbour) {
+        assert neighbour != null;
+
+        checkHapinessRelationship(neighbour);
+
+        return happiness.get(neighbour).happynessImpact();
+    }
+
     private void checkHapinessRelationship(Person other) {
         if (!happiness.containsKey(other))
             throw new IllegalArgumentException(String.format("%s has no happiness relationship with %s", this.name, other.name));

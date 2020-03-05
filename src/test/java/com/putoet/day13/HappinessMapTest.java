@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import utilities.Permutator;
 import utilities.ResourceLines;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -14,19 +15,19 @@ class HappinessMapTest {
     private HappinessMap map = null;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         final List<String> descriptions = ResourceLines.list("/day13.txt");
         map = HappinessMap.fromList(descriptions);
     }
 
     @Test
-    public void persons() {
+    void persons() {
         final Set<String> names = map.persons();
         assertEquals(Set.of("Alice", "Bob", "Carol", "David", "Eric", "Frank", "George", "Mallory"), names);
     }
 
     @Test
-    public void hapiness() {
+    void hapiness() {
         List<String> seatingPlan = List.of("Alice", "Bob", "Carol", "David", "Eric", "Frank", "George", "Mallory");
         // Mallory (39) - Alice - Bob (2)
         // Alice (40) - Bob - Carol (-61)
@@ -41,7 +42,7 @@ class HappinessMapTest {
     }
 
     @Test
-    public void fromList() {
+    void fromList() {
         final List<String> seatingPlan = List.of("Carol", "David", "Alice", "Bob");
         final List<String> descriptions = List.of(
                 "Alice would gain 54 happiness units by sitting next to Bob.",
@@ -68,4 +69,18 @@ class HappinessMapTest {
         assertEquals(330, map.happiness(seatingPlan));
     }
 
+    @Test
+    void fromListIncludingMyself() {
+        final HappinessMap mapIncludingMyself = HappinessMap.fromListIncludingMyself(ResourceLines.list("/day13.txt"));
+
+        final Set<String> persons = new HashSet<String>(mapIncludingMyself.persons());
+        persons.remove(HappinessMap.MYSELF);
+
+        final Person myself = mapIncludingMyself.person(HappinessMap.MYSELF);
+        persons.forEach( name -> {
+            final Person neighbour = mapIncludingMyself.person(name);
+            assertEquals(0, myself.happiness(neighbour));
+            assertEquals(0, neighbour.happiness(myself));
+        });
+    }
 }
