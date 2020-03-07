@@ -1,6 +1,7 @@
 package com.putoet.day22;
 
 import org.junit.jupiter.api.Test;
+import utilities.ListSupplier;
 
 import java.util.List;
 
@@ -11,8 +12,8 @@ class CombatTest {
 
     @Test
     void start() {
-        final Wizard wizard = new Wizard(10, 1, List.of());
-        final Boss boss = new Boss(10,5);
+        final Wizard wizard = new Wizard(10, 1, new ListSupplier<>(List.of()));
+        final Boss boss = new Boss(10, 5);
         final Combat combat = new Combat(wizard, boss);
 
         final Combattant winner = combat.start();
@@ -57,10 +58,10 @@ class CombatTest {
 
     @Test
     void sample1() {
-        final Wizard wizard = new Wizard(10, 250, List.of(
+        final Wizard wizard = new Wizard(10, 250, new ListSupplier<>(List.of(
                 Poison::cast,
                 MagicMissile::cast
-                ));
+        )));
         final Boss boss = new Boss(13, 8);
         final Combat combat = new Combat(wizard, boss);
 
@@ -71,13 +72,13 @@ class CombatTest {
 
     @Test
     void sample2() {
-        final Wizard wizard = new Wizard(10, 250, List.of(
+        final Wizard wizard = new Wizard(10, 250, new ListSupplier<>(List.of(
                 Recharge::cast,
                 Shield::cast,
                 Drain::cast,
                 Poison::cast,
                 MagicMissile::cast
-        ));
+        )));
         final Boss boss = new Boss(14, 8);
         final Combat combat = new Combat(wizard, boss);
 

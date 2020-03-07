@@ -1,10 +1,12 @@
 package com.putoet.day22;
 
+import utilities.ListSupplier;
+
 import java.util.List;
 
 public class Day22 {
     public static void main(String[] args) {
-        final Wizard wizard = new Wizard(50, 500, List.of());
+        final Wizard wizard = new Wizard(50, 500, new ListSupplier(List.of()));
         final Boss boss = new Boss(71,10);
         final Combat combat = new Combat(wizard, boss);
 

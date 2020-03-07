@@ -3,15 +3,18 @@ package com.putoet.day22;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class Wizard implements Combattant {
+    private final Supplier<Consumer<Combat>> assaultPlan;
     private int hitPoints;
     private int armor;
     private int mana;
-    private final Iterator<Consumer<Combat>> iter;
 
-    public Wizard(int hitPoints, int mana, List<Consumer<Combat>> assaultPlan) {
-        this.iter = assaultPlan.iterator();
+    public Wizard(int hitPoints, int mana, Supplier<Consumer<Combat>> assaultPlan) {
+        assert assaultPlan != null;
+
+        this.assaultPlan = assaultPlan;
         this.hitPoints = hitPoints;
         this.mana = mana;
         this.armor = 0;
@@ -27,8 +30,9 @@ public class Wizard implements Combattant {
         assert combat != null;
         assert opponent != null;
 
-        if (iter.hasNext())
-            iter.next().accept(combat);
+        final Consumer<Combat> attack = assaultPlan.get();
+        if (attack != null)
+            attack.accept(combat);
     }
 
     @Override
