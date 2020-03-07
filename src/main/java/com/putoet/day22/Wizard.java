@@ -1,12 +1,11 @@
 package com.putoet.day22;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class Wizard implements Combattant {
     private final Supplier<Consumer<Combat>> assaultPlan;
+    private int charged;
     private int hitPoints;
     private int armor;
     private int mana;
@@ -18,6 +17,7 @@ public class Wizard implements Combattant {
         this.hitPoints = hitPoints;
         this.mana = mana;
         this.armor = 0;
+        this.charged = 0;
     }
 
     @Override
@@ -54,11 +54,16 @@ public class Wizard implements Combattant {
             return false;
 
         this.mana -= mana;
+        this.charged += mana;
         return true;
     }
 
+    public int charged() {
+        return charged;
+    }
+
     public void recharge(int mana) {
-        charge(-1 * mana);
+        this.mana += mana;
     }
 
     public void armor(int armor) {

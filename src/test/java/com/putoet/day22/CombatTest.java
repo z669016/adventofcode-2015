@@ -68,6 +68,7 @@ class CombatTest {
         final Combattant winner = combat.start();
 
         assertEquals(wizard.name(), winner.name());
+        assertEquals(Poison.COST + MagicMissile.COST, wizard.charged());
     }
 
     @Test
@@ -87,5 +88,6 @@ class CombatTest {
         System.out.println(boss);
 
         assertEquals(wizard.name(), winner.name());
+        assertEquals(Recharge.COST + Shield.COST + Drain.COST + Poison.COST + MagicMissile.COST, wizard.charged());
     }
 }
