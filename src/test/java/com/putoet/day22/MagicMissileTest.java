@@ -14,12 +14,12 @@ class MagicMissileTest {
         final Combat combat = mock(Combat.class);
 
         when(combat.wizard()).thenReturn(wizard);
-        when(wizard.charge(MagicMissile.COST)).thenReturn(true);
+        when(wizard.charge(MagicMissile.costs())).thenReturn(true);
         when(combat.boss()).thenReturn(boss);
 
         MagicMissile.cast(combat);
 
-        verify(boss).defend(MagicMissile.DAMAGE);
+        verify(boss).defend(MagicMissile.damage());
     }
 
     @Test
@@ -29,11 +29,11 @@ class MagicMissileTest {
         final Combat combat = mock(Combat.class);
 
         when(combat.wizard()).thenReturn(wizard);
-        when(wizard.charge(MagicMissile.COST)).thenReturn(false);
+        when(wizard.charge(MagicMissile.costs())).thenReturn(false);
         when(combat.boss()).thenReturn(boss);
 
         MagicMissile.cast(combat);
 
-        verify(boss, never()).defend(MagicMissile.DAMAGE);
+        verify(boss, never()).defend(MagicMissile.damage());
     }
 }

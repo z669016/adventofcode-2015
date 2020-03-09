@@ -16,7 +16,7 @@ class RechargeTest {
         final ArgumentCaptor<Effect> argument = ArgumentCaptor.forClass(Effect.class);
 
         when(combat.wizard()).thenReturn(wizard);
-        when(wizard.charge(Recharge.COST)).thenReturn(true);
+        when(wizard.charge(Recharge.costs())).thenReturn(true);
         when(combat.boss()).thenReturn(boss);
 
         Recharge.cast(combat);
@@ -24,7 +24,16 @@ class RechargeTest {
         verify(combat).addEffect(argument.capture());
         final Effect effect = argument.getValue();
 
-        assertEquals(Recharge.NAME, effect.name());
+        assertEquals(Recharge.name(), effect.name());
+    }
+
+    @Test
+    void effecct() {
+        final Wizard wizard = mock(Wizard.class);
+        final Boss boss = mock(Boss.class);
+        final Effect effect = Recharge.effect();
+
+        assertEquals(Recharge.name(), effect.name());
         assertFalse(effect.ended());
 
         for (int idx = 0; idx < 5; idx++) {
@@ -39,6 +48,6 @@ class RechargeTest {
         effect.apply(wizard, boss);
         effect.unapply(wizard, boss);
 
-        verify(wizard, times(5)).recharge(Recharge.MANA);
+        verify(wizard, times(5)).recharge(Recharge.mana());
     }
 }

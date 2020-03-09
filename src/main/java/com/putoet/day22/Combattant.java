@@ -5,4 +5,5 @@ public interface Combattant {
     void attack(Combat combat, Combattant opponent);
     void defend(int damage);
     boolean defeated();
+    int hitPoints();
 }

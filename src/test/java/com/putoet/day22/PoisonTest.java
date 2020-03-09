@@ -16,7 +16,7 @@ class PoisonTest {
         final ArgumentCaptor<Effect> argument = ArgumentCaptor.forClass(Effect.class);
 
         when(combat.wizard()).thenReturn(wizard);
-        when(wizard.charge(Poison.COST)).thenReturn(true);
+        when(wizard.charge(Poison.costs())).thenReturn(true);
         when(combat.boss()).thenReturn(boss);
 
         Poison.cast(combat);
@@ -24,14 +24,25 @@ class PoisonTest {
         verify(combat).addEffect(argument.capture());
         final Effect effect = argument.getValue();
 
-        assertEquals(Poison.NAME, effect.name());
+        assertEquals(Poison.name(), effect.name());
+
+    }
+
+    @Test
+    void effect() {
+        final Wizard wizard = mock(Wizard.class);
+        final Boss boss = mock(Boss.class);
+
+        final Effect effect = Poison.effect();
+
+        assertEquals(Poison.name(), effect.name());
         assertFalse(effect.ended());
 
-        for (int idx = 0; idx < 6; idx++) {
+        for (int idx = 0; idx < Poison.timer(); idx++) {
             effect.apply(wizard, boss);
             effect.unapply(wizard, boss);
 
-            if (idx < 5)
+            if (idx < Poison.timer() - 1)
                 assertFalse(effect.ended());
             else
                 assertTrue(effect.ended());
@@ -39,6 +50,6 @@ class PoisonTest {
         effect.apply(wizard, boss);
         effect.unapply(wizard, boss);
 
-        verify(boss, times(6)).defend(Poison.DAMAGE);
+        verify(boss, times(6)).defend(Poison.damage());
     }
 }

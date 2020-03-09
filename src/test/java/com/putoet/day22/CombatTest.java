@@ -44,7 +44,7 @@ class CombatTest {
 
             @Override
             public boolean active() {
-                return false;
+                return true;
             }
 
             @Override
@@ -68,7 +68,7 @@ class CombatTest {
         final Combattant winner = combat.start();
 
         assertEquals(wizard.name(), winner.name());
-        assertEquals(Poison.COST + MagicMissile.COST, wizard.charged());
+        assertEquals(Poison.costs() + MagicMissile.costs(), wizard.charged());
     }
 
     @Test
@@ -88,6 +88,6 @@ class CombatTest {
         System.out.println(boss);
 
         assertEquals(wizard.name(), winner.name());
-        assertEquals(Recharge.COST + Shield.COST + Drain.COST + Poison.COST + MagicMissile.COST, wizard.charged());
+        assertEquals(Recharge.costs() + Shield.costs() + Drain.costs() + Poison.costs() + MagicMissile.costs(), wizard.charged());
     }
 }

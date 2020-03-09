@@ -34,6 +34,11 @@ public class Boss implements Combattant {
     }
 
     @Override
+    public int hitPoints() {
+        return hitPoints;
+    }
+
+    @Override
     public String toString() {
         return "Boss{" +
                 "hitPoints=" + hitPoints +

@@ -1,36 +1,52 @@
 package com.putoet.day22;
 
-public interface Poison {
-    String NAME = "Poison";
-    int COST = 173;
-    int DAMAGE = 3;
+public class Poison {
+    static String name() { return "Poison"; }
+    static int costs() { return 173; }
+    static int damage() { return 3; }
+    static int timer() { return 6; };
+    static int totalDamage() { return damage() * timer(); }
+    static int turns() { return timer() + 1; } // add one because this spell is only active at the start of a turn
+
+    static int castCount;
+    static int castCount() { return castCount; }
 
     static void cast(Combat combat) {
-        System.out.println("Casting " + NAME);
-        if (combat.addEffect(new Effect() {
-            int timer = 6;
+        System.out.println("Casting " + name());
+
+        if (combat.wizard().charge(costs())) {
+            castCount++;
+            combat.addEffect(effect());
+        }
+    }
+
+    static Effect effect() {
+        return new Effect() {
+            int timer = timer();
             boolean applied = false;
 
             @Override
             public String name() {
-                return NAME;
+                return Poison.name();
             }
 
             @Override
             public void apply(Wizard wizard, Boss boss) {
-                applied = true;
-                if (timer > 0) {
-                    System.out.println(String.format("%s deals with %d damage, timer is %d", NAME, DAMAGE, timer));
-
-                    boss.defend(DAMAGE);
+                if (!ended()) {
+                    System.out.println(String.format("%s deals with %d damage, timer is %d", name(), damage(), timer));
+                    boss.defend(damage());
+                    applied = true;
                 }
             }
 
             @Override
             public void unapply(Wizard wizard, Boss boss) {
                 if (applied) {
-                    if (timer > 0)
-                        timer--;
+                    if (timer == 1) {
+                        System.out.println(String.format("%s effect ended", name()));
+                        applied = false;
+                    }
+                    timer--;
                 }
             }
 
@@ -43,8 +59,6 @@ public interface Poison {
             public boolean ended() {
                 return timer == 0;
             }
-        })) {
-            combat.wizard().charge(COST);
-        }
+        };
     }
 }

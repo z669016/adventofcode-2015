@@ -45,6 +45,11 @@ public class Wizard implements Combattant {
         return (hitPoints <= 0) || (mana <= 0);
     }
 
+    @Override
+    public int hitPoints() {
+        return hitPoints;
+    }
+
     public void heal(int hitPoints) {
         this.hitPoints += hitPoints;
     }

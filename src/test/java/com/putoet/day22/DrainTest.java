@@ -13,13 +13,13 @@ class DrainTest {
         final Combat combat = mock(Combat.class);
 
         when(combat.wizard()).thenReturn(wizard);
-        when(wizard.charge(Drain.COST)).thenReturn(true);
+        when(wizard.charge(Drain.costs())).thenReturn(true);
         when(combat.boss()).thenReturn(boss);
 
         Drain.cast(combat);
 
-        verify(wizard).heal(Drain.HIT_POINTS);
-        verify(boss).defend(Drain.DAMAGE);
+        verify(wizard).heal(Drain.healing());
+        verify(boss).defend(Drain.damage());
     }
 
     @Test
@@ -29,12 +29,12 @@ class DrainTest {
         final Combat combat = mock(Combat.class);
 
         when(combat.wizard()).thenReturn(wizard);
-        when(wizard.charge(Drain.COST)).thenReturn(false);
+        when(wizard.charge(Drain.costs())).thenReturn(false);
         when(combat.boss()).thenReturn(boss);
 
         Drain.cast(combat);
 
-        verify(wizard, never()).heal(Drain.HIT_POINTS);
-        verify(boss, never()).defend(Drain.DAMAGE);
+        verify(wizard, never()).heal(Drain.healing());
+        verify(boss, never()).defend(Drain.damage());
     }
 }

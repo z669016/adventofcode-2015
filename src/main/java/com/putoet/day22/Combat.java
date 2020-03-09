@@ -8,22 +8,28 @@ public class Combat {
     private final Wizard wizard;
     private final Boss boss;
 
+    private int turnCount;
+
     public Combat(Wizard wizard, Boss boss) {
         assert wizard != null;
         assert boss != null;
 
         this.wizard = wizard;
         this.boss = boss;
+
+        this.turnCount = 0;
     }
 
     public Boss boss() { return boss; }
     public Wizard wizard() { return wizard; }
+    public int turnCount() { return turnCount; }
 
     public Combattant start() {
         Combattant attacker = wizard;
         Combattant opponent = boss;
 
         while (!wizard.defeated() && !boss.defeated()) {
+            System.out.println("Turn " + ++turnCount + " " + attacker.name());
             System.out.println(wizard);
             System.out.println(boss);
 
@@ -49,7 +55,7 @@ public class Combat {
     boolean isEffective(String name) {
         assert name != null;
 
-        return effects.stream().anyMatch(listedEffect -> listedEffect.name().equals(name) && !listedEffect.ended());
+        return effects.stream().anyMatch(effect -> effect.name().equals(name) && effect.active());
     }
 
     boolean addEffect(Effect effect) {
