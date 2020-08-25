@@ -2,6 +2,7 @@ package com.putoet.day22;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class DrainTest {
@@ -10,31 +11,34 @@ class DrainTest {
     void cast() {
         final Wizard wizard = mock(Wizard.class);
         final Boss boss = mock(Boss.class);
-        final Combat combat = mock(Combat.class);
+        when(wizard.mana()).thenReturn(Drain.costs());
 
-        when(combat.wizard()).thenReturn(wizard);
-        when(wizard.charge(Drain.costs())).thenReturn(true);
-        when(combat.boss()).thenReturn(boss);
+        final Effect effect = Drain.cast(wizard, boss);
+        effect.apply(wizard, boss);
 
-        Drain.cast(combat);
+        verify(boss, times(1)).damage(Drain.damage());
+        verify(wizard,times(1)).damage(-Drain.healing());
+        verify(wizard, times(1)).mana();
+        verify(wizard, times(1)).charge(Drain.costs());
+    }
 
-        verify(wizard).heal(Drain.healing());
-        verify(boss).defend(Drain.damage());
+    @Test
+    void duplicate() {
+        final Wizard wizard = mock(Wizard.class);
+        final Boss boss = mock(Boss.class);
+        when(wizard.mana()).thenReturn(Drain.costs());
+
+        final Effect copy = Drain.cast(wizard, boss).duplicate();
+        assertFalse(copy.active());
+        assertTrue(copy.ended());
     }
 
     @Test
     void castFail() {
         final Wizard wizard = mock(Wizard.class);
         final Boss boss = mock(Boss.class);
-        final Combat combat = mock(Combat.class);
+        when(wizard.mana()).thenReturn(Drain.costs() - 1);
 
-        when(combat.wizard()).thenReturn(wizard);
-        when(wizard.charge(Drain.costs())).thenReturn(false);
-        when(combat.boss()).thenReturn(boss);
-
-        Drain.cast(combat);
-
-        verify(wizard, never()).heal(Drain.healing());
-        verify(boss, never()).defend(Drain.damage());
+        assertThrows(IllegalStateException.class, () -> Drain.cast(wizard,boss));
     }
 }

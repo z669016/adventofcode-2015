@@ -1,7 +1,6 @@
 package com.putoet.day22;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -12,43 +11,47 @@ class ShieldTest {
     void cast() {
         final Wizard wizard = mock(Wizard.class);
         final Boss boss = mock(Boss.class);
-        final Combat combat = mock(Combat.class);
-        final ArgumentCaptor<Effect> argument = ArgumentCaptor.forClass(Effect.class);
+        when(wizard.mana()).thenReturn(Shield.costs());
 
-        when(combat.wizard()).thenReturn(wizard);
-        when(wizard.charge(Shield.costs())).thenReturn(true);
-        when(combat.boss()).thenReturn(boss);
+        final Effect effect = Shield.cast(wizard, boss);
 
-        Shield.cast(combat);
+        verify(wizard,times(1)).armor(Shield.armor());
+        verify(wizard, times(1)).mana();
+        verify(wizard, times(1)).charge(Shield.costs());
 
-        verify(combat).addEffect(argument.capture());
-        final Effect effect = argument.getValue();
+        for (int idx = 0; idx < 5; idx++) {
+            effect.apply(wizard, boss);
+            verify(wizard,times(1)).armor(Shield.armor());
+        }
 
-        assertEquals(Shield.name(), effect.name());
+        effect.apply(wizard, boss);
+        verify(wizard,times(1)).armor(Shield.armor());
+        verify(wizard,times(1)).armor(-Shield.armor());
+
+        effect.apply(wizard, boss);
+        verify(wizard,times(1)).armor(Shield.armor());
+        verify(wizard,times(1)).armor(-Shield.armor());
+    }
+
+
+    @Test
+    void duplicate() {
+        final Wizard wizard = mock(Wizard.class);
+        final Boss boss = mock(Boss.class);
+        when(wizard.mana()).thenReturn(Shield.costs());
+
+        final Effect copy = Shield.cast(wizard, boss).duplicate();
+        assertEquals(6, copy.timer());
     }
 
     @Test
-    void effect() {
+    void castFail() {
         final Wizard wizard = mock(Wizard.class);
         final Boss boss = mock(Boss.class);
-        final Effect effect = Shield.effect();
 
-        assertEquals(Shield.name(), effect.name());
-        assertFalse(effect.ended());
+        when(wizard.mana()).thenReturn(Drain.costs() - 1);
 
-        for (int idx = 0; idx < Shield.timer(); idx++) {
-            effect.apply(wizard, boss);
-            effect.unapply(wizard, boss);
-
-            if (idx < Shield.timer() - 1)
-                assertFalse(effect.ended());
-            else
-                assertTrue(effect.ended());
-        }
-        effect.apply(wizard, boss);
-        effect.unapply(wizard, boss);
-
-        verify(wizard, times(1)).armor(Shield.armor());
-        verify(wizard, times(1)).armor(-1 * Shield.armor());
+        assertThrows(IllegalStateException.class, () -> Shield.cast(wizard, boss));
     }
+
 }

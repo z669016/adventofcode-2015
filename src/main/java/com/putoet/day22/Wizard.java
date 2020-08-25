@@ -1,86 +1,66 @@
 package com.putoet.day22;
 
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-
-public class Wizard implements Combattant {
-    private final Supplier<Consumer<Combat>> assaultPlan;
-    private int charged;
-    private int hitPoints;
-    private int armor;
+public class Wizard extends Player {
+    private int spend;
     private int mana;
+    private int armor;
 
-    public Wizard(int hitPoints, int mana, Supplier<Consumer<Combat>> assaultPlan) {
-        assert assaultPlan != null;
-
-        this.assaultPlan = assaultPlan;
-        this.hitPoints = hitPoints;
+    public Wizard(int hitPoints, int mana) {
+        super("Wizard", hitPoints);
         this.mana = mana;
         this.armor = 0;
-        this.charged = 0;
+        this.spend = 0;
     }
 
-    @Override
-    public String name() {
-        return "Wizard";
+    public Wizard(Wizard wizard) {
+        super(wizard);
+        this.mana = wizard.mana;
+        this.armor = wizard.armor;
+        this.spend = wizard.spend;
     }
 
-    @Override
-    public void attack(Combat combat, Combattant opponent) {
-        assert combat != null;
-        assert opponent != null;
-
-        final Consumer<Combat> attack = assaultPlan.get();
-        if (attack != null)
-            attack.accept(combat);
-    }
-
-    @Override
-    public void defend(int damage) {
-        hitPoints -= (armor >= damage ? 1 : damage - armor);
-    }
-
-    @Override
-    public boolean defeated() {
-        return (hitPoints <= 0) || (mana <= 0);
-    }
-
-    @Override
-    public int hitPoints() {
-        return hitPoints;
-    }
-
-    public void heal(int hitPoints) {
-        this.hitPoints += hitPoints;
-    }
-
-    public boolean charge(int mana) {
-        if (mana > this.mana)
-            return false;
+    public void charge(int mana) {
+        if (mana >= 0)
+            spend += mana;
 
         this.mana -= mana;
-        this.charged += mana;
-        return true;
     }
 
-    public int charged() {
-        return charged;
-    }
-
-    public void recharge(int mana) {
-        this.mana += mana;
+    public int armor() {
+        return armor;
     }
 
     public void armor(int armor) {
         this.armor += armor;
     }
 
+    public int mana() {
+        return mana;
+    }
+
+    public int spend() { return spend; }
+
+    @Override
+    public Player damage(int hitPoints) {
+        if (hitPoints < 0 || hitPoints == 1)
+            super.damage(hitPoints);
+        else
+            super.damage(Math.max(0, hitPoints - armor));
+
+        return this;
+    }
+
+    @Override
+    public void attack(Player opponent) {}
+
     @Override
     public String toString() {
         return "Wizard{" +
-                "hitPoints=" + hitPoints +
-                ", armor=" + armor +
+                "name=" + name() +
+                ", hitPoints=" + hitPoints() +
+                ", spend=" + spend +
                 ", mana=" + mana +
+                ", armor=" + armor +
                 '}';
     }
 }

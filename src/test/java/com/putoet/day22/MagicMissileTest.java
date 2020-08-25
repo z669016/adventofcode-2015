@@ -11,29 +11,37 @@ class MagicMissileTest {
     void cast() {
         final Wizard wizard = mock(Wizard.class);
         final Boss boss = mock(Boss.class);
-        final Combat combat = mock(Combat.class);
+        when(wizard.mana()).thenReturn(MagicMissile.costs());
 
-        when(combat.wizard()).thenReturn(wizard);
-        when(wizard.charge(MagicMissile.costs())).thenReturn(true);
-        when(combat.boss()).thenReturn(boss);
+        final Effect effect = MagicMissile.cast(wizard, boss);
+        effect.apply(wizard, boss);
 
-        MagicMissile.cast(combat);
+        verify(boss, times(1)).damage(MagicMissile.damage());
+        verify(wizard, times(1)).mana();
+        verify(wizard, times(1)).charge(MagicMissile.costs());
 
-        verify(boss).defend(MagicMissile.damage());
+        assertFalse(effect.active());
+        assertTrue(effect.ended());
+    }
+
+    @Test
+    void duplicate() {
+        final Wizard wizard = mock(Wizard.class);
+        final Boss boss = mock(Boss.class);
+        when(wizard.mana()).thenReturn(MagicMissile.costs());
+
+        final Effect copy = MagicMissile.cast(wizard, boss).duplicate();
+        assertFalse(copy.active());
+        assertTrue(copy.ended());
     }
 
     @Test
     void castFail() {
         final Wizard wizard = mock(Wizard.class);
         final Boss boss = mock(Boss.class);
-        final Combat combat = mock(Combat.class);
 
-        when(combat.wizard()).thenReturn(wizard);
-        when(wizard.charge(MagicMissile.costs())).thenReturn(false);
-        when(combat.boss()).thenReturn(boss);
+        when(wizard.mana()).thenReturn(MagicMissile.costs() - 1);
 
-        MagicMissile.cast(combat);
-
-        verify(boss, never()).defend(MagicMissile.damage());
+        assertThrows(IllegalStateException.class, () -> MagicMissile.cast(wizard, boss));
     }
 }

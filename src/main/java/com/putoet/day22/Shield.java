@@ -1,30 +1,31 @@
 package com.putoet.day22;
 
+import javax.print.DocFlavor;
+
 public class Shield {
     static String name() { return "Shield"; }
     static int costs() { return 113; }
     static int armor() { return 7; }
-    static int timer() { return 6; };
-    static int turns() { return timer(); }
+    static int timer() { return 7; };
 
-    static int castCount;
-    static int castCount() { return castCount; }
-
-    static void cast(Combat combat) {
-        System.out.println("Casting " + name());
-
-        if (combat.wizard().charge(costs())) {
-            castCount++;
+    public static Effect cast(Wizard wizard, Boss boss) {
+        if (wizard.mana() >= costs()) {
+            wizard.charge(costs());
             final Effect effect = effect();
-            combat.addEffect(effect);
-            effect.apply(combat.wizard(), combat.boss());
+            effect.apply(wizard, boss);
+            return effect;
         }
+
+        throw new IllegalStateException("Wizard cannot afford another " + name());
     }
 
-    static Effect effect() {
+    private static Effect effect() {
+        return effect(timer());
+    }
+
+    private static Effect effect(int initialTimer) {
         return new Effect() {
-            int timer = timer();
-            boolean applied = false;
+            int timer = initialTimer;
 
             @Override
             public String name() {
@@ -33,37 +34,26 @@ public class Shield {
 
             @Override
             public void apply(Wizard wizard, Boss boss) {
-                if (!ended()) {
-                    if (!applied) {
-                        System.out.println(String.format("%s deals with %d armor, timer is %d", name(), armor(), timer));
+                if (active()) {
+                    // System.out.printf("%s deals with %d armor, timer is %d%n", name(), armor(), timer);
+                    if (timer == Shield.timer())
                         wizard.armor(armor());
-                        applied = true;
-                    } else {
-                        System.out.println(String.format("%s active, timer is %d", name(), timer));
-                    }
-                }
-            }
 
-            @Override
-            public void unapply(Wizard wizard, Boss boss) {
-                if (applied) {
-                    if (timer == 1) {
-                        System.out.println(String.format("%s ending, reducing armor with %d", name(), armor()));
-                        wizard.armor(-1 * armor());
-                        applied = false;
-                    }
                     timer--;
+
+                    if(ended())
+                        wizard.armor(-armor());
                 }
             }
 
             @Override
-            public boolean active() {
-                return timer > 1;
+            public Effect duplicate() {
+                return effect(timer);
             }
 
             @Override
-            public boolean ended() {
-                return timer == 0;
+            public int timer() {
+                return timer;
             }
         };
     }

@@ -45,6 +45,7 @@ public class SumCombinations {
 
         if (sum == making) {
             final int remaining = sum(orderedList);
+
             if (remaining == remainder)
                 answer.add(group);
 
@@ -53,7 +54,7 @@ public class SumCombinations {
 
         while (offset < orderedList.size()) {
             final int value = orderedList.get(offset);
-            if (sum+ value <= making) {
+            if (sum + value <= making) {
                 final List<Integer> copyOrderedList = new ArrayList<>(orderedList);
                 final List<Integer> copyGroup = new ArrayList<>(group);
                 

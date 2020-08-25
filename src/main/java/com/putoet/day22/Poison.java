@@ -5,25 +5,23 @@ public class Poison {
     static int costs() { return 173; }
     static int damage() { return 3; }
     static int timer() { return 6; };
-    static int totalDamage() { return damage() * timer(); }
-    static int turns() { return timer() + 1; } // add one because this spell is only active at the start of a turn
 
-    static int castCount;
-    static int castCount() { return castCount; }
-
-    static void cast(Combat combat) {
-        System.out.println("Casting " + name());
-
-        if (combat.wizard().charge(costs())) {
-            castCount++;
-            combat.addEffect(effect());
+    public static Effect cast(Wizard wizard, Boss boss) {
+        if (wizard.mana() >= costs()) {
+            wizard.charge(costs());
+            return effect();
         }
+
+        throw new IllegalStateException("Wizard cannot afford another " + name());
     }
 
-    static Effect effect() {
+    private static Effect effect() {
+        return effect(timer());
+    }
+
+    private static Effect effect(int initialTimer) {
         return new Effect() {
-            int timer = timer();
-            boolean applied = false;
+            int timer = initialTimer;
 
             @Override
             public String name() {
@@ -32,32 +30,21 @@ public class Poison {
 
             @Override
             public void apply(Wizard wizard, Boss boss) {
-                if (!ended()) {
-                    System.out.println(String.format("%s deals with %d damage, timer is %d", name(), damage(), timer));
-                    boss.defend(damage());
-                    applied = true;
-                }
-            }
-
-            @Override
-            public void unapply(Wizard wizard, Boss boss) {
-                if (applied) {
-                    if (timer == 1) {
-                        System.out.println(String.format("%s effect ended", name()));
-                        applied = false;
-                    }
+                if (active()) {
+                    // System.out.printf("%s deals with %d damage, timer is %d%n", name(), damage(), timer);
+                    boss.damage(damage());
                     timer--;
                 }
             }
 
             @Override
-            public boolean active() {
-                return timer > 1;
+            public Effect duplicate() {
+                return effect(timer);
             }
 
             @Override
-            public boolean ended() {
-                return timer == 0;
+            public int timer() {
+                return timer;
             }
         };
     }

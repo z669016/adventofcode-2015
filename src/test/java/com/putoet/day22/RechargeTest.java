@@ -1,7 +1,6 @@
 package com.putoet.day22;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -12,42 +11,40 @@ class RechargeTest {
     void cast() {
         final Wizard wizard = mock(Wizard.class);
         final Boss boss = mock(Boss.class);
-        final Combat combat = mock(Combat.class);
-        final ArgumentCaptor<Effect> argument = ArgumentCaptor.forClass(Effect.class);
+        when(wizard.mana()).thenReturn(Recharge.costs());
 
-        when(combat.wizard()).thenReturn(wizard);
-        when(wizard.charge(Recharge.costs())).thenReturn(true);
-        when(combat.boss()).thenReturn(boss);
+        final Effect effect = Recharge.cast(wizard, boss);
 
-        Recharge.cast(combat);
+        verify(wizard, times(1)).mana();
+        verify(wizard, times(1)).charge(Recharge.costs());
 
-        verify(combat).addEffect(argument.capture());
-        final Effect effect = argument.getValue();
-
-        assertEquals(Recharge.name(), effect.name());
+        for (int idx = 0; idx < 10; idx++) {
+            effect.apply(wizard, boss);
+        }
+        verify(wizard, times(5)).charge(-Recharge.mana());
     }
 
     @Test
-    void effecct() {
+    void duplicate() {
         final Wizard wizard = mock(Wizard.class);
         final Boss boss = mock(Boss.class);
-        final Effect effect = Recharge.effect();
+        when(wizard.mana()).thenReturn(Recharge.costs());
 
-        assertEquals(Recharge.name(), effect.name());
-        assertFalse(effect.ended());
-
-        for (int idx = 0; idx < 5; idx++) {
-            effect.apply(wizard, boss);
-            effect.unapply(wizard, boss);
-
-            if (idx < 4)
-                assertFalse(effect.ended());
-            else
-                assertTrue(effect.ended());
-        }
+        final Effect effect = Recharge.cast(wizard, boss);
         effect.apply(wizard, boss);
-        effect.unapply(wizard, boss);
 
-        verify(wizard, times(5)).recharge(Recharge.mana());
+        final Effect copy = effect.duplicate();
+        assertEquals(4, copy.timer());
     }
+
+    @Test
+    void castFail() {
+        final Wizard wizard = mock(Wizard.class);
+        final Boss boss = mock(Boss.class);
+
+        when(wizard.mana()).thenReturn(Recharge.costs() - 1);
+
+        assertThrows(IllegalStateException.class, () -> Recharge.cast(wizard, boss));
+    }
+
 }

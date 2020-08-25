@@ -12,44 +12,41 @@ class PoisonTest {
     void cast() {
         final Wizard wizard = mock(Wizard.class);
         final Boss boss = mock(Boss.class);
-        final Combat combat = mock(Combat.class);
-        final ArgumentCaptor<Effect> argument = ArgumentCaptor.forClass(Effect.class);
+        when(wizard.mana()).thenReturn(Poison.costs());
 
-        when(combat.wizard()).thenReturn(wizard);
-        when(wizard.charge(Poison.costs())).thenReturn(true);
-        when(combat.boss()).thenReturn(boss);
+        final Effect effect = Poison.cast(wizard, boss);
 
-        Poison.cast(combat);
+        verify(boss,times(0)).damage(Poison.damage());
+        verify(wizard, times(1)).mana();
+        verify(wizard, times(1)).charge(Poison.costs());
 
-        verify(combat).addEffect(argument.capture());
-        final Effect effect = argument.getValue();
-
-        assertEquals(Poison.name(), effect.name());
-
+        for (int idx = 0; idx < 10; idx++) {
+            effect.apply(wizard, boss);
+        }
+        verify(boss,times(6)).damage(Poison.damage());
     }
 
     @Test
-    void effect() {
+    void duplicate() {
+        final Wizard wizard = mock(Wizard.class);
+        final Boss boss = mock(Boss.class);
+        when(wizard.mana()).thenReturn(Poison.costs());
+
+        final Effect effect = Poison.cast(wizard, boss);
+        effect.apply(wizard, boss);
+
+        final Effect copy = effect.duplicate();
+        assertEquals(5, copy.timer());
+    }
+
+    @Test
+    void castFail() {
         final Wizard wizard = mock(Wizard.class);
         final Boss boss = mock(Boss.class);
 
-        final Effect effect = Poison.effect();
+        when(wizard.mana()).thenReturn(Poison.costs() - 1);
 
-        assertEquals(Poison.name(), effect.name());
-        assertFalse(effect.ended());
-
-        for (int idx = 0; idx < Poison.timer(); idx++) {
-            effect.apply(wizard, boss);
-            effect.unapply(wizard, boss);
-
-            if (idx < Poison.timer() - 1)
-                assertFalse(effect.ended());
-            else
-                assertTrue(effect.ended());
-        }
-        effect.apply(wizard, boss);
-        effect.unapply(wizard, boss);
-
-        verify(boss, times(6)).defend(Poison.damage());
+        assertThrows(IllegalStateException.class, () -> Poison.cast(wizard, boss));
     }
+
 }

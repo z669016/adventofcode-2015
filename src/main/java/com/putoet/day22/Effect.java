@@ -3,7 +3,15 @@ package com.putoet.day22;
 public interface Effect {
     String name();
     void apply(Wizard wizard, Boss boss);
-    void unapply(Wizard wizard, Boss boss);
-    boolean active();
-    boolean ended();
+    Effect duplicate();
+
+    int timer();
+
+    default boolean active() {
+        return timer() > 0;
+    }
+
+    default boolean ended() {
+        return timer() <= 0;
+    }
 }
