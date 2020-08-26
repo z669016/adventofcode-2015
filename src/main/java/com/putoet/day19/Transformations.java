@@ -36,28 +36,6 @@ public class Transformations implements Iterable<Transformation> {
                 .distinct().collect(Collectors.toList());
     }
 
-    public List<Molecule> apply(List<Molecule> molecules) {
-        return molecules.stream()
-                .map(m -> transformations.stream()
-                        .map(t -> t.apply(m))
-                        .flatMap(Collection::stream)
-                        .distinct().collect(Collectors.toList()))
-                .flatMap(Collection::stream)
-                .collect(Collectors.toList());
-    }
-
-    public int transfomationsTo(Molecule molecule) {
-        int level = 1;
-        List<Molecule> molecules = apply(new Molecule("e"));
-        while (!molecules.contains(molecule)) {
-            System.out.print("\rLevel: " + level);
-            level++;
-            molecules = apply(molecules);
-        }
-
-        return level;
-    }
-
     @Override
     public Iterator<Transformation> iterator() {
         return transformations.iterator();

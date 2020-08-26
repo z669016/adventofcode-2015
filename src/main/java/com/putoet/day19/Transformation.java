@@ -45,6 +45,10 @@ public class Transformation {
         return transformedMolecules;
     }
 
+    public Transformation reverse() {
+        return new Transformation(to, from);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

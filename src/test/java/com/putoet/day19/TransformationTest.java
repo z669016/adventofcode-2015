@@ -23,9 +23,15 @@ class TransformationTest {
     void apply() {
         final List<Molecule> transformedMolecules = transformation.apply(hoh);
         assertEquals(2, transformedMolecules.size());
-        System.out.println(transformedMolecules);
+        assertTrue(transformedMolecules.contains(hooh));
+        assertTrue(transformedMolecules.contains(hoho));
+    }
 
-        assertTrue((hooh.equals(transformedMolecules.get(0)) && hoho.equals(transformedMolecules.get(1)))
-            || (hooh.equals(transformedMolecules.get(1)) && hoho.equals(transformedMolecules.get(0))));
+    @Test
+    void reverse() {
+        final Molecule from = new Molecule("From");
+        final Molecule to = new Molecule("To");
+        final Transformation t = new Transformation(from, to);
+        assertEquals(new Transformation(to, from), t.reverse());
     }
 }

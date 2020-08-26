@@ -19,7 +19,11 @@ public class Day19 {
         final List<Molecule> transformed = transformations.apply(molecule.get());
         System.out.println("Number of possible molecules is " + transformed.size());
 
-        final int level = transformations.transfomationsTo(molecule.get());
-        System.out.println("Minimum number of revert back back to 'e' is " + level);
+        final Tokenizer tokenizer = new Tokenizer(molecule.get().element());
+        while (tokenizer.hasNext())
+            tokenizer.next();
+
+        // count(tokens) - count("(" or ")") - 2*count(",") - 1
+        System.out.println("Number of steps is " + (tokenizer.tokenCount() - tokenizer.parentesesCount() - 2 * tokenizer.commaCount() - 1));
     }
 }

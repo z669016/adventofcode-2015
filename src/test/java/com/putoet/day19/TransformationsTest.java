@@ -56,17 +56,4 @@ class TransformationsTest {
         assertTrue(moleculeTransformations.contains(new Molecule(("OHOH"))));
         assertTrue(moleculeTransformations.contains(new Molecule(("HHHH"))));
     }
-
-    @Test
-    void transformationsTo() {
-        final List<String> list = List.of(
-                "e => H",
-                "e => O",
-                "H => HO",
-                "H => OH",
-                "O => HH");
-        final Transformations transformations = Transformations.fromList(list);
-        assertEquals(3, transformations.transfomationsTo(new Molecule("HOH")));
-        assertEquals(6, transformations.transfomationsTo(new Molecule("HOHOHO")));
-    }
 }
