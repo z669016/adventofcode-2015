@@ -17,6 +17,7 @@ class Day1Test {
         assertEquals(-1, Day1.transform(')'));
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     void transformOther() {
         assertThrows(IllegalArgumentException.class, () -> Day1.transform('+'));
@@ -24,15 +25,15 @@ class Day1Test {
 
     @Test
     void floor() {
-        assertEquals(0, Day1.floor("(())"));
-        assertEquals(0, Day1.floor("()()"));
-        assertEquals(3, Day1.floor("((("));
-        assertEquals(3, Day1.floor("(()(()("));
-        assertEquals(3, Day1.floor("))((((("));
-        assertEquals(-1, Day1.floor("())"));
-        assertEquals(-1, Day1.floor("))("));
-        assertEquals(-3, Day1.floor(")))"));
-        assertEquals(-3, Day1.floor(")())())"));
+        assertEquals(0, Day1.finalFloor("(())"));
+        assertEquals(0, Day1.finalFloor("()()"));
+        assertEquals(3, Day1.finalFloor("((("));
+        assertEquals(3, Day1.finalFloor("(()(()("));
+        assertEquals(3, Day1.finalFloor("))((((("));
+        assertEquals(-1, Day1.finalFloor("())"));
+        assertEquals(-1, Day1.finalFloor("))("));
+        assertEquals(-3, Day1.finalFloor(")))"));
+        assertEquals(-3, Day1.finalFloor(")())())"));
     }
 
     @Test
