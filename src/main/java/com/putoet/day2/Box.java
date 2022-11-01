@@ -4,6 +4,7 @@ import utilities.IntListUtils;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Box {
     private final int l;
@@ -17,15 +18,13 @@ public class Box {
     }
 
     public int length() { return l; }
-    public int height() { return h; }
-    public int width() { return w; }
 
     public int wrapSize() {
         return (2 * l * w) + (2 * w * h) + (2 * h * l);
     }
 
     public int additionalWrap() {
-        return List.of(l * w, l * h, w * h).stream().mapToInt(i -> i).min().getAsInt();
+        return Stream.of(l * w, l * h, w * h).mapToInt(i -> i).min().getAsInt();
     }
 
     public int totalWrap() {
