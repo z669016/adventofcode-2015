@@ -21,8 +21,6 @@ class RouteSantaAndRobotTest {
 
     @Test
     public void visited() {
-        System.out.println(route.addresses());
         assertEquals(5, route.visitedAddresses());
     }
-
 }

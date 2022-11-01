@@ -2,9 +2,6 @@ package com.putoet.day3;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
-
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -44,7 +41,5 @@ class RouteExclusiveTest {
         assertEquals(2, addresses.size());
         assertTrue(addresses.contains(Address.startAddress().move(Direction.NORTH)));
         assertTrue(addresses.contains(Address.startAddress().move(Direction.NORTH).move(Direction.NORTH)));
-
-        System.out.println(addresses);
     }
 }

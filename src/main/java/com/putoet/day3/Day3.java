@@ -1,25 +1,24 @@
 package com.putoet.day3;
 
-import com.putoet.day2.Day2;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import com.putoet.resources.ResourceLines;
 
 public class Day3 {
-    public static void main(String[] args) throws URISyntaxException, IOException {
-        final URL url = Day2.class.getResource("/day3.txt");
-        final Path path = Paths.get(url.toURI());
 
+    public static final String PUZZLE_INPUT = "/day3.txt";
+
+    public static void main(String[] args)  {
         Route route = new RouteInclusive();
-        Files.lines(path).flatMapToInt(String::chars).mapToObj(Direction::valueOf).forEach(route::add);
+        ResourceLines.list(PUZZLE_INPUT).stream()
+                .flatMapToInt(String::chars)
+                .mapToObj(Direction::valueOf)
+                .forEach(route::add);
         System.out.println("Visited addresses is " + route.visitedAddresses());
 
         route = new RouteSantaAndRobot();
-        Files.lines(path).flatMapToInt(String::chars).mapToObj(Direction::valueOf).forEach(route::add);
+        ResourceLines.list(PUZZLE_INPUT).stream()
+                .flatMapToInt(String::chars)
+                .mapToObj(Direction::valueOf)
+                .forEach(route::add);
         System.out.println("Visited addresses by Santa and robot is " + route.visitedAddresses());
     }
 }

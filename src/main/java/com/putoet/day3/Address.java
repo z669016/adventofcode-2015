@@ -17,21 +17,18 @@ public class Address {
     }
 
     public Address move(Direction direction) {
-        switch (direction) {
-            case NORTH: return new Address(x, y+1);
-            case WEST: return new Address(x+1, y);
-            case SOUTH: return new Address(x, y-1);
-            case EAST:
-            default:
-                return new Address(x-1, y);
-        }
+        return switch (direction) {
+            case NORTH -> new Address(x, y + 1);
+            case WEST -> new Address(x + 1, y);
+            case SOUTH -> new Address(x, y - 1);
+            case EAST -> new Address(x - 1, y);
+        };
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Address)) return false;
-        Address address = (Address) o;
+        if (!(o instanceof Address address)) return false;
         return x == address.x &&
                 y == address.y;
     }

@@ -30,8 +30,6 @@ class RouteInclusiveTest {
         assertTrue(addresses.contains(Address.startAddress()));
         assertTrue(addresses.contains(Address.startAddress().move(Direction.NORTH)));
         assertTrue(addresses.contains(Address.startAddress().move(Direction.NORTH).move(Direction.NORTH)));
-
-        System.out.println("Addresses: " + addresses);
     }
 
     @Test
@@ -43,6 +41,5 @@ class RouteInclusiveTest {
 
         final Route combinedRoute = route.add(routeTwo);
         assertEquals(5, combinedRoute.visitedAddresses());
-        System.out.println("Combined route: " + combinedRoute.addresses());
     }
 }
