@@ -1,48 +1,49 @@
 package com.putoet.day1;
 
+import org.javatuples.Pair;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class Day1Test {
     @Test
     void transformOpen() {
-        assertEquals(1, Day1.transform('('));
+        assertEquals(Pair.with(1, 3), Day1.transform('(', new AtomicInteger(3)));
     }
 
     @Test
     void transformClose() {
-        assertEquals(-1, Day1.transform(')'));
+        assertEquals(Pair.with(-1, 5), Day1.transform(')', new AtomicInteger(5)));
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     void transformOther() {
-        assertThrows(IllegalArgumentException.class, () -> Day1.transform('+'));
+        assertThrows(IllegalArgumentException.class, () -> Day1.transform('+', new AtomicInteger(0)));
     }
 
     @Test
     void floor() {
-        assertEquals(0, Day1.finalFloor("(())"));
-        assertEquals(0, Day1.finalFloor("()()"));
-        assertEquals(3, Day1.finalFloor("((("));
-        assertEquals(3, Day1.finalFloor("(()(()("));
-        assertEquals(3, Day1.finalFloor("))((((("));
-        assertEquals(-1, Day1.finalFloor("())"));
-        assertEquals(-1, Day1.finalFloor("))("));
-        assertEquals(-3, Day1.finalFloor(")))"));
-        assertEquals(-3, Day1.finalFloor(")())())"));
+        assertEquals(0, Day1.finalFloor("(())", new AtomicInteger(1)));
+        assertEquals(0, Day1.finalFloor("()()", new AtomicInteger(1)));
+        assertEquals(3, Day1.finalFloor("(((", new AtomicInteger(1)));
+        assertEquals(3, Day1.finalFloor("(()(()(", new AtomicInteger(1)));
+        assertEquals(3, Day1.finalFloor("))(((((", new AtomicInteger(1)));
+        assertEquals(-1, Day1.finalFloor("())", new AtomicInteger(1)));
+        assertEquals(-1, Day1.finalFloor("))(", new AtomicInteger(1)));
+        assertEquals(-3, Day1.finalFloor(")))", new AtomicInteger(1)));
+        assertEquals(-3, Day1.finalFloor(")())())", new AtomicInteger(1)));
     }
 
     @Test
     public void basement() {
-        Optional<Integer> basement = Day1.basement(")");
+        Optional<Integer> basement = Day1.basement(")", new AtomicInteger(1));
         assertTrue(basement.isPresent());
         assertEquals(1, basement.get());
 
-        basement = Day1.basement("()())");
+        basement = Day1.basement("()())", new AtomicInteger(1));
         assertTrue(basement.isPresent());
         assertEquals(5, basement.get());
     }
