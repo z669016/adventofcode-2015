@@ -12,7 +12,7 @@ class LightInstructionProcessorTest {
     @BeforeEach
     public void setup() {
         factory = new OnOffLightInstructionFactory();
-        processor = new LightInstructionProcessor<Boolean>(false, () -> new Boolean[10][10]);
+        processor = new LightInstructionProcessor<>(false, () -> new Boolean[10][10]);
     }
 
     @Test
@@ -24,7 +24,7 @@ class LightInstructionProcessorTest {
 
     @Test
     public void executeOne() {
-        final LightInstruction instruction = factory.valueOf("turn on 1,1 through 1,1");
+        final LightInstruction<Boolean> instruction = factory.valueOf("turn on 1,1 through 1,1");
         processor.execute(instruction);
         assertEquals(1, processor.count(b -> b));
     }

@@ -1,11 +1,11 @@
 package com.putoet.day6;
 
-import utilities.ResourceLines;
+import com.putoet.resources.ResourceLines;
 
 public class Day6 {
     public static void main(String[] args) {
         final LightInstructionFactory<Boolean> factoryOne = new OnOffLightInstructionFactory();
-        final LightInstructionProcessor<Boolean> processorOne = new LightInstructionProcessor<Boolean>(false, () -> new Boolean[1000][1000]);
+        final LightInstructionProcessor<Boolean> processorOne = new LightInstructionProcessor<>(false, () -> new Boolean[1000][1000]);
 
         ResourceLines.stream("/day6.txt")
                 .map(factoryOne::valueOf)

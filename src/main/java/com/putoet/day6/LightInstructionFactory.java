@@ -35,12 +35,10 @@ public class LightInstructionFactory<T> {
         if (maxX < minX || maxY < minY)
             throw new IllegalArgumentException("Invalid instruction coordinates '" + instruction + "'");
 
-        switch (type) {
-            case TOGGLE: return new LightInstruction<T>(minX, maxX, minY, maxY, toggle);
-            case TURN_OFF: return new LightInstruction<T>(minX, maxX, minY, maxY, turnOff);
-            case TURN_ON:
-            default:
-                return new LightInstruction<T>(minX, maxX, minY, maxY, turnOn);
-        }
+        return switch (type) {
+            case TOGGLE -> new LightInstruction<>(minX, maxX, minY, maxY, toggle);
+            case TURN_OFF -> new LightInstruction<>(minX, maxX, minY, maxY, turnOff);
+            case TURN_ON -> new LightInstruction<>(minX, maxX, minY, maxY, turnOn);
+        };
     }
 }

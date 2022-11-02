@@ -46,4 +46,20 @@ Again brute force and  very straight forward. Create some utility methods that d
 separate utility method for every property to be checked). For convenience, I've created an ```isNice``` and 
 ```isNicer``` method that combined the property checks. 
 
+## Day 6
+A great puzzle to solve using functional programming techniques. You have a 1000x1000 grid with elements to which an 
+instruction must be applied. The instruction can be turn-on, turn-off and toggle (whatever that may mean).
+The ```LightInstructionFactory``` can  translate an input line into an ```LightInstruction``` (toggle, turn-off, 
+turn-on). The ```LightInstructionProcessor``` can initialize a grid with initial values, and can ```execute(...)``` 
+```LightInstructions``` on that grid. As the processor class maintains and changes state, it's not truly functional 
+programming, but solving that could be another exercise.
+
+Part 1 can be solved using a ```OnOffLightInstructionFactory```, that creates simple set instructions on boolean values 
+(set to true, false, of not-value). Transform the input strings, using that on-off factory, and use the processor to 
+execute  the instructions on the grid. At the end, just count the number of grid elements with value ```true```.
+
+Part 2 can be solved using a ```IntensityLightInstructionFactory``` which creates instructions to add 1, subtract 1 
+or add 2, to integer grid elements. The processing is the same as for part 1, but using  a  grid with a different type
+of elements. After processing, simply sum the value of all elements in  the grid. 
+
 
