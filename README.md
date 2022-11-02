@@ -76,3 +76,12 @@ circuit on demand, from the named wire that is required. As a result, some encod
 don't need to create instructions for unused wires. 
 
 (Reading it this way maybe doesn't make things more clear, better look at the real code)
+
+## Day 8
+Quite  similar to day 5. Load the input in a list, and do some stream processing using utility methods that manipulate
+the string. You  can then calculate the results from part 1 and 2 from the results of the stream processing. 
+Very straight forward. The biggest challenge is in the helper methods that do the string manipulation, which need
+proper testing as well.
+
+
+
