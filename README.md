@@ -41,6 +41,9 @@ addresses visited by the robot).
 Simple brute force ... use a counter and increase it until you found a MD5 hash for the input|counter with the right 
 format. Just let the computer do what it's good at (compute).
 
-
+## Day 5
+Again brute force and  very straight forward. Create some utility methods that do the checks on strings (just a simple
+separate utility method for every property to be checked). For convenience, I've created an ```isNice``` and 
+```isNicer``` method that combined the property checks. 
 
 
