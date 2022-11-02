@@ -23,13 +23,18 @@ pair)  that got you in the basement.
 I initially used a do-while loop, but refactored it by adding the position in a Pair. Just as an exercise.
 
 ## Day 2
-I've created a ```Submarine``` class, with a ```move``` method taking a ```Command``` record as an input. The command 
-has a direction and a distance attribute. This approach made it easy to process the input. For part 1 the input is 
-transformed into commands and the commands were used to move the submarine.
-For part 2, I inherited from the initial ```Submarine``` class and changed the ```move``` method according to 
-instructions, then processed the command list again... pretty straight forward.
+I've created a ```Box``` class, with the required methods for calculating wrap-size and ribbon per box. 
+For part 1 the input is transformed into ```Box``` objects and the wrap-size per box is summed. Part 2 is similar, 
+and adds up all the ribbon length  required per box.
 
 ## Day 3
-Solved the puzzles using counting and filtering streams (just used ```List<String>``` and ```charAt()```).
+This exercise is about counting addresses and visits (where one address could be visited multiple times). From the 
+input, the characters are translated into a ```Direction```, and a ```Route``` instance is used to add the direction 
+to a route. A unique ```Address``` (basically an X,Y coordinate pair) is added to the list (remember the last one 
+visited), and the visit-count is updated if an address is already in the list. A ```Map``` is used to keep track of 
+visited addresses, using the  address as a key. The number of visited addresses equals 
+the size of the list, and the number of visits can be obtained by summing all the visit-counts (map values) per address.
+Part two isn't much different, but you need to keep two lists (one for addresses visited by Santa, and one for 
+addresses visited by the robot).
 
 
