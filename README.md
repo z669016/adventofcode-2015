@@ -62,4 +62,17 @@ Part 2 can be solved using a ```IntensityLightInstructionFactory``` which create
 or add 2, to integer grid elements. The processing is the same as for part 1, but using  a  grid with a different type
 of elements. After processing, simply sum the value of all elements in  the grid. 
 
+## Day 7
+Another challenge to be solved using functional programming techniques. Each instruction can be translated into a 
+```Supplier<Integer>``` with a name. A ```Circuit``` can be build from suppliers that get connected using their name. 
+Each supplier can have zero, one or two operants, which are suppliers themselves.
 
+For part 1, you build a ```Circuit```, by literally wiring the ```Supplier<Integer>``` instances, and then request the
+circuit for the value on the supplier named 'a'. On part two, you replace the coding  instruction for wire 
+'b' to the constant from part 1, then reset the circuit and again obtain  the value for wire 'a'.
+
+It's actually not that difficult, but remember to first read all encodings (instructions) and then build the 
+circuit on demand, from the named wire that is required. As a result, some encodings might not even be used, and you 
+don't need to create instructions for unused wires. 
+
+(Reading it this way maybe doesn't make things more clear, better look at the real code)

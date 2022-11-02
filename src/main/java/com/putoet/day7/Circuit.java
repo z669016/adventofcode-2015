@@ -18,9 +18,9 @@ public class Circuit {
     private final Map<String,String> encodings = new HashMap<>();
     private final Map<String, NamedSupplier> namedSuppliers = new HashMap<>();
 
-    public static Circuit from(List<String> wireings) {
+    public static Circuit from(final List<String> wiring) {
         final Circuit circuit = new Circuit();
-        wireings.stream().map(line -> line.split(" -> ")).forEach(s -> circuit.encodings.put(s[1], s[0]));
+        wiring.stream().map(line -> line.split(" -> ")).forEach(s -> circuit.encodings.put(s[1], s[0]));
         return circuit;
     }
 
@@ -41,14 +41,14 @@ public class Circuit {
     }
 
     public Integer get(String name) {
-        return wirering(name).get();
+        return wiring(name).get();
     }
 
     public void reset() {
         namedSuppliers.clear();
     }
 
-    private NamedSupplier wirering(String name) {
+    private NamedSupplier wiring(String name) {
         resolve(name);
         return namedSuppliers.get(name);
     }
@@ -64,24 +64,24 @@ public class Circuit {
                     throw new IllegalStateException("Cannot resolve encoding '" + name + "'");
                 }
 
-                NamedSupplier supplier = createWireringFor(name, code);
+                final NamedSupplier supplier = createWiringFor(code);
                 namedSuppliers.put(name, new Wire(name, supplier));
             }
         }
     }
 
-    private NamedSupplier createWireringFor(String name, String code) {
-        if (code.matches(ASSIGNMENT_PATTERN)) return forOperand(name, code, s -> new Wire(code, wirering(s[0])));
-        if (code.matches(NOT_PATTERN)) return forOperand(name, code, s -> new Not(code, wirering(s[1])));
-        if (code.matches(LSHIFT_PATTERN)) return forOperand(name, code, s -> new LShift(code, wirering(s[0]), wirering(s[2])));
-        if (code.matches(RSHIFT_PATTERN)) return forOperand(name, code, s -> new RShift(code, wirering(s[0]), wirering(s[2])));
-        if (code.matches(AND_PATTERN)) return forOperand(name, code, s -> new And(code, wirering(s[0]), wirering(s[2])));
-        if (code.matches(OR_PATTERN)) return forOperand(name, code, s -> new Or(code, wirering(s[0]), wirering(s[2])));
+    private NamedSupplier createWiringFor(String code) {
+        if (code.matches(ASSIGNMENT_PATTERN)) return forOperand(code, s -> new Wire(code, wiring(s[0])));
+        if (code.matches(NOT_PATTERN)) return forOperand(code, s -> new Not(code, wiring(s[1])));
+        if (code.matches(LSHIFT_PATTERN)) return forOperand(code, s -> new LShift(code, wiring(s[0]), wiring(s[2])));
+        if (code.matches(RSHIFT_PATTERN)) return forOperand(code, s -> new RShift(code, wiring(s[0]), wiring(s[2])));
+        if (code.matches(AND_PATTERN)) return forOperand(code, s -> new And(code, wiring(s[0]), wiring(s[2])));
+        if (code.matches(OR_PATTERN)) return forOperand(code, s -> new Or(code, wiring(s[0]), wiring(s[2])));
 
         throw new IllegalArgumentException("Invalid coding '" + code + "'");
     }
 
-    public NamedSupplier forOperand(String name, String code, Function<String[],NamedSupplier> function) {
+    public NamedSupplier forOperand(String code, Function<String[],NamedSupplier> function) {
         final String[] operands = code.split(" ");
         return function.apply(operands);
     }
