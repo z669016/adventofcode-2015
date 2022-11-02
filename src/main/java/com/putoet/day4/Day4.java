@@ -4,7 +4,7 @@ import utilities.MD5;
 
 import java.security.NoSuchAlgorithmException;
 
-public class Day5 {
+public class Day4 {
     public static void main(String[] args) throws NoSuchAlgorithmException {
         final String input = "bgvyzdsv";
         long code = 0;

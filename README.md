@@ -37,4 +37,10 @@ the size of the list, and the number of visits can be obtained by summing all th
 Part two isn't much different, but you need to keep two lists (one for addresses visited by Santa, and one for 
 addresses visited by the robot).
 
+## Day 4
+Simple brute force ... use a counter and increase it until you found a MD5 hash for the input|counter with the right 
+format. Just let the computer do what it's good at (compute).
+
+
+
 
