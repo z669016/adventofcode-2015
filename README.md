@@ -65,7 +65,7 @@ of elements. After processing, simply sum the value of all elements in  the grid
 ## Day 7
 Another challenge to be solved using functional programming techniques. Each instruction can be translated into a 
 ```Supplier<Integer>``` with a name. A ```Circuit``` can be build from suppliers that get connected using their name. 
-Each supplier can have zero, one or two operants, which are suppliers themselves.
+Each supplier can have zero, one or two operands, which are suppliers themselves.
 
 For part 1, you build a ```Circuit```, by literally wiring the ```Supplier<Integer>``` instances, and then request the
 circuit for the value on the supplier named 'a'. On part two, you replace the coding  instruction for wire 
@@ -107,9 +107,9 @@ for each individual check. Then ```isValid``` boils down to ```isLengthEight(pas
 && includesStraight(password) && onlyContainsValidCharacters(password) && hasTwoNonOverlappingPairs(password)```
 
 ## Day 12
-This challenge is highy suitable for using the Visitor pattern, where the visitor simply sums all the integer values
+This challenge is highly suitable for using the Visitor pattern, where the visitor simply sums all the integer values
 that it visits. So, I loaded the JSON and used the Jackson library  to transform it into a ```Map```, and then use 
 the ```MapVisitor``` class to take a ```Visitor``` object and offer it all elements it finds in the map.
-For part 1, this is all you need. For part two, I slightly changed the ```MapVisitor```, so it can ignore (on request")
+For part 1, this is all you need. For part two, I slightly changed the ```MapVisitor```, so it can ignore (on request)
 all elements it finds with the name "red" (it simply doesn't pass those elements to the visitor instance, so these are
 not visited and their integer values get ignored).  
