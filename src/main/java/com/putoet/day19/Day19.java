@@ -25,5 +25,6 @@ public class Day19 {
 
         // count(tokens) - count("(" or ")") - 2*count(",") - 1
         System.out.println("Number of steps is " + (tokenizer.tokenCount() - tokenizer.parentesesCount() - 2 * tokenizer.commaCount() - 1));
+        System.out.println();
     }
 }

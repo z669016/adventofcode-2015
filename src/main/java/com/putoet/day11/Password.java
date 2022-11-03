@@ -3,7 +3,7 @@ package com.putoet.day11;
 import java.util.Arrays;
 
 public class Password {
-    private char[] password;
+    final private char[] password;
 
     public Password(String password) {
         assert password != null && password.length() == 8;
@@ -42,11 +42,6 @@ public class Password {
 
     private static char increment(char c) {
         return (char) (c + 1);
-    }
-
-
-    public boolean isValid() {
-        return Password.isValid(toString());
     }
 
     public static boolean isValid(String password) {
