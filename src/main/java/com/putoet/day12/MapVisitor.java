@@ -23,14 +23,14 @@ public class MapVisitor {
         list.forEach(o -> visit(o, visitor, ignoreRead));
     }
 
+    @SuppressWarnings("rawtypes")
     public static void visit(Object value, Visitor visitor, boolean ignoreRed) {
-        if (value instanceof String) visitor.accept((String) value);
-        else if (value instanceof Integer) visitor.accept((Integer) value);
-        else if(value instanceof List) visit((List<Object>) value, visitor, ignoreRed);
-        else if(value instanceof Map) {
-            final Map<String,Object> map = (Map<String,Object>) value;
-            if (!ignoreRed || !containsRedValue(map))
-                visit(map, visitor, ignoreRed);
+        if (value instanceof String s) visitor.accept(s);
+        else if (value instanceof Integer i) visitor.accept(i);
+        else if(value instanceof List l) visit(l, visitor, ignoreRed);
+        else if(value instanceof Map m) {
+            if (!ignoreRed || !containsRedValue(m))
+                visit(m, visitor, ignoreRed);
         }
         else throw new IllegalStateException("Unknown object type: " + value.getClass());
     }

@@ -97,4 +97,19 @@ My basic approach for this puzzle is to split the input string into blocks of th
 right algorithm is probably key to prevent use of much memory slowing things down.  
 The approach works like a charm, part 1 is less than a second, and  even part two doesn't take more than two seconds.  
 
+## Day 11
+Agan a straight forward puzzle. I decided to create a ```Password``` class, with a ```next()``` method, which 
+generates a next password. You need to increment from right to left (last letter first) and when it becomes > 'z', set 
+it to 'a', while increasing the character at it's left (repeat if that one also becomes greater tha 'z'). Repeat this 
+process until a new valid password was found and then return that one.
+The trick is probably in validating the new password, which can be nasty unless you create separate helper functions 
+for each individual check. Then ```isValid``` boils down to ```isLengthEight(password) && isLowerCase(password) 
+&& includesStraight(password) && onlyContainsValidCharacters(password) && hasTwoNonOverlappingPairs(password)```
 
+## Day 12
+This challenge is highy suitable for using the Visitor pattern, where the visitor simply sums all the integer values
+that it visits. So, I loaded the JSON and used the Jackson library  to transform it into a ```Map```, and then use 
+the ```MapVisitor``` class to take a ```Visitor``` object and offer it all elements it finds in the map.
+For part 1, this is all you need. For part two, I slightly changed the ```MapVisitor```, so it can ignore (on request")
+all elements it finds with the name "red" (it simply doesn't pass those elements to the visitor instance, so these are
+not visited and their integer values get ignored).  

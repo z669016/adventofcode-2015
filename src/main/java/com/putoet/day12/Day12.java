@@ -11,7 +11,6 @@ public class Day12 {
         MapVisitor.visit(json, sumVisitor, false);
         System.out.println("Sum of all integers is: " + sumVisitor.sum());
 
-
         sumVisitor = new JsonSumVisitor();
         MapVisitor.visit(json, sumVisitor, true);
         System.out.println("Sum of all integers while ignoring 'red' is: " + sumVisitor.sum());
@@ -39,6 +38,6 @@ class JsonSumVisitor implements MapVisitor.Visitor {
 
     @Override
     public void accept(Integer integer) {
-        sum += integer.intValue();
+        sum += integer;
     }
 }
