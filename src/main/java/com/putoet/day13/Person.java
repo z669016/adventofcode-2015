@@ -21,21 +21,21 @@ public class Person {
     public int happiness(Person left, Person right) {
         assert left != null && right != null;
 
-        checkHapinessRelationship(left);
-        checkHapinessRelationship(right);
+        checkHappinessRelationship(left);
+        checkHappinessRelationship(right);
 
-        return happiness.get(left).happynessImpact() + happiness.get(right).happynessImpact();
+        return happiness.get(left).happinessImpact() + happiness.get(right).happinessImpact();
     }
 
     public int happiness(Person neighbour) {
         assert neighbour != null;
 
-        checkHapinessRelationship(neighbour);
+        checkHappinessRelationship(neighbour);
 
-        return happiness.get(neighbour).happynessImpact();
+        return happiness.get(neighbour).happinessImpact();
     }
 
-    private void checkHapinessRelationship(Person other) {
+    private void checkHappinessRelationship(Person other) {
         if (!happiness.containsKey(other))
             throw new IllegalArgumentException(String.format("%s has no happiness relationship with %s", this.name, other.name));
     }
@@ -56,8 +56,7 @@ public class Person {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Person)) return false;
-        Person person = (Person) o;
+        if (!(o instanceof Person person)) return false;
         return name.equals(person.name);
     }
 

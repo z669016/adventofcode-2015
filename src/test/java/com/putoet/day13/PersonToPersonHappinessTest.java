@@ -13,6 +13,6 @@ class PersonToPersonHappinessTest {
         final PersonToPersonHappiness happiness = new PersonToPersonHappiness(from, to, -10);
         assertEquals("a", happiness.fromPerson().name());
         assertEquals("b", happiness.toPerson().name());
-        assertEquals(-10, happiness.happynessImpact());
+        assertEquals(-10, happiness.happinessImpact());
     }
 }

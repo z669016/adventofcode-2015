@@ -1,16 +1,17 @@
 package com.putoet.day13;
 
-import utilities.Permutator;
-import utilities.ResourceLines;
+import com.putoet.resources.ResourceLines;
+import com.putoet.statistics.Permutator;
 
 import java.util.List;
 
 public class Day13 {
     public static void main(String[] args) {
-        final HappinessMap map = HappinessMap.fromList(ResourceLines.list("/day13.txt"));
+        final List<String> input = ResourceLines.list("/day13.txt");
+        final HappinessMap map = HappinessMap.fromList(input);
         optimize(map);
 
-        final HappinessMap mapIncludingMyself = HappinessMap.fromListIncludingMyself(ResourceLines.list("/day13.txt"));
+        final HappinessMap mapIncludingMyself = HappinessMap.fromListIncludingMyself(input);
         optimize(mapIncludingMyself);
     }
 
@@ -21,7 +22,8 @@ public class Day13 {
         final List<List<String>> permutations = permutator.permute(persons);
         int optimized =  permutations.stream().map(map::happiness)
                 .mapToInt(i -> i)
-                .max().getAsInt();
+                .max()
+                .orElseThrow();
         System.out.println("Optimal happiness for " + persons + " is " + optimized);
     }
 }

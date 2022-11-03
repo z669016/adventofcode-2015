@@ -112,4 +112,14 @@ that it visits. So, I loaded the JSON and used the Jackson library  to transform
 the ```MapVisitor``` class to take a ```Visitor``` object and offer it all elements it finds in the map.
 For part 1, this is all you need. For part two, I slightly changed the ```MapVisitor```, so it can ignore (on request)
 all elements it finds with the name "red" (it simply doesn't pass those elements to the visitor instance, so these are
-not visited and their integer values get ignored).  
+not visited and their integer values get ignored).
+
+## Day 13
+First step is to translate all the input data into ```PersonToPersonHappiness``` records, which you will need for 
+calculation. Then a ```Person``` class, which can calculate someones happiness depending on the person to it's left and 
+to it's right. For that purpose the Person class gets populated with a list of appropriate 
+```PersonToPersonHappiness``` records using the ```HappinessMap``` factory class.
+
+I solved part 1 using brute-force, by creating all permutations of persons, and then calculating the highest  
+happiness score of all permutations. Part two is similar, just have the ```HappinessMap``` add "MYSELF" as a person, 
+before creating the permutations. for the rest part 2 is the same as part 1.  
