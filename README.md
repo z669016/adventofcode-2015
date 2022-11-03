@@ -91,3 +91,10 @@ distance between city-1 to city-2, and it can get you a ```Set``` of all (unique
 permutations of all cities, and the length of the trip for each permutation. From that list it's easy to get the 
 minimum (part 1) and maximum values (part 2).
 
+## Day 10
+My basic approach for this puzzle is to split the input string into blocks of the same character ("3113322113" becomes
+["3","11","33","22","11","3"]), and then join them again while inserting the count in front of each part. Using the
+right algorithm is probably key to prevent use of much memory slowing things down.  
+The approach works like a charm, part 1 is less than a second, and  even part two doesn't take more than two seconds.  
+
+

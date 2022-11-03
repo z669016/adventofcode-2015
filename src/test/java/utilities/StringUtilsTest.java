@@ -84,14 +84,4 @@ class StringUtilsTest {
         assertEquals("\"\\\"aaa\\\\\\\"aaa\\\"\"", StringUtils.encode("\"aaa\\\"aaa\""));
         assertEquals("\"\\\"\\\\x27\\\"\"", StringUtils.encode("\"\\x27\""));
     }
-
-    @Test
-    public void splitter() {
-        assertEquals(List.of(), StringUtils.splitter(""));
-        assertEquals(List.of("1"), StringUtils.splitter("1"));
-        assertEquals(List.of("1", "2", "3"), StringUtils.splitter("123"));
-        assertEquals(List.of("1111"), StringUtils.splitter("1111"));
-        assertEquals(List.of("1", "22", "1"), StringUtils.splitter("1221"));
-        assertEquals(List.of("1", "22", "33"), StringUtils.splitter("12233"));
-    }
 }
