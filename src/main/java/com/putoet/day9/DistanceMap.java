@@ -15,7 +15,7 @@ public class DistanceMap {
 
     /**
      * Create a DistanceMap from a list of distance descriptions (see Distance for the correct format)
-     * @param descriptions List of Strings whith each string containing a valid formed distance description
+     * @param descriptions List of Strings with each string containing a valid formed distance description
      * @return DistanceMap
      */
     public static DistanceMap fromDescriptions(List<String> descriptions) {
@@ -38,8 +38,8 @@ public class DistanceMap {
 
     /**
      * Calculate the distance from starting point (first element in the list) until the end (which could be the
-     * beginning but doesn't have to). If the map doesnt contain info on the distance between two consecutive points
-     * in the list, this methos will throw an IllegalArgumentException. City names must match the names of the city
+     * beginning but doesn't have to). If the map doesn't contain info on the distance between two consecutive points
+     * in the list, this method will throw an IllegalArgumentException. City names must match the names of the city
      * in the map (so correct upper/lower case usage).
      *
      * @param route List of city names (Strings)

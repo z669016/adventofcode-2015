@@ -55,8 +55,7 @@ public class Distance {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Distance)) return false;
-        Distance distance1 = (Distance) o;
+        if (!(o instanceof Distance distance1)) return false;
         return distance == distance1.distance &&
                 from.equals(distance1.from) &&
                 to.equals(distance1.to);

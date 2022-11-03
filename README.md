@@ -83,5 +83,11 @@ the string. You  can then calculate the results from part 1 and 2 from the resul
 Very straight forward. The biggest challenge is in the helper methods that do the string manipulation, which need
 proper testing as well.
 
-
+## Day 9
+Multiple ways to solve this (of course) but as the list of cities isn't too big, a brute force will do (just calculate
+the length of all possible routes). Brute force is relatively easy, as all cities get visited only once, so I used a 
+list of all possible permutations of the cities. First step is to load  the input in a ```DistanceMap``` which holds the
+distance between city-1 to city-2, and it can get you a ```Set``` of all (unique) cities. Then create a list of 
+permutations of all cities, and the length of the trip for each permutation. From that list it's easy to get the 
+minimum (part 1) and maximum values (part 2).
 
