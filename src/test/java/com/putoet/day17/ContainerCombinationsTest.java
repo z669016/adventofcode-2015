@@ -6,7 +6,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CombinationCalculatorTest {
+class ContainerCombinationsTest {
     private static final List<Integer> dataSet = List.of(5, 5, 10, 15, 20);
     private static final List<Integer> s1 = List.of(20, 5);
     private static final List<Integer> s2 = List.of(20, 5);
@@ -17,6 +17,6 @@ class CombinationCalculatorTest {
 
     @Test
     void combinations() {
-        assertEquals(solutions, CombinationCalculator.combinations(25, dataSet));
+        assertEquals(solutions, ContainerCombinations.combinations(25, dataSet));
     }
 }

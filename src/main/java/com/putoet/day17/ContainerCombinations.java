@@ -3,14 +3,13 @@ package com.putoet.day17;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class CombinationCalculator {
+public class ContainerCombinations {
     public static List<List<Integer>> combinations(int sum, List<Integer> numbers) {
         assert sum > 0;
         assert numbers != null && numbers.size() > 0;
 
-        numbers = numbers.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        numbers = numbers.stream().sorted(Comparator.reverseOrder()).toList();
 
         final List<List<Integer>> solutions = new ArrayList<>();
         while (sum(numbers) >= sum) {
@@ -48,7 +47,7 @@ public class CombinationCalculator {
     }
 
     private static List<Integer> tail(List<Integer> list) {
-        return list.stream().skip(1).collect(Collectors.toList());
+        return list.stream().skip(1).toList();
     }
 
     private static int sum(List<Integer> list) {

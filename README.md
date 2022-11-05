@@ -149,3 +149,16 @@ The ```couldMatch``` method just checks if all property values are equal. For pa
 input list of aunts to find the one with all "known" properties are matching.
 This proofed an approach also usable for part two, as on part 2 only the matching is different. So I added a 
 ```retroencabulatorMatch``` that performs slightly different matching, to find the right aunt. 
+
+## Day 17
+Okay, so find the possible combinations from containers that add up to 150 liters. It looks difficult, but is quite 
+straight forward when using recursion. Start with a sorted list of containers (reverse ordered by size). Then create a 
+list of possible solutions from the first of the list plus all combinations of the rest of the list  that add up to 
+the required amount. When you have found all possible solutions with that first container of  the original list, remove 
+that first one, and redo the exercise with the remaining list. You can find the implementation in the 
+```ContainerCombinations``` helper class. That solves part 1, as you only need to count the number of 
+solutions found.
+Now part 2 is ridiculous simple. Get the minimum solution size out of the list of all solutions, and then filter the
+list of solutions of part 1 to only keep the solutions of that minimum size. The answer to part two, is the number of
+solutions after filtering.
+
