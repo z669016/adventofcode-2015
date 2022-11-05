@@ -1,6 +1,6 @@
 package com.putoet.day18;
 
-import utilities.ResourceLines;
+import com.putoet.resources.ResourceLines;
 
 import java.util.List;
 
@@ -8,19 +8,19 @@ public class Day18 {
     public static void main(String[] args) {
         final List<String> lines = ResourceLines.list("/day18.txt");
 
-        final Grid grid = Grid.fromLines(lines);
-        Grid nextGrid = grid.next();
+        final LightGrid lightGrid = LightGrid.fromLines(lines);
+        LightGrid nextLightGrid = lightGrid.next();
         for (int idx = 0; idx < 99; idx++)
-            nextGrid = nextGrid.next();
+            nextLightGrid = nextLightGrid.next();
 
-        System.out.println("Number of burning lights after 100 steps is " + nextGrid.burningLights());
+        System.out.println("Number of burning lights after 100 steps is " + nextLightGrid.burningLights());
 
-        final Grid brokenGrid = BrokenGrid.fromLines(lines);
-        nextGrid = brokenGrid.next();
+        final BrokenLightGrid brokenLightGrid = BrokenLightGrid.fromLines(lines);
+        nextLightGrid = brokenLightGrid.next();
         for (int idx = 0; idx < 99; idx++)
-            nextGrid = nextGrid.next();
+            nextLightGrid = nextLightGrid.next();
 
-        System.out.println("Number of burning lights on the broken grid after 100 steps is " + nextGrid.burningLights());
+        System.out.println("Number of burning lights on the broken grid after 100 steps is " + nextLightGrid.burningLights());
 
     }
 }

@@ -47,20 +47,20 @@ separate utility method for every property to be checked). For convenience, I've
 ```isNicer``` method that combined the property checks. 
 
 ## Day 6
-A great puzzle to solve using functional programming techniques. You have a 1000x1000 grid with elements to which an 
+A great puzzle to solve using functional programming techniques. You have a 1000x1000 lightGrid with elements to which an 
 instruction must be applied. The instruction can be turn-on, turn-off and toggle (whatever that may mean).
 The ```LightInstructionFactory``` can  translate an input line into an ```LightInstruction``` (toggle, turn-off, 
-turn-on). The ```LightInstructionProcessor``` can initialize a grid with initial values, and can ```execute(...)``` 
-```LightInstructions``` on that grid. As the processor class maintains and changes state, it's not truly functional 
+turn-on). The ```LightInstructionProcessor``` can initialize a lightGrid with initial values, and can ```execute(...)``` 
+```LightInstructions``` on that lightGrid. As the processor class maintains and changes state, it's not truly functional 
 programming, but solving that could be another exercise.
 
 Part 1 can be solved using a ```OnOffLightInstructionFactory```, that creates simple set instructions on boolean values 
 (set to true, false, of not-value). Transform the input strings, using that on-off factory, and use the processor to 
-execute  the instructions on the grid. At the end, just count the number of grid elements with value ```true```.
+execute  the instructions on the lightGrid. At the end, just count the number of lightGrid elements with value ```true```.
 
 Part 2 can be solved using a ```IntensityLightInstructionFactory``` which creates instructions to add 1, subtract 1 
-or add 2, to integer grid elements. The processing is the same as for part 1, but using  a  grid with a different type
-of elements. After processing, simply sum the value of all elements in  the grid. 
+or add 2, to integer lightGrid elements. The processing is the same as for part 1, but using  a  lightGrid with a different type
+of elements. After processing, simply sum the value of all elements in  the lightGrid. 
 
 ## Day 7
 Another challenge to be solved using functional programming techniques. Each instruction can be translated into a 
@@ -162,3 +162,10 @@ Now part 2 is ridiculous simple. Get the minimum solution size out of the list o
 list of solutions of part 1 to only keep the solutions of that minimum size. The answer to part two, is the number of
 solutions after filtering.
 
+## Day 18
+Created a ```LightGrid``` class (using ```Grid``` under the hood), to represent the light grid, with a ```next()``` 
+method which returns a next generation of the LightGrid (following the animation rules), and a ```burningLights()```
+method to count the lights which are ON (have a value of '#' in the grid). This is enough for part 1.
+Part two proved relatively easy, using a ```BrokenLightGrid``` class, which extends ```LightGrid```, and which "breaks"
+the corner light on the initial ```LightGrid``` and after every animation cycle. That only requires minor additional
+functionality on the factory method and the animation method (```next()```).
