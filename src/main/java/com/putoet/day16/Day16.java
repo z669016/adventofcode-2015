@@ -1,9 +1,8 @@
 package com.putoet.day16;
 
-import utilities.ResourceLines;
+import com.putoet.resources.ResourceLines;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Day16 {
     public static void main(String[] args) {
@@ -25,14 +24,14 @@ public class Day16 {
 
         final List<Aunt> matchStrict = descriptions.stream()
                 .map(Aunt::fromDescription)
-                .filter(aunt -> aunt.couldMatchStrict(unknownAunt))
-                .collect(Collectors.toList());
-        System.out.println("Struct match: " + matchStrict);
+                .filter(aunt -> aunt.couldMatch(unknownAunt))
+                .toList();
+        System.out.println("Strict match: " + matchStrict.stream().findFirst().orElseThrow().number());
 
         final List<Aunt> match = descriptions.stream()
                 .map(Aunt::fromDescription)
-                .filter(aunt -> aunt.couldMatch(unknownAunt))
-                .collect(Collectors.toList());
-        System.out.println("Struct match: " + match);
+                .filter(aunt -> aunt.retroencabulatorMatch(unknownAunt))
+                .toList();
+        System.out.println("Retroencabulator match: " + match.stream().findFirst().orElseThrow().number());
     }
 }

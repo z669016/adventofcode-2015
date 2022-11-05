@@ -1,12 +1,12 @@
 package com.putoet.day16;
 
+import java.util.Objects;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 
 public class Aunt {
     private final String name;
     private final int number;
-
     private int children;
     private int cats;
     private int samoyeds;
@@ -17,7 +17,6 @@ public class Aunt {
     private int trees;
     private int cars;
     private int perfumes;
-
     private boolean childrenKnown;
     private boolean catsKnown;
     private boolean samoyedsKnown;
@@ -69,7 +68,6 @@ public class Aunt {
 
     public String name() { return name; }
     public int number() { return number; }
-
     public int children() { return children; }
     public int cats() { return cats; }
     public int samoyeds() { return samoyeds; }
@@ -80,7 +78,6 @@ public class Aunt {
     public int trees() { return trees; }
     public int cars() { return cars; }
     public int perfumes() { return perfumes; }
-
     public boolean childrenKnown() { return childrenKnown; }
     public boolean catsKnown() { return catsKnown; }
     public boolean samoyedsKnown() { return samoyedsKnown; }
@@ -92,7 +89,7 @@ public class Aunt {
     public boolean carsKnown() { return carsKnown; }
     public boolean perfumesKnown() { return perfumesKnown; }
 
-    public void setProperty(String propertyValue) {
+    protected void setProperty(String propertyValue) {
         assert propertyValue != null;
 
         final String[] words = propertyValue.split(":");
@@ -103,48 +100,47 @@ public class Aunt {
         final int value = Integer.parseInt(words[1].trim());
 
         switch (property) {
-            case "children":
+            case "children" -> {
                 children = value;
                 childrenKnown = true;
-                break;
-            case "cats":
+            }
+            case "cats" -> {
                 cats = value;
                 catsKnown = true;
-                break;
-            case "samoyeds":
+            }
+            case "samoyeds" -> {
                 samoyeds = value;
                 samoyedsKnown = true;
-                break;
-            case "pomeranians":
+            }
+            case "pomeranians" -> {
                 pomeranians = value;
                 pomeraniansKnown = true;
-                break;
-            case "akitas":
+            }
+            case "akitas" -> {
                 akitas = value;
                 akitasKnown = true;
-                break;
-            case "vizslas":
+            }
+            case "vizslas" -> {
                 vizslas = value;
                 vizslasKnown = true;
-                break;
-            case "goldfish":
+            }
+            case "goldfish" -> {
                 goldfish = value;
                 goldfishKnown = true;
-                break;
-            case "trees":
+            }
+            case "trees" -> {
                 trees = value;
                 treesKnown = true;
-                break;
-            case "cars":
+            }
+            case "cars" -> {
                 cars = value;
                 carsKnown = true;
-                break;
-            case "perfumes":
+            }
+            case "perfumes" -> {
                 perfumes = value;
                 perfumesKnown = true;
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid property description '" + propertyValue + "'");
+            }
+            default -> throw new IllegalArgumentException("Invalid property description '" + propertyValue + "'");
         }
     }
 
@@ -157,26 +153,23 @@ public class Aunt {
      * @param unknownAunt Aunt with all properties known
      * @return boolean indicating there could be a match (at least no violation of properties comparison rules)
      */
-    public boolean couldMatchStrict(Aunt unknownAunt) {
-        final BiPredicate<Integer, Integer> compare = (v1, v2) -> v1.intValue() == v2.intValue();
+    public boolean couldMatch(Aunt unknownAunt) {
+        final BiPredicate<Integer, Integer> equal = Objects::equals;
+        final BiPredicate<Integer, Integer> greaterThan = Objects::equals;
+        final BiPredicate<Integer, Integer> lessThan = Objects::equals;
 
-        return matchProperty(this, unknownAunt, Aunt::childrenKnown, Aunt::children, compare)
-                && matchProperty(this, unknownAunt, Aunt::catsKnown, Aunt::cats, compare)
-                && matchProperty(this, unknownAunt, Aunt::samoyedsKnown, Aunt::samoyeds, compare)
-                && matchProperty(this, unknownAunt, Aunt::pomeraniansKnown, Aunt::pomeranians, compare)
-                && matchProperty(this, unknownAunt, Aunt::akitasKnown, Aunt::akitas, compare)
-                && matchProperty(this, unknownAunt, Aunt::vizslasKnown, Aunt::vizslas, compare)
-                && matchProperty(this, unknownAunt, Aunt::goldfishKnown, Aunt::goldfish, compare)
-                && matchProperty(this, unknownAunt, Aunt::treesKnown, Aunt::trees, compare)
-                && matchProperty(this, unknownAunt, Aunt::carsKnown, Aunt::cars, compare)
-                && matchProperty(this, unknownAunt, Aunt::perfumesKnown, Aunt::perfumes, compare);
+        return match(unknownAunt, equal, greaterThan, lessThan);
     }
 
-    public boolean couldMatch(Aunt unknownAunt) {
-        final BiPredicate<Integer, Integer> equal = (v1, v2) -> v1 == v2;
+    public boolean retroencabulatorMatch(Aunt unknownAunt) {
+        final BiPredicate<Integer, Integer> equal = Objects::equals;
         final BiPredicate<Integer, Integer> greaterThan = (v1, v2) -> v1 > v2;
-        final BiPredicate<Integer, Integer> fewerThan = (v1, v2) -> v1 < v2;
+        final BiPredicate<Integer, Integer> lessThan = (v1, v2) -> v1 < v2;
 
+        return match(unknownAunt, equal, greaterThan, lessThan);
+    }
+
+    private boolean match(Aunt unknownAunt, BiPredicate<Integer, Integer> equal, BiPredicate<Integer, Integer> greaterThan, BiPredicate<Integer, Integer> fewerThan) {
         return matchProperty(this, unknownAunt, Aunt::childrenKnown, Aunt::children, equal)
                 && matchProperty(this, unknownAunt, Aunt::catsKnown, Aunt::cats, greaterThan)
                 && matchProperty(this, unknownAunt, Aunt::samoyedsKnown, Aunt::samoyeds, equal)

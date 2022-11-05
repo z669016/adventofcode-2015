@@ -92,6 +92,6 @@ class AuntTest {
         final Aunt unknownAunt = new Aunt("", 0);
         properties.forEach(unknownAunt::setProperty);
 
-        assertTrue(aunt.couldMatchStrict(unknownAunt));
+        assertTrue(aunt.couldMatch(unknownAunt));
     }
 }

@@ -140,3 +140,12 @@ The actual work is done by the ```IngredientsList``` class which takes a list of
 trick for part 1. This also proofed a right approach for part2, which uses only different criteria for the finding 
 the maxCookie. So added a ```Predicate<Long>``` as a parameter to maxCookie, which made the method usable for part 2 
 as well.
+
+## Day 16
+The description might feel more difficult than it actually is. First I created an ```Aunt``` class with a factor method, 
+to translate the input lines into an ```Aunt``` object. Then added a ```couldMatch``` method, that took another 
+```Aunt``` object as a parameter, and which performs a property by property match to see if both aunts could be a match.
+The ```couldMatch``` method just checks if all property values are equal. For part 1, I now only needed to filter the
+input list of aunts to find the one with all "known" properties are matching.
+This proofed an approach also usable for part two, as on part 2 only the matching is different. So I added a 
+```retroencabulatorMatch``` that performs slightly different matching, to find the right aunt. 
