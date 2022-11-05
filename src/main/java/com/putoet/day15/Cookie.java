@@ -1,10 +1,9 @@
 package com.putoet.day15;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Cookie {
-    private Map<Ingredient,Integer> ingredients = new HashMap<>();
+    private final  Map<Ingredient,Integer> ingredients;
 
     public Cookie(Map<Ingredient,Integer> ingredients) {
         if (ingredients.values().stream().mapToInt(i->i).sum() != 100)

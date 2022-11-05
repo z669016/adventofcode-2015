@@ -1,22 +1,6 @@
 package com.putoet.day15;
 
-public class Ingredient {
-    private final String name;
-    private final int capacity;
-    private final int durability;
-    private final int flavor;
-    private final int texture;
-    private final int calories;
-
-    private Ingredient(String name, int capacity, int durability, int flavor, int texture, int calories) {
-        this.name = name;
-        this.capacity = capacity;
-        this.durability = durability;
-        this.flavor = flavor;
-        this.texture = texture;
-        this.calories = calories;
-    }
-
+public record Ingredient(String name, int capacity, int durability, int flavor, int texture, int calories) {
     public static Ingredient fromDescription(String description) {
         final String[] words = description.split(" ");
         final String name = trimLastChar(words[0]);
@@ -31,30 +15,6 @@ public class Ingredient {
 
     private static String trimLastChar(String word) {
         return word.substring(0, word.length() - 1);
-    }
-
-    public String name() {
-        return name;
-    }
-
-    public int capacity() {
-        return capacity;
-    }
-
-    public int durability() {
-        return durability;
-    }
-
-    public int flavor() {
-        return flavor;
-    }
-
-    public int texture() {
-        return texture;
-    }
-
-    public int calories() {
-        return calories;
     }
 
     @Override

@@ -131,3 +131,12 @@ For part 1, that was good enough. Part 2, as expected, changed the game a bit, b
 scores changes on part 2, so I extracted the ```DistanceScoreSystem``` (Strategy pattern), and implemented an 
 additional ```LeadScoreSystem``` for part 2 reusing the unchanged ```Reindeer``` and ```ReindeerRace``` classes.
 
+## Day 15
+First an ```Ingredient``` record, and a ```Cookie``` class which takes a ```Map<Ingredient,Integer>``` (list of 100 
+teaspoons of different ingredients) as constructor parameter. The Cookie class has a ```score``` method that 
+calculates the total score for a cookie from its map of ingredients.
+The actual work is done by the ```IngredientsList``` class which takes a list of ```Ingredient```s and can find the
+```maxCookie``` from all possible cookies that can get created from 100 teaspoons of ingredients. That solved the 
+trick for part 1. This also proofed a right approach for part2, which uses only different criteria for the finding 
+the maxCookie. So added a ```Predicate<Long>``` as a parameter to maxCookie, which made the method usable for part 2 
+as well.

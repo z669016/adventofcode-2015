@@ -3,8 +3,6 @@ package com.putoet.day15;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.print.DocFlavor;
-
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;

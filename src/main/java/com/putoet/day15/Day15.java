@@ -1,13 +1,14 @@
 package com.putoet.day15;
 
-import utilities.ResourceLines;
+
+import com.putoet.resources.ResourceLines;
 
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Day15 {
     public static void main(String[] args) {
-        final Map<String,Ingredient> ingredients = ResourceLines.list("/day15.txt").stream()
+        final Map<String,Ingredient> ingredients = ResourceLines.stream("/day15.txt")
                 .map(Ingredient::fromDescription)
                 .collect(Collectors.toMap(Ingredient::name, i -> i));
 
