@@ -169,3 +169,13 @@ method to count the lights which are ON (have a value of '#' in the grid). This 
 Part two proved relatively easy, using a ```BrokenLightGrid``` class, which extends ```LightGrid```, and which "breaks"
 the corner light on the initial ```LightGrid``` and after every animation cycle. That only requires minor additional
 functionality on the factory method and the animation method (```next()```).
+
+## Day 19
+Part 1, I have solved on my own, but part 2 I just couldn't see the solution, so I studied the solution on Reddit by 
+[askalski](https://www.reddit.com/r/adventofcode/comments/3xflz8/day_19_solutions/). You'd better check his article to 
+understand the workings of the ```Tokenizer```used for part 2.
+For part 1, I created a ```Transformation``` class, with an ```apply``` method that would take a molecule and returns
+a list of all possible transformations (e.g. when multiple new molecules can be created as the 'from' element occurs 
+multiple times in the starting molecule). And I created a ```Transformations``` class, which holds a list of 
+```Transformation```s, with an ```apply``` method which returns a list of the result of applying all individual 
+```Transformation```s in the list.

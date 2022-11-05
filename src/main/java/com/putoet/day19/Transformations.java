@@ -19,7 +19,7 @@ public class Transformations implements Iterable<Transformation> {
                 .filter(text -> text.trim().length() > 0)
                 .filter(text -> text.contains(SPLIT_ELEMENT))
                 .map(text -> text.split(SPLIT_ELEMENT))
-                .map(e -> new Transformation(new Molecule(e[0]), new Molecule(e[1])))
+                .map(e -> new Transformation(e[0],e[1]))
                 .collect(Collectors.toList());
 
         return new Transformations(transformations);
@@ -29,11 +29,12 @@ public class Transformations implements Iterable<Transformation> {
         return transformations.size();
     }
 
-    public List<Molecule> apply(Molecule molecule) {
+    public List<String> apply(String molecule) {
         return transformations.stream()
                 .map(t -> t.apply(molecule))
                 .flatMap(Collection::stream)
-                .distinct().collect(Collectors.toList());
+                .distinct()
+                .toList();
     }
 
     @Override

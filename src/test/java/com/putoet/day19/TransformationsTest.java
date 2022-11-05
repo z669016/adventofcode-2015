@@ -8,7 +8,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TransformationsTest {
-    private List<String> list = List.of(
+    private final List<String> list = List.of(
             "H => HO",
             "H => OH",
             "O => HH",
@@ -33,9 +33,9 @@ class TransformationsTest {
         final Transformation t2 = iter.next();
         assertFalse(iter.hasNext());
 
-        final Molecule e = new Molecule("e");
-        final Molecule nal = new Molecule("NAl");
-        final Molecule omg = new Molecule("OMg");
+        final String e = "e";
+        final String nal = "NAl";
+        final String omg = "OMg";
 
         assertEquals(e, t1.from());
         assertEquals(e, t2.from());
@@ -47,13 +47,13 @@ class TransformationsTest {
     @Test
     void apply() {
         final Transformations transformations = Transformations.fromList(list);
-        final Molecule molecule = new Molecule("HOH");
+        final String molecule = "HOH";
 
-        final List<Molecule> moleculeTransformations = transformations.apply(molecule);
+        final List<String> moleculeTransformations = transformations.apply(molecule);
         assertEquals(4, moleculeTransformations.size());
-        assertTrue(moleculeTransformations.contains(new Molecule(("HOOH"))));
-        assertTrue(moleculeTransformations.contains(new Molecule(("HOHO"))));
-        assertTrue(moleculeTransformations.contains(new Molecule(("OHOH"))));
-        assertTrue(moleculeTransformations.contains(new Molecule(("HHHH"))));
+        assertTrue(moleculeTransformations.contains("HOOH"));
+        assertTrue(moleculeTransformations.contains("HOHO"));
+        assertTrue(moleculeTransformations.contains("OHOH"));
+        assertTrue(moleculeTransformations.contains("HHHH"));
     }
 }

@@ -5,7 +5,6 @@ import java.util.Iterator;
 public class Tokenizer implements Iterator<String> {
     private final String line;
     private int ptr = 0;
-
     private int tokenCount = 0;
     private int parentesesCount = 0;
     private int commaCount = 0;
@@ -45,7 +44,7 @@ public class Tokenizer implements Iterator<String> {
         }
     }
 
-    public int parentesesCount() { return parentesesCount; }
+    public int parenthesesCount() { return parentesesCount; }
     public int commaCount() { return commaCount; }
     public int tokenCount() { return tokenCount; }
 }

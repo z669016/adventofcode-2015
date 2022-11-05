@@ -27,7 +27,7 @@ class TokenizerTest {
 
         assertEquals(8, tokenizer.tokenCount());
         assertEquals(2, tokenizer.commaCount());
-        assertEquals(2, tokenizer.parentesesCount());
+        assertEquals(2, tokenizer.parenthesesCount());
 
     }
 }
