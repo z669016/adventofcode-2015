@@ -15,7 +15,7 @@ public class LeadScoreSystem implements ScoreSystem {
         final Map<Reindeer,Integer> distance = new HashMap<>();
         reindeer.forEach(r -> distance.put(r, r.distance(elapsedTime)));
 
-        final int max = distance.values().stream().mapToInt(i -> i).max().getAsInt();
+        final int max = distance.values().stream().mapToInt(i -> i).max().orElseThrow();
         distance.entrySet().stream()
                 .filter(e -> e.getValue() == max)
                 .map(Map.Entry::getKey)

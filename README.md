@@ -123,3 +123,11 @@ to it's right. For that purpose the Person class gets populated with a list of a
 I solved part 1 using brute-force, by creating all permutations of persons, and then calculating the highest  
 happiness score of all permutations. Part two is similar, just have the ```HappinessMap``` add "MYSELF" as a person, 
 before creating the permutations. for the rest part 2 is the same as part 1.  
+
+## Day 14
+Started with a ```Reindeer``` class/record with a method to get the ```distance``` and ```state``` of a reindeer at any 
+point in time, and a ```ReindeerRace``` class that would loop over the time (2503 second) to determine the end score. 
+For part 1, that was good enough. Part 2, as expected, changed the game a bit, but not too much. The calculation of the 
+scores changes on part 2, so I extracted the ```DistanceScoreSystem``` (Strategy pattern), and implemented an 
+additional ```LeadScoreSystem``` for part 2 reusing the unchanged ```Reindeer``` and ```ReindeerRace``` classes.
+
