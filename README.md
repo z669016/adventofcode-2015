@@ -209,19 +209,33 @@ become an actual breadths-search-first problem. You need to follow different pat
 the fastest solution. BSF search uses a queue to enable simultaneous search  (explore all 'next' possibilities before 
 moving on). Using a ```PriorityQueue``` over a ```Queue``` ensures you explore the cheapest possible solution next.
 First the ground works, a ```Player``` class as the base for a ```Boss``` class and a ```Wizard``` class.
-Next a ```Drain```, ```MagicMissile```, ```Poison```, ```Recharge```, and ```Shield``` spell class, which, when casted,
+Next a ```Drain```, ```MagicMissile```, ```Poison```, ```Recharge```, and ```Shield``` spell class, which, when cast,
 reduce the mana of the wizard (payment) and activate some  ```Effect``` (interface).
-Finally a ```Game``` class to run the show. 
+Finally, a ```Game``` class to run the show. 
 
 Finding the answer for part 1, means to start with an initial game (with a configured ```Wizard``` and  ```Boss```) 
 and take turns until the game has ended.  When a ```Game``` takes a ```turn()```, it first applies all the active 
 ```Effect```s to the Wizard and the Boss. The effect timer will be updated and effects that have run out, are removed 
 from the list of active effects. When the game isn't ```done``` (wizard or boss has lost), then the boss will strike 
-it's attack on the wizard. Finally the ```turn``` method returns the possible next Game states, which is the current 
-state plus one possible additional spell casted. All possible next Game states are added to the priority queue, and the 
-loop runs again (taking the first game from the ```PriorityQueue``` and calling it's ```turn()```. Once you see how 
+it's attack on the wizard. Finally, the ```turn``` method returns the possible next Game states, which is the current 
+state plus one possible additional spell cast. All possible next Game states are added to the priority queue, and the 
+loop runs again (taking the first game from the ```PriorityQueue``` and calling it's ```turn()```). Once you see how 
 the queue is being used for the search, it's fairly simple.
 
 Part 2 isn't much more difficult. I simply added a parameter to the Game constructor (```hard```) which, makes that 
 at the beginning of each turn, the wizard receives 1 damage. For the rest, everything is the same.
+
+## Day 23
+Yes, build a virtual processor running some program. I started ```Processor``` class which  implements ```Runnable```, 
+that could load and ```compile```a list of instructions (puzzle input). The processor has a ```Map``` of ```Register```s 
+called A, B, and IP (Instruction Pointer), which can be written to and read from (a Register is a 
+```Consumer<Integer>```, and a ```Supplier<Integer>```). The program is compiled into```Instruction```s which  can be 
+run (```Instruction``` implements ```Runnable```). When an instruction runs, it updates the required registers (A, B, 
+and or IP). The processor supports HLF, INC, JIE, JIO, JMP, and TPL instructions (see  puzzle description).
+
+The Instruction classes are very small and easy to read. Their toString method allows you to print the compiled 
+program to text again. Debugging and stepping through the implementation is easy.
+
+To solve part 1, load the input into the processor and run it, after which the registers can be read from. For part 2,
+load the input into the processor, set register A to value 1, and run the program again.
 

@@ -2,7 +2,6 @@ package com.putoet.day23;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Processor implements Runnable {
     public static final String IP = "ip";
@@ -31,7 +30,7 @@ public class Processor implements Runnable {
 
         instr =  program.stream()
                 .map(this::compile)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private Runnable compile(String line) {
