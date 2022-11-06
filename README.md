@@ -239,3 +239,16 @@ program to text again. Debugging and stepping through the implementation is easy
 To solve part 1, load the input into the processor and run it, after which the registers can be read from. For part 2,
 load the input into the processor, set register A to value 1, and run the program again.
 
+## Day 24
+Start with ```SumCombinations```, a utility class that can create all possible combinations of integers in a list that
+sum up to a provided value. Then a ```WeightBalancer``` class which can split a list of integers in a number of groups
+that all sum up to the same value (using ```SumCombinations```).
+
+It might not be the fastest approach, but I started with all possible combinations that add up to 1/3 of the total 
+weight for the first container. Then ordered that list based on size (as we need to find the "smallest" container for 
+the passenger compartment and lowest Quantum Entanglement). Then find the possible second and third container grouping to match 
+the first container (in weight) to make sure the total adds up correctly.
+For part 2, I hoped I could make solution for part 1 more generic (not just 3, but any number of compartments), but 
+that wasn't that easy so I just created another weight balancer method for four compartments (slight change of the 3 
+compartment method).
+

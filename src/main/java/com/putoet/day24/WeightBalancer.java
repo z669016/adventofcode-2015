@@ -3,10 +3,9 @@ package com.putoet.day24;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
- * Class to calculate perfect weigt balance for Santa Claus
+ * Class to calculate perfect weight balance for Santa Claus
  */
 public class WeightBalancer {
     private final int containers;
@@ -15,11 +14,9 @@ public class WeightBalancer {
 
     /**
      * Create weight balancer for a specific number of containers and a list of packages.
-     *
      * The list may not be null, and
      * The list must contain more packages than the number of containers to fill, and
      * The number of containers must be greater than 1
-     *
      * If the sum of the packages cannot be equally divided across the number of containers, this constructor will
      * throw an IllegalArgumentException
      *
@@ -46,7 +43,7 @@ public class WeightBalancer {
     public List<Integer> packages() { return packages; }
 
     /**
-     * Do loadbalancing over 3 containers .... yes, I know that the number of containers should be parameterized
+     * Do load balancing over 3 containers .... yes, I know that the number of containers should be parameterized
      * but that is too big of a brain-cracker for now ...
      *
      * @return List of Cargo items
@@ -68,7 +65,7 @@ public class WeightBalancer {
             final List<List<Integer>> sizedCombinations = combinations.stream()
                     .filter(list -> list.size() == size)
                     .sorted(Comparator.comparingLong(WeightBalancer::quantumEntanglement))
-                    .collect(Collectors.toList());
+                    .toList();
 
             for (List<Integer> combination : sizedCombinations) {
                 final List<Integer> remainder = difference(packages, combination);
@@ -82,7 +79,7 @@ public class WeightBalancer {
                     }
                 });
 
-                // is any combination was found, then the cargoList will now contain the solution
+                // if any combination was found, then the cargoList will now contain the solution
                 if (cargoList.size() > 0) {
                     return cargoList;
                 }
@@ -109,7 +106,7 @@ public class WeightBalancer {
             final List<List<Integer>> sizedCombinations = combinations.stream()
                     .filter(list -> list.size() == size)
                     .sorted(Comparator.comparingLong(WeightBalancer::quantumEntanglement))
-                    .collect(Collectors.toList());
+                    .toList();
 
             for (List<Integer> combination : sizedCombinations) {
                 final List<Integer> remainder = difference(packages, combination);
@@ -144,7 +141,7 @@ public class WeightBalancer {
                 .distinct()
                 .sorted()
                 .boxed()
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static long quantumEntanglement(Cargo cargo) {

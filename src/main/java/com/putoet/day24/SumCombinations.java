@@ -11,14 +11,13 @@ public class SumCombinations {
     /**
      * Method to find all possible combinations of integers from the provided list, that sum up to a specific
      * value (making). If an empty is provided, an empty list will be returned. The provided list can be immutable.
-     *
      * The list may not be null
      * No value in the list may be bigger than the 'making' value
      * The 'making' value may not be 0
      *
      * @param making int The sum value we're looking for
      * @param list List<Integer> The list of Integer values
-     * @param  remainder int the sum of the remaing elements in the list must be equal to this value
+     * @param  remainder int the sum of the remaining elements in the list must be equal to this value
      * @return a List of List of Integer
      */
     public static List<List<Integer>> combinations(int making, List<Integer> list, int remainder) {
@@ -67,7 +66,7 @@ public class SumCombinations {
     }
 
     /**
-     * Create a decending mutable copy of the provided list  of integer values
+     * Create a descending mutable copy of the provided list  of integer values
      * @param list List<Integer>
      * @return List<Integer>
      */
