@@ -1,6 +1,6 @@
 package com.putoet.day21;
 
-import utilities.ResourceLines;
+import com.putoet.resources.ResourceLines;
 
 import java.util.*;
 
@@ -9,18 +9,18 @@ public class Day21 {
         final List<String> descriptions = ResourceLines.list("/day21.txt");
         final Armory armory = new Armory();
 
-        List<Armory.Combination> combinations = armory.combinations();
-        combinations.sort(Comparator.comparing(Armory.Combination::costs));
-        tryWinningCombinations(descriptions, combinations);
+        List<Armory.ArmamentCombination> armamentCombinations = armory.combinations();
+        armamentCombinations.sort(Comparator.comparing(Armory.ArmamentCombination::costs));
+        tryWinningCombinations(descriptions, armamentCombinations);
 
-        combinations = armory.combinations();
-        combinations.sort(Comparator.comparing(Armory.Combination::costs).reversed());
-        tryLoosingCombinations(descriptions, combinations);
+        armamentCombinations = armory.combinations();
+        armamentCombinations.sort(Comparator.comparing(Armory.ArmamentCombination::costs).reversed());
+        tryLoosingCombinations(descriptions, armamentCombinations);
     }
 
-    protected static void tryWinningCombinations(List<String> descriptions, List<Armory.Combination> combinations) {
+    protected static void tryWinningCombinations(List<String> descriptions, List<Armory.ArmamentCombination> armamentCombinations) {
         // Now, battle with the combinations until you have the player that wins (i.e. not the boss)
-        for (Armory.Combination combi : combinations) {
+        for (Armory.ArmamentCombination combi : armamentCombinations) {
             final Player you = new Player("You");
             you.pick(combi.armaments());
 
@@ -35,9 +35,9 @@ public class Day21 {
         }
     }
 
-    protected static void tryLoosingCombinations(List<String> descriptions, List<Armory.Combination> combinations) {
+    protected static void tryLoosingCombinations(List<String> descriptions, List<Armory.ArmamentCombination> armamentCombinations) {
         // Now, battle with the combinations until you have the player that wins (i.e. not the boss)
-        for (Armory.Combination combi : combinations) {
+        for (Armory.ArmamentCombination combi : armamentCombinations) {
             final Player you = new Player("You");
             you.pick(combi.armaments());
 

@@ -151,9 +151,9 @@ This proofed an approach also usable for part two, as on part 2 only the matchin
 ```retroencabulatorMatch``` that performs slightly different matching, to find the right aunt. 
 
 ## Day 17
-Okay, so find the possible combinations from containers that add up to 150 liters. It looks difficult, but is quite 
+Okay, so find the possible armamentCombinations from containers that add up to 150 liters. It looks difficult, but is quite 
 straight forward when using recursion. Start with a sorted list of containers (reverse ordered by size). Then create a 
-list of possible solutions from the first of the list plus all combinations of the rest of the list  that add up to 
+list of possible solutions from the first of the list plus all armamentCombinations of the rest of the list  that add up to 
 the required amount. When you have found all possible solutions with that first container of  the original list, remove 
 that first one, and redo the exercise with the remaining list. You can find the implementation in the 
 ```ContainerCombinations``` helper class. That solves part 1, as you only need to count the number of 
@@ -189,3 +189,16 @@ visited the house) and multiply by 10 (as each elf delivers 10 presents, see ```
 right house number. 
 Part 2 is very similar, but uses a different strategy ```presentsFinite()``` to calculate the number of presents, as 
 now each elf visits max 50 houses and delivers 11 presents.
+
+## Day 21
+Started with a ```Armament``` record which can be a ```WEAPON```, ```ARMOR``` or a ```RING```, containing the details 
+of a piece of armament (like costs, damage, protection), and an ```Armory``` class which knows about all  types of 
+```Armament``` and is capable of creating a list of all possible ```ArmamentCombination```s for a brute force  
+approach to finding the solution.
+A ```Player``` class represents a player in the game which can be you, or the boss. A player can pick a list of 
+```Armament```s, and has the ability to ```attack(Player opponent)```, forcing the opponent to ```defend(damage)``` 
+against  the damage of the used armament combination. 
+To find the lowest cost to win (part 1), just take the list of ```ArmamentCombination```s, sort it from lowest to 
+highest cost, and battle using them one by onw, until you found the first winning combination.
+For part 2, you need to find the most expensive ArmamentCombination that will make you loose. Which is pretty similar 
+to part 1, if you first sort the ```ArmamentConbination```s in reversed order of costs (most expensive first).

@@ -63,8 +63,7 @@ public class Player {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Player)) return false;
-        Player player = (Player) o;
+        if (!(o instanceof Player player)) return false;
         return hitPoints == player.hitPoints &&
                 damage == player.damage &&
                 armor == player.armor &&
@@ -77,18 +76,18 @@ public class Player {
         return Objects.hash(name, hitPoints, armaments);
     }
 
-    public static Player boss(List<String> desscriptions) {
+    public static Player boss(List<String> descriptions) {
         final Player player = boss();
 
         try {
-            desscriptions.forEach(description -> {
+            descriptions.forEach(description -> {
                 final String[] words = description.split(":");
                 if (words[0].startsWith("Hit Points")) player.hitPoints = Integer.parseInt(words[1].trim());
                 else if (words[0].startsWith("Damage")) player.damage = Integer.parseInt(words[1].trim());
                 else if (words[0].startsWith("Armor")) player.armor = Integer.parseInt(words[1].trim());
             });
         } catch (NumberFormatException exc) {
-            throw new IllegalArgumentException("Invalid player description..." + desscriptions, exc);
+            throw new IllegalArgumentException("Invalid player description..." + descriptions, exc);
         }
 
         return player;
