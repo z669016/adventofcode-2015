@@ -1,9 +1,9 @@
 package com.putoet.day13;
 
+import com.putoet.resources.ResourceLines;
+import com.putoet.statistics.Permutator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utilities.Permutator;
-import utilities.ResourceLines;
 
 import java.util.HashSet;
 import java.util.List;
@@ -63,7 +63,8 @@ class HappinessMapTest {
         final List<List<String>> permutations = permutator.permute(seatingPlan);
         int optimized =  permutations.stream().map(map::happiness)
                 .mapToInt(i -> i)
-                .max().getAsInt();
+                .max()
+                .orElseThrow();
 
         assertEquals(330, optimized);
         assertEquals(330, map.happiness(seatingPlan));
@@ -73,7 +74,7 @@ class HappinessMapTest {
     void fromListIncludingMyself() {
         final HappinessMap mapIncludingMyself = HappinessMap.fromListIncludingMyself(ResourceLines.list("/day13.txt"));
 
-        final Set<String> persons = new HashSet<String>(mapIncludingMyself.persons());
+        final Set<String> persons = new HashSet<>(mapIncludingMyself.persons());
         persons.remove(HappinessMap.MYSELF);
 
         final Person myself = mapIncludingMyself.person(HappinessMap.MYSELF);

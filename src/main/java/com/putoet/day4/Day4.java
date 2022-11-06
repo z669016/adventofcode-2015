@@ -1,6 +1,6 @@
 package com.putoet.day4;
 
-import utilities.MD5;
+import com.putoet.security.MD5;
 
 import java.security.NoSuchAlgorithmException;
 
