@@ -116,7 +116,7 @@ not visited and their integer values get ignored).
 
 ## Day 13
 First step is to translate all the input data into ```PersonToPersonHappiness``` records, which you will need for 
-calculation. Then a ```Person``` class, which can calculate someones happiness depending on the person to it's left and 
+calculation. Then a ```Person``` class, which can calculate someone's happiness depending on the person to it's left and 
 to it's right. For that purpose the Person class gets populated with a list of appropriate 
 ```PersonToPersonHappiness``` records using the ```HappinessMap``` factory class.
 
@@ -179,3 +179,13 @@ a list of all possible transformations (e.g. when multiple new molecules can be 
 multiple times in the starting molecule). And I created a ```Transformations``` class, which holds a list of 
 ```Transformation```s, with an ```apply``` method which returns a list of the result of applying all individual 
 ```Transformation```s in the list.
+
+## Day 20
+The puzzle looks more difficult than it actually is. I used a brute force method, just start with house number 1 and 
+keep increasing until a number was found that received the right number of presents given the "visit strategy" of the 
+elves. The trick is in calculating which elves will visit a particular house number using ```factors```.
+For part 1, loop over all house numbers starting with 1, and simply sum all the factors (the numbers of the elves that 
+visited the house) and multiply by 10 (as each elf delivers 10 presents, see ```presentsInfinite()```) to find the 
+right house number. 
+Part 2 is very similar, but uses a different strategy ```presentsFinite()``` to calculate the number of presents, as 
+now each elf visits max 50 houses and delivers 11 presents.
