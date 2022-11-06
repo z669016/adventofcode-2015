@@ -252,3 +252,16 @@ For part 2, I hoped I could make solution for part 1 more generic (not just 3, b
 that wasn't that easy so I just created another weight balancer method for four compartments (slight change of the 3 
 compartment method).
 
+## Day 25
+From the first part of the description (the low numbers table) you can find the algorithm to get the index of the value
+at a certain (row, column) coordinate. You see the first index of the rows start with 1, for the second add 1 to the 
+index, for the third add 2 to the previous index, etc. The value to add for every subsequent row increases with on. 
+Knowing this pattern, you can calculate the value index of position 1 of each row. This is implemented in 
+```CodeId.rowStar(row)```.
+The horizontal values in each row have a similar pattern, however the first increase is equal to row-number + 1, and 
+increases with 1 for every position you move to the right. This is implemented in ```CodeId.cell(row,column)```.
+This means that having a (row, column) pair, you can calculate the index of the value to find, e.g. the value at (4, 3)
+has index 18. Starting with the first value, calculate 18 times a "next" value to find the right answer.
+```CodeId.valueAtCell(row,column)``` uses these methods to get the index and then calls 
+```CodeId.valueAtIndex(index)``` which just loops to calculate the right value. And of course, given the high numbers 
+it is probably wise to use long values instead of integers. 
