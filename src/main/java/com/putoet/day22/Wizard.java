@@ -26,10 +26,6 @@ public class Wizard extends Player {
         this.mana -= mana;
     }
 
-    public int armor() {
-        return armor;
-    }
-
     public void armor(int armor) {
         this.armor += armor;
     }

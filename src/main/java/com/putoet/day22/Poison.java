@@ -4,7 +4,7 @@ public class Poison {
     static String name() { return "Poison"; }
     static int costs() { return 173; }
     static int damage() { return 3; }
-    static int timer() { return 6; };
+    static int timer() { return 6; }
 
     public static Effect cast(Wizard wizard, Boss boss) {
         if (wizard.mana() >= costs()) {

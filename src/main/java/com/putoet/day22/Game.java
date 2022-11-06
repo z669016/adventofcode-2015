@@ -9,7 +9,7 @@ public class Game implements Comparable<Game> {
     private final List<Effect> activeEffects = new ArrayList<>();
 
     private boolean bossTurn = false;
-    private boolean hard = false;
+    private final boolean hard;
 
     public Game(Wizard wizard, Boss boss) {
         this(wizard, boss, false);
@@ -33,9 +33,7 @@ public class Game implements Comparable<Game> {
         }
 
         if (!done()) {
-            activeEffects.forEach(effect -> {
-                effect.apply(wizard, boss);
-            });
+            activeEffects.forEach(effect -> effect.apply(wizard, boss));
             activeEffects.removeIf(Effect::ended);
         }
 

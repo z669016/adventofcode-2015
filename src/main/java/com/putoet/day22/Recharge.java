@@ -4,7 +4,7 @@ public class Recharge {
     static String name() { return "Recharge"; }
     static int costs() { return 229; }
     static int mana() { return 101; }
-    static int timer() { return 5; };
+    static int timer() { return 5; }
 
     public static Effect cast(Wizard wizard, Boss boss) {
         if (wizard.mana() >= costs()) {

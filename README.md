@@ -194,11 +194,34 @@ now each elf visits max 50 houses and delivers 11 presents.
 Started with a ```Armament``` record which can be a ```WEAPON```, ```ARMOR``` or a ```RING```, containing the details 
 of a piece of armament (like costs, damage, protection), and an ```Armory``` class which knows about all  types of 
 ```Armament``` and is capable of creating a list of all possible ```ArmamentCombination```s for a brute force  
-approach to finding the solution.
+approach to find the solution.
 A ```Player``` class represents a player in the game which can be you, or the boss. A player can pick a list of 
 ```Armament```s, and has the ability to ```attack(Player opponent)```, forcing the opponent to ```defend(damage)``` 
-against  the damage of the used armament combination. 
+against the damage caused by the used armament combination. 
 To find the lowest cost to win (part 1), just take the list of ```ArmamentCombination```s, sort it from lowest to 
 highest cost, and battle using them one by onw, until you found the first winning combination.
 For part 2, you need to find the most expensive ArmamentCombination that will make you loose. Which is pretty similar 
 to part 1, if you first sort the ```ArmamentConbination```s in reversed order of costs (most expensive first).
+
+## Day 22
+This may look like a slight variation to day 21, but it is a completely different ballgame. Finding the winner now has
+become an actual breadths-search-first problem. You need to follow different paths of battle simultaneously to find  
+the fastest solution. BSF search uses a queue to enable simultaneous search  (explore all 'next' possibilities before 
+moving on). Using a ```PriorityQueue``` over a ```Queue``` ensures you explore the cheapest possible solution next.
+First the ground works, a ```Player``` class as the base for a ```Boss``` class and a ```Wizard``` class.
+Next a ```Drain```, ```MagicMissile```, ```Poison```, ```Recharge```, and ```Shield``` spell class, which, when casted,
+reduce the mana of the wizard (payment) and activate some  ```Effect``` (interface).
+Finally a ```Game``` class to run the show. 
+
+Finding the answer for part 1, means to start with an initial game (with a configured ```Wizard``` and  ```Boss```) 
+and take turns until the game has ended.  When a ```Game``` takes a ```turn()```, it first applies all the active 
+```Effect```s to the Wizard and the Boss. The effect timer will be updated and effects that have run out, are removed 
+from the list of active effects. When the game isn't ```done``` (wizard or boss has lost), then the boss will strike 
+it's attack on the wizard. Finally the ```turn``` method returns the possible next Game states, which is the current 
+state plus one possible additional spell casted. All possible next Game states are added to the priority queue, and the 
+loop runs again (taking the first game from the ```PriorityQueue``` and calling it's ```turn()```. Once you see how 
+the queue is being used for the search, it's fairly simple.
+
+Part 2 isn't much more difficult. I simply added a parameter to the Game constructor (```hard```) which, makes that 
+at the beginning of each turn, the wizard receives 1 damage. For the rest, everything is the same.
+

@@ -1,13 +1,11 @@
 package com.putoet.day22;
 
-import javax.imageio.plugins.tiff.TIFFDirectory;
-
 public class Drain {
     static String name() { return "Drain"; }
     static int costs() { return 73; }
     static int damage() { return 2; }
     static int healing() { return 2; }
-    static int timer() { return 1; };
+    static int timer() { return 1; }
 
     public static Effect cast(Wizard wizard, Boss boss) {
         if (wizard.mana() >= costs()) {

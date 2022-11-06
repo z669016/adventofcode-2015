@@ -4,7 +4,7 @@ public class MagicMissile {
     static String name() { return "Magic Missile"; }
     static int costs() { return 53; }
     static int damage() { return 4; }
-    static int timer() { return 1; };
+    static int timer() { return 1; }
 
     public static Effect cast(Wizard wizard, Boss boss) {
         if (wizard.mana() >= costs()) {

@@ -1,12 +1,10 @@
 package com.putoet.day22;
 
-import javax.print.DocFlavor;
-
 public class Shield {
     static String name() { return "Shield"; }
     static int costs() { return 113; }
     static int armor() { return 7; }
-    static int timer() { return 7; };
+    static int timer() { return 7; }
 
     public static Effect cast(Wizard wizard, Boss boss) {
         if (wizard.mana() >= costs()) {

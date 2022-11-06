@@ -36,7 +36,7 @@ public class Day22 {
         final PriorityQueue<Game> queue = new PriorityQueue<>();
         queue.offer(initialGame);
 
-        Game game = initialGame;
+        Game game;
         Game cheapest = null;
         while(!queue.isEmpty()) {
             game = queue.poll();
