@@ -1,10 +1,11 @@
 package com.putoet.day13;
 
 import com.putoet.resources.ResourceLines;
-import com.putoet.statistics.Permutator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.paukov.combinatorics3.Generator;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -43,7 +44,7 @@ class HappinessMapTest {
 
     @Test
     void fromList() {
-        final List<String> seatingPlan = List.of("Carol", "David", "Alice", "Bob");
+        final String[] seatingPlan = {"Carol", "David", "Alice", "Bob"};
         final List<String> descriptions = List.of(
                 "Alice would gain 54 happiness units by sitting next to Bob.",
                 "Alice would lose 79 happiness units by sitting next to Carol.",
@@ -59,15 +60,13 @@ class HappinessMapTest {
                 "David would gain 41 happiness units by sitting next to Carol.");
         final HappinessMap map = HappinessMap.fromList(descriptions);
 
-        final Permutator<String> permutator = new Permutator<>();
-        final List<List<String>> permutations = permutator.permute(seatingPlan);
-        int optimized =  permutations.stream().map(map::happiness)
+        int optimized =  Generator.permutation(seatingPlan).simple().stream().map(map::happiness)
                 .mapToInt(i -> i)
                 .max()
                 .orElseThrow();
 
         assertEquals(330, optimized);
-        assertEquals(330, map.happiness(seatingPlan));
+        assertEquals(330, map.happiness(Arrays.stream(seatingPlan).toList()));
     }
 
     @Test

@@ -1,9 +1,8 @@
 package com.putoet.day9;
 
 import com.putoet.resources.ResourceLines;
-import com.putoet.statistics.Permutator;
+import org.paukov.combinatorics3.Generator;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.OptionalInt;
@@ -17,10 +16,8 @@ public class Day9 {
     public static void main(String[] args) {
         final List<String> descriptions = ResourceLines.list("/day9.txt");
         final DistanceMap map = DistanceMap.fromDescriptions(descriptions);
-        final List<String> cities = new ArrayList<>(map.cities());
-        final Permutator<String> permutator = new Permutator<>();
-        final List<List<String>> routes = permutator.permute(cities);
-        final int[] distances = routes.stream()
+        final String[] cities = map.cities().toArray(String[]::new);
+        final int[] distances = Generator.permutation(cities).simple().stream()
                 .map(map::routeDistance)
                 .mapToInt(i -> i)
                 .toArray();

@@ -1,8 +1,9 @@
 package com.putoet.day13;
 
 import com.putoet.resources.ResourceLines;
-import com.putoet.statistics.Permutator;
+import org.paukov.combinatorics3.Generator;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Day13 {
@@ -16,14 +17,13 @@ public class Day13 {
     }
 
     private static void optimize(HappinessMap map) {
-        final List<String> persons = List.copyOf(map.persons());
+        final String[] persons = map.persons().toArray(String[]::new);
 
-        final Permutator<String> permutator = new Permutator<>();
-        final List<List<String>> permutations = permutator.permute(persons);
-        int optimized =  permutations.stream().map(map::happiness)
+        int optimized =  Generator.permutation(persons).simple().stream()
+                .map(map::happiness)
                 .mapToInt(i -> i)
                 .max()
                 .orElseThrow();
-        System.out.println("Optimal happiness for " + persons + " is " + optimized);
+        System.out.println("Optimal happiness for " + Arrays.toString(persons) + " is " + optimized);
     }
 }

@@ -1,11 +1,11 @@
 package com.putoet.day21;
 
-import com.putoet.statistics.Permutator;
+import org.paukov.combinatorics3.Generator;
 
 import java.util.*;
 
 public class Armory {
-    private final static List<Armament> ARMAMENTS = List.of(
+    private final static Armament[] ARMAMENTS = {
             new Armament(Armament.Type.WEAPON, "Dagger", 8, 4, 0),
             new Armament(Armament.Type.WEAPON, "Shortsword", 10, 5, 0),
             new Armament(Armament.Type.WEAPON, "Warhammer", 25, 6, 0),
@@ -22,25 +22,25 @@ public class Armory {
             new Armament(Armament.Type.RING, "Defense +1", 20, 0, 1),
             new Armament(Armament.Type.RING, "Defense +2", 40, 0, 2),
             new Armament(Armament.Type.RING, "Defense +3", 80, 0, 3)
-    );
+    };
 
-    public List<Armament> stock() {
+    public Armament[] stock() {
         return ARMAMENTS;
     }
 
-    public List<Armament> stock(Armament.Type type) {
-        return ARMAMENTS.stream()
+    public Armament[] stock(Armament.Type type) {
+        return Arrays.stream(ARMAMENTS)
                 .filter(armament -> armament.type() == type)
-                .toList();
+                .toArray(Armament[]::new);
     }
 
-    public List<Armament> stock(Set<Armament.Type> types) {
-        return ARMAMENTS.stream()
+    public Armament[] stock(Set<Armament.Type> types) {
+        return Arrays.stream(ARMAMENTS)
                 .filter(armament -> types.contains(armament.type()))
-                .toList();
+                .toArray(Armament[]::new);
     }
 
-    record ArmamentCombination(int costs, List<Armament> armaments) {
+    public record ArmamentCombination(int costs, List<Armament> armaments) {
     }
 
     public List<ArmamentCombination> combinations() {
@@ -62,9 +62,7 @@ public class Armory {
             }
 
             // Try with two rings
-            final Permutator<Armament> permutator = new Permutator<>();
-            final List<List<Armament>> ringCombinations = permutator.combinations(stock(Armament.Type.RING));
-            for (List<Armament> rings : ringCombinations) {
+            Generator.combination(stock(Armament.Type.RING)).simple(2).stream().forEach(rings -> {
                 armamentCombinations.add(new ArmamentCombination(weapon.cost() + rings.get(0).cost() + rings.get(1).cost(),
                         List.of(weapon, rings.get(0), rings.get(1))));
 
@@ -72,7 +70,7 @@ public class Armory {
                 for (Armament armor : stock(Armament.Type.ARMOR))
                     armamentCombinations.add(new ArmamentCombination(weapon.cost() + rings.get(0).cost() + rings.get(1).cost() + armor.cost(),
                             List.of(weapon, rings.get(0), rings.get(1), armor)));
-            }
+            });
         }
 
         return armamentCombinations;
