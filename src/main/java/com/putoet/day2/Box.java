@@ -6,19 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class Box {
-    private final int l;
-    private final int w;
-    private final int h;
-
-    private Box(int l, int w, int h) {
-        this.l = l;
-        this.w = w;
-        this.h = h;
-    }
-
-    public int length() { return l; }
-
+record Box(int l, int w, int h) {
     public int wrapSize() {
         return (2 * l * w) + (2 * w * h) + (2 * h * l);
     }
