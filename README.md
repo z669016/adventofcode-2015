@@ -44,9 +44,9 @@ Simple brute force ... use a counter and increase it until you found a MD5 hash 
 format. Just let the computer do what it's good at (compute).
 
 ## Day 5
-Again brute force and  very straight forward. Create some utility methods that do the checks on strings (just a simple
-separate utility method for every property to be checked). For convenience, I've created an ```isNice``` and 
-```isNicer``` method that combined the property checks. 
+Again brute force and  very straight forward. Created some utility methods that do the checks on strings (just a simple
+separate utility method for every property to be checked). For convenience, I've created an ```Nice.isNice(String)``` 
+and a ```Nice.isNicer(String)``` method that combine the required property checks. 
 
 ## Day 6
 A great puzzle to solve using functional programming techniques. You have a 1000x1000 lightGrid with elements to which an 
