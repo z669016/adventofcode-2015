@@ -64,7 +64,7 @@ of elements. After processing, simply sum the value of all elements in  the ligh
 
 ## Day 7
 Another challenge to be solved using functional programming techniques. Each instruction can be translated into a 
-```Supplier<Integer>``` with a name. A ```Circuit``` can be build from suppliers that get connected using their name. 
+```Supplier<Integer>``` with a name. A ```Circuit``` can be built from suppliers that get connected using their name. 
 Each supplier can have zero, one or two operands, which are suppliers themselves.
 
 For part 1, you build a ```Circuit```, by literally wiring the ```Supplier<Integer>``` instances, and then request the
@@ -249,7 +249,7 @@ weight for the first container. Then ordered that list based on size (as we need
 the passenger compartment and lowest Quantum Entanglement). Then find the possible second and third container grouping to match 
 the first container (in weight) to make sure the total adds up correctly.
 For part 2, I hoped I could make solution for part 1 more generic (not just 3, but any number of compartments), but 
-that wasn't that easy so I just created another weight balancer method for four compartments (slight change of the 3 
+that wasn't that easy, so I just created another weight balancer method for four compartments (slight change of the 3 
 compartment method).
 
 ## Day 25
