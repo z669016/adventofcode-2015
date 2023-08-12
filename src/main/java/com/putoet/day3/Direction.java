@@ -3,7 +3,7 @@ package com.putoet.day3;
 public enum Direction {
     NORTH, WEST, SOUTH, EAST;
 
-    public static Direction valueOf(int symbol) {
+    public static Direction of(int symbol) {
         return switch (symbol) {
             case '^' -> NORTH;
             case '>' -> WEST;

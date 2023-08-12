@@ -9,9 +9,9 @@ class DirectionTest {
 
     @Test
     void valueOf() {
-        assertEquals(NORTH, Direction.valueOf('^'));
-        assertEquals(WEST, Direction.valueOf('>'));
-        assertEquals(SOUTH, Direction.valueOf('v'));
-        assertEquals(EAST, Direction.valueOf('<'));
+        assertEquals(NORTH, Direction.of('^'));
+        assertEquals(WEST, Direction.of('>'));
+        assertEquals(SOUTH, Direction.of('v'));
+        assertEquals(EAST, Direction.of('<'));
     }
 }

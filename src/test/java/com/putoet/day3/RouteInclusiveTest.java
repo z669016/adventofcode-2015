@@ -3,8 +3,6 @@ package com.putoet.day3;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class RouteInclusiveTest {
@@ -25,7 +23,7 @@ class RouteInclusiveTest {
 
     @Test
     public void addresses() {
-        final Set<Address> addresses = route.addresses();
+        final var addresses = route.addresses();
         assertEquals(3, addresses.size());
         assertTrue(addresses.contains(Address.startAddress()));
         assertTrue(addresses.contains(Address.startAddress().move(Direction.NORTH)));
@@ -34,12 +32,12 @@ class RouteInclusiveTest {
 
     @Test
     public void add() {
-        final Route routeTwo = new RouteExclusive();
+        final var routeTwo = new RouteExclusive();
         routeTwo.add(Direction.WEST);
         routeTwo.add(Direction.WEST);
         routeTwo.add(Direction.EAST);
 
-        final Route combinedRoute = route.add(routeTwo);
+        final var combinedRoute = route.add(routeTwo);
         assertEquals(5, combinedRoute.visitedAddresses());
     }
 }
