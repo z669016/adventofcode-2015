@@ -111,7 +111,7 @@ public class StringUtils {
     public static boolean containsAny(String text, List<String> any) {
         assert text != null;
 
-        if (any.size() == 0)
+        if (any.isEmpty())
             return false;
 
         for (String anyElement : any)
