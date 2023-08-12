@@ -13,27 +13,29 @@ It was never my intention to create the shortest program possible. I did try to 
 
 ## Day 1
 Quite straight forward for part one. Translate the input stream into a stream characters, and then map each character 
-into a ```Pair<Integer,Integer>```, where the first value contains the individual characters translated into +1 or -1,
-and the second value contains  the position in the stream (using an ```AtomicInteger```).
+into a ```record Move(floor,position)```, where the ```floor``` contains the individual characters translated into +1 
+or -1, and the position is the position in the stream (using an ```AtomicInteger``` as a static counter).
 
 For part one, you simply need to sum all the first values in the stream of pairs. For part 2, ```reduce``` the stream
 while adding the first values of the pairs until the sum becomes < 0. Then return the position (second value of the 
-pair)  that got you in the basement.
+pair) that got you in the basement.
 
-I initially used a do-while loop, but refactored it by adding the position in a Pair. Just as an exercise.
+I initially used a do-while loop, but refactored it by adding the position in a Pair (javatuples), and later to a 
+```record Move```. 
 
 ## Day 2
-I've created a ```Box``` class, with the required methods for calculating wrap-size and ribbon per box. 
-For part 1 the input is transformed into ```Box``` objects and the wrap-size per box is summed. Part 2 is similar, 
-and adds up all the ribbon length  required per box.
+I've created a ```Box``` record, with the required methods for calculating wrap-size and ribbon per box. The input is
+transformed into a ```List<Box>```. For part one the wrap-size per box is summed. Part 2 is similar, 
+and sums the ribbon length per box.
 
 ## Day 3
 This exercise is about counting addresses and visits (where one address could be visited multiple times). From the 
 input, the characters are translated into a ```Direction```, and a ```Route``` instance is used to add the direction 
-to a route. A unique ```Address``` (basically an X,Y coordinate pair) is added to the list (remember the last one 
-visited), and the visit-count is updated if an address is already in the list. A ```Map``` is used to keep track of 
+to a route. Each ```record Address(int x, int y)``` is added to the ```Route``` (which remembers the last address 
+visited, and updates the visit-count for each address already visited). A ```Map``` is used to keep track of 
 visited addresses, using the  address as a key. The number of visited addresses equals 
-the size of the list, and the number of visits can be obtained by summing all the visit-counts (map values) per address.
+the size of the map, and the number of visits can be obtained by summing all the visit-counts (map values).
+
 Part two isn't much different, but you need to keep two lists (one for addresses visited by Santa, and one for 
 addresses visited by the robot).
 
