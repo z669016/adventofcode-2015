@@ -1,6 +1,5 @@
 package com.putoet.day1;
 
-import org.javatuples.Pair;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -11,17 +10,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class Day1Test {
     @Test
     void transformOpen() {
-        assertEquals(Pair.with(1, 3), Day1.transform('(', new AtomicInteger(3)));
+        assertEquals(new Day1.Move(1, 3), Day1.Move.of('(', new AtomicInteger(3)));
     }
 
     @Test
     void transformClose() {
-        assertEquals(Pair.with(-1, 5), Day1.transform(')', new AtomicInteger(5)));
+        assertEquals(new Day1.Move(-1, 5), Day1.Move.of(')', new AtomicInteger(5)));
     }
 
     @Test
     void transformOther() {
-        assertThrows(IllegalArgumentException.class, () -> Day1.transform('+', new AtomicInteger(0)));
+        assertThrows(IllegalArgumentException.class, () -> Day1.Move.of('+', new AtomicInteger(0)));
     }
 
     @Test
