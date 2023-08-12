@@ -32,7 +32,7 @@ record Box(int l, int w, int h) {
     }
 
     public static Box of(String format) {
-        final int[] lwh = Arrays.stream(format.split("x")).mapToInt(Integer::parseInt).toArray();
+        final var lwh = Arrays.stream(format.split("x")).mapToInt(Integer::parseInt).toArray();
         if (lwh.length != 3)
             throw new IllegalArgumentException("Invalid format provided '" + format + "'");
 
