@@ -1,6 +1,6 @@
 package com.putoet.day3;
 
-public enum Direction {
+enum Direction {
     NORTH, WEST, SOUTH, EAST;
 
     public static Direction of(int symbol) {

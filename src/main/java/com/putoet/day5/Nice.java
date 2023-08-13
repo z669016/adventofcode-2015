@@ -3,9 +3,8 @@ package com.putoet.day5;
 import utilities.StringUtils;
 
 import java.util.List;
-
-public class Nice {
-    public static boolean isNice(String text) {
+class Nice {
+    static boolean isNice(String text) {
         assert text != null;
 
         return !StringUtils.containsAny(text, List.of("ab", "cd", "pq", "xy"))
@@ -13,7 +12,7 @@ public class Nice {
                 && StringUtils.containsDouble(text);
     }
 
-    public static boolean isNicer(String text) {
+    static boolean isNicer(String text) {
         assert text != null;
 
         return StringUtils.containsSeperatedDouble(text) && StringUtils.containsPairWithoutOverlap(text);

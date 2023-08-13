@@ -1,7 +1,7 @@
 package com.putoet.day3;
 
-public class RouteInclusive extends RouteExclusive implements CombinableRoute {
-    public RouteInclusive() {
+class RouteInclusive extends RouteExclusive implements CombinableRoute {
+    RouteInclusive() {
         add(Address.startAddress(), 1);
     }
 

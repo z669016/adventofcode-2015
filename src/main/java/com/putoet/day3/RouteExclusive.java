@@ -5,11 +5,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public class RouteExclusive implements Route {
+class RouteExclusive implements Route {
     private final Map<Address, Integer> route = new HashMap<>();
     private Address lastAddress;
 
-    public RouteExclusive() {
+    RouteExclusive() {
         lastAddress = Address.startAddress();
     }
 

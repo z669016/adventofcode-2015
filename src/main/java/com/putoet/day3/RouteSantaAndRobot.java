@@ -3,7 +3,7 @@ package com.putoet.day3;
 import java.util.Optional;
 import java.util.Set;
 
-public class RouteSantaAndRobot implements Route {
+class RouteSantaAndRobot implements Route {
     private final CombinableRoute routeSanta = new RouteInclusive();
     private final Route routeRobot = new RouteExclusive();
     private Route activeRoute = routeSanta;

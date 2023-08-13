@@ -1,5 +1,6 @@
 package com.putoet.day1;
 
+import com.putoet.Timer;
 import com.putoet.resources.ResourceLines;
 
 import java.util.Optional;
@@ -40,11 +41,20 @@ public class Day1 {
     public static void main(final String[] args) {
         final var input = ResourceLines.line("/day1.txt");
 
-        System.out.println("Solution day 1: " + finalFloor(input, new AtomicInteger(1)));
-        final var basement = basement(input, new AtomicInteger(1));
-        if (basement.isPresent())
-            System.out.println("Entered the basement at position " + basement.get());
-        else
-            System.out.println("Never entered the basement");
+        Timer.run(() -> {
+            System.out.println("Solution day 1: " + finalFloor(input, new AtomicInteger(1)));
+
+            return null;
+        });
+
+        Timer.run(() -> {
+            final var basement = basement(input, new AtomicInteger(1));
+            if (basement.isPresent())
+                System.out.println("Entered the basement at position " + basement.get());
+            else
+                System.out.println("Never entered the basement");
+
+            return null;
+        });
     }
 }
