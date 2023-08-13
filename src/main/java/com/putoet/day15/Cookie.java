@@ -2,45 +2,42 @@ package com.putoet.day15;
 
 import java.util.Map;
 
-public class Cookie {
-    private final  Map<Ingredient,Integer> ingredients;
+record Cookie(Map<Ingredient,Integer> ingredients) {
 
-    public Cookie(Map<Ingredient,Integer> ingredients) {
+    public Cookie {
         if (ingredients.values().stream().mapToInt(i->i).sum() != 100)
             throw new IllegalArgumentException("Ingredients must total up to 100 teaspoons " + ingredients);
-
-        this.ingredients = ingredients;
     }
 
     public long score() {
         return totalCapacity() * totalDurability() * totalFlavor() * totalTexture();
     }
 
-    protected long totalCapacity() {
+    long totalCapacity() {
         return Math.max(0, ingredients.entrySet().stream()
                 .mapToInt(e -> e.getKey().capacity() * e.getValue())
                 .sum());
     }
 
-    protected long totalDurability() {
+    long totalDurability() {
         return Math.max(0, ingredients.entrySet().stream()
                 .mapToInt(e -> e.getKey().durability() * e.getValue())
                 .sum());
     }
 
-    protected long totalFlavor() {
+    long totalFlavor() {
         return Math.max(0, ingredients.entrySet().stream()
                 .mapToInt(e -> e.getKey().flavor() * e.getValue())
                 .sum());
     }
 
-    protected long totalTexture() {
+    long totalTexture() {
         return Math.max(0, ingredients.entrySet().stream()
                 .mapToInt(e -> e.getKey().texture() * e.getValue())
                 .sum());
     }
 
-    protected long totalCalories() {
+    long totalCalories() {
         return Math.max(0, ingredients.entrySet().stream()
                 .mapToInt(e -> e.getKey().calories() * e.getValue())
                 .sum());

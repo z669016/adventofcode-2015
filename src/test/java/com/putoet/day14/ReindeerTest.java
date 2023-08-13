@@ -49,8 +49,8 @@ class ReindeerTest {
 
     @Test
     void samples() {
-        final Reindeer comet = Reindeer.fromDescription("Comet can fly 14 km/s for 10 seconds, but then must rest for 127 seconds.");
-        final Reindeer dancer = Reindeer.fromDescription("Dancer can fly 16 km/s for 11 seconds, but then must rest for 162 seconds.");
+        final var comet = Reindeer.fromDescription("Comet can fly 14 km/s for 10 seconds, but then must rest for 127 seconds.");
+        final var dancer = Reindeer.fromDescription("Dancer can fly 16 km/s for 11 seconds, but then must rest for 162 seconds.");
 
         assertEquals(1120, comet.distance(1000));
         assertEquals(1056, dancer.distance(1000));

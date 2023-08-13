@@ -8,8 +8,8 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CookieTest {
-    private final Ingredient butterscotch = Ingredient.fromDescription("Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8");
-    private final Ingredient cinnamon = Ingredient.fromDescription("Cinnamon: capacity 2, durability 3, flavor -2, texture -1, calories 3");
+    private final Ingredient butterscotch = Ingredient.of("Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8");
+    private final Ingredient cinnamon = Ingredient.of("Cinnamon: capacity 2, durability 3, flavor -2, texture -1, calories 3");
     private Cookie cookie = null;
 
     @BeforeEach

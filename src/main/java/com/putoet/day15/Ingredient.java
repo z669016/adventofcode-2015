@@ -1,14 +1,14 @@
 package com.putoet.day15;
 
-public record Ingredient(String name, int capacity, int durability, int flavor, int texture, int calories) {
-    public static Ingredient fromDescription(String description) {
-        final String[] words = description.split(" ");
-        final String name = trimLastChar(words[0]);
-        final int capacity = Integer.parseInt(trimLastChar(words[2]));
-        final int durability = Integer.parseInt(trimLastChar(words[4]));
-        final int flavor = Integer.parseInt(trimLastChar(words[6]));
-        final int texture = Integer.parseInt(trimLastChar(words[8]));
-        final int calories = Integer.parseInt(words[10]);
+record Ingredient(String name, int capacity, int durability, int flavor, int texture, int calories) {
+    public static Ingredient of(String description) {
+        final var words = description.split(" ");
+        final var name = trimLastChar(words[0]);
+        final var capacity = Integer.parseInt(trimLastChar(words[2]));
+        final var durability = Integer.parseInt(trimLastChar(words[4]));
+        final var flavor = Integer.parseInt(trimLastChar(words[6]));
+        final var texture = Integer.parseInt(trimLastChar(words[8]));
+        final var calories = Integer.parseInt(words[10]);
 
         return new Ingredient(name, capacity, durability, flavor, texture, calories);
     }

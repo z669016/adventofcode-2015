@@ -8,7 +8,7 @@ class IngredientTest {
 
     @Test
     void fromDescription() {
-        final Ingredient ingredient = Ingredient.fromDescription("Butterscotch: capacity -1, durability 1, flavor 5, texture 0, calories 6");
+        final var ingredient = Ingredient.of("Butterscotch: capacity -1, durability 1, flavor 5, texture 0, calories 6");
         assertEquals("Butterscotch", ingredient.name());
         assertEquals(-1, ingredient.capacity());
         assertEquals(1, ingredient.durability());

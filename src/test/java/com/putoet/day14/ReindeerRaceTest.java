@@ -13,24 +13,24 @@ class ReindeerRaceTest {
 
     @Test
     void race() {
-        final ReindeerRace race = new ReindeerRace(list);
-        final Reindeer winner = race.race(1, new DistanceScoreSystem());
+        final var race = new ReindeerRace(list);
+        final var winner = race.race(1, new DistanceScoreSystem());
         assertEquals(dancer, winner);
     }
 
     @Test
     void scoreDistance() {
-        final ReindeerRace race = new ReindeerRace(list);
-        final ScoreSystem distanceScoreSystem = new DistanceScoreSystem();
-        final Reindeer winner = race.race(1, distanceScoreSystem);
+        final var race = new ReindeerRace(list);
+        final var distanceScoreSystem = new DistanceScoreSystem();
+        final var winner = race.race(1, distanceScoreSystem);
         assertEquals(16, distanceScoreSystem.score(winner));
     }
 
     @Test
     void scoreLead() {
-        final ReindeerRace race = new ReindeerRace(list);
-        final ScoreSystem leadScoreSystem = new LeadScoreSystem();
-        final Reindeer winner = race.race(2, leadScoreSystem);
+        final var race = new ReindeerRace(list);
+        final var leadScoreSystem = new LeadScoreSystem();
+        final var winner = race.race(2, leadScoreSystem);
         assertEquals(2, leadScoreSystem.score(winner));
     }
 }
