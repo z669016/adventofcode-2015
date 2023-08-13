@@ -19,7 +19,7 @@ class LightGridTest {
 
     @BeforeEach
     void setup() {
-        lightGrid = LightGrid.fromLines(lines);
+        lightGrid = LightGrid.of(lines);
     }
 
     @Test
@@ -29,13 +29,13 @@ class LightGridTest {
 
     @Test
     void next() {
-        final LightGrid nextLightGrid = lightGrid.next();
+        final var nextLightGrid = lightGrid.next();
         assertEquals(11, nextLightGrid.burningLights());
     }
 
     @Test
     void next4() {
-        final LightGrid nextLightGrid = lightGrid.next().next().next().next();
+        final var nextLightGrid = lightGrid.next().next().next().next();
         assertEquals(4, nextLightGrid.burningLights());
     }
 }

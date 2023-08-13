@@ -17,7 +17,7 @@ public class BrokenLightGrid extends LightGrid {
         set(height() - 1, width ()- 1, true);
     }
 
-    public static BrokenLightGrid fromLines(List<String> lines) {
+    public static BrokenLightGrid of(List<String> lines) {
         final BrokenLightGrid lightGrid = new BrokenLightGrid(new Grid(GridUtils.of(lines)));
         lightGrid.broken();
 
@@ -26,7 +26,7 @@ public class BrokenLightGrid extends LightGrid {
 
     @Override
     public BrokenLightGrid next() {
-        final BrokenLightGrid nextGrid = new BrokenLightGrid(grid.copy());
+        final var nextGrid = new BrokenLightGrid(grid.copy());
         next(nextGrid);
         nextGrid.broken();
         return nextGrid;

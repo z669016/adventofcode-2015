@@ -38,7 +38,7 @@ public class LightGrid {
     }
 
     public LightGrid next() {
-        final LightGrid nextLightGrid = new LightGrid(grid.copy());
+        final var nextLightGrid = new LightGrid(grid.copy());
         next(nextLightGrid);
         return nextLightGrid;
     }
@@ -56,7 +56,7 @@ public class LightGrid {
     }
 
     private int burningAround(int y, int x) {
-        int burningAround = 0;
+        var burningAround = 0;
 
         if (get(y-1, x)) burningAround++;
         if (get(y-1, x+1)) burningAround++;
@@ -70,7 +70,7 @@ public class LightGrid {
         return burningAround;
     }
 
-    public static LightGrid fromLines(List<String> lines) {
+    public static LightGrid of(List<String> lines) {
         return new LightGrid(new Grid(GridUtils.of(lines)));
     }
 }
