@@ -1,6 +1,6 @@
 package com.putoet.day6;
 
-public enum InstructionType {
+enum InstructionType {
     TURN_ON,
     TURN_OFF,
     TOGGLE;
