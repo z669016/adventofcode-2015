@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class ContainerCombinations {
+class ContainerCombinations {
     public static List<List<Integer>> combinations(int sum, List<Integer> numbers) {
         assert sum > 0;
-        assert numbers != null && numbers.size() > 0;
+        assert numbers != null && !numbers.isEmpty();
 
         numbers = numbers.stream().sorted(Comparator.reverseOrder()).toList();
 
-        final List<List<Integer>> solutions = new ArrayList<>();
+        final var solutions = new ArrayList<List<Integer>>();
         while (sum(numbers) >= sum) {
-            final List<Integer> solution = new ArrayList<>();
+            final var solution = new ArrayList<Integer>();
             combinations(solutions, solution, sum, numbers);
             numbers = tail(numbers);
         }
@@ -21,11 +21,11 @@ public class ContainerCombinations {
     }
 
     private static void combinations(List<List<Integer>> solutions, List<Integer> solution, int sum, List<Integer> numbers) {
-        if (numbers.size() == 0)
+        if (numbers.isEmpty())
             return;
 
-        final int head = head(numbers);
-        List<Integer> tail = tail(numbers);
+        final var head = head(numbers);
+        var tail = tail(numbers);
         if (sum(solution) + head <= sum) {
             solution.add(head);
 
@@ -35,7 +35,7 @@ public class ContainerCombinations {
             }
 
             while (sum(solution) + sum(tail) >= sum) {
-                final List<Integer> subSolution = new ArrayList<>(solution);
+                final var subSolution = new ArrayList<>(solution);
                 combinations(solutions, subSolution, sum, tail);
                 tail = tail(tail);
             }
