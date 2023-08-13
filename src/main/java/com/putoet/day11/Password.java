@@ -2,21 +2,22 @@ package com.putoet.day11;
 
 import java.util.Arrays;
 
-public class Password {
-    final private char[] password;
+record Password(char[] password) {
+    public Password {
+        assert password != null;
+    }
 
     public Password(String password) {
-        assert password != null && password.length() == 8;
-        this.password = password.toCharArray();
+        this(password != null ? password.toCharArray() : null);
     }
 
     public Password next() {
-        char[] newPassword = Arrays.copyOf(password, 8);
+        var newPassword = Arrays.copyOf(password, 8);
         while (hasIncrement(newPassword)) {
             newPassword = increment(newPassword);
 
             if (isValid(newPassword))
-                return new Password(String.valueOf(newPassword));
+                return new Password(newPassword);
         }
 
         throw new IllegalStateException("Cannot generate next valid password for '" + this + "'");
@@ -28,8 +29,9 @@ public class Password {
     }
 
     private static char[] increment(char[] password) {
-        char[] increment = Arrays.copyOf(password, 8);
-        int idx = 7;
+        var increment = Arrays.copyOf(password, 8);
+        var idx = 7;
+
         increment[idx] = increment(increment[idx]);
         while((idx > 0) && (increment[idx] > 'z')) {
             increment[idx] = 'a';
@@ -37,6 +39,7 @@ public class Password {
 
             increment[idx] = increment(increment[idx]);
         }
+
         return increment;
     }
 
@@ -87,7 +90,7 @@ public class Password {
     }
 
     private static boolean hasTwoNonOverlappingPairs(char[] password) {
-        boolean doubleFound = false;
+        var doubleFound = false;
 
         for (int idx = 0; idx < password.length - 1; idx++) {
             if (password[idx] == password[idx+1]) {
