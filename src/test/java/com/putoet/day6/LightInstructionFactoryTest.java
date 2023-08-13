@@ -10,24 +10,24 @@ class LightInstructionFactoryTest {
 
     @BeforeEach
     public void setup() {
-        factory = new OnOffLightInstructionFactory();
+        factory = Day6.onOffInstructionFactory();
     }
     @Test
     public void valueOfAssertionError() {
-        assertThrows(IllegalArgumentException.class, () -> factory.valueOf("bla"));
-        assertThrows(IllegalArgumentException.class, () -> factory.valueOf("turn on 489,959 through 759,"));
+        assertThrows(IllegalArgumentException.class, () -> factory.of("bla"));
+        assertThrows(IllegalArgumentException.class, () -> factory.of("turn on 489,959 through 759,"));
     }
 
     @Test
     public void valueOfInvalidCoordinates() {
-        assertThrows(IllegalArgumentException.class, () -> factory.valueOf("turn on 1,1 through 0,1"));
-        assertThrows(IllegalArgumentException.class, () -> factory.valueOf("turn on 1,1 through 1,0"));
-        assertThrows(IllegalArgumentException.class, () -> factory.valueOf("turn on 1,1 through 0,0"));
+        assertThrows(IllegalArgumentException.class, () -> factory.of("turn on 1,1 through 0,1"));
+        assertThrows(IllegalArgumentException.class, () -> factory.of("turn on 1,1 through 1,0"));
+        assertThrows(IllegalArgumentException.class, () -> factory.of("turn on 1,1 through 0,0"));
     }
 
     @Test
     public void valueOf() {
-        final LightInstruction<Boolean> instruction = factory.valueOf("turn on 489,959 through 759,964");
+        final LightInstruction<Boolean> instruction = factory.of("turn on 489,959 through 759,964");
         assertEquals(489, instruction.minX());
         assertEquals(959, instruction.minY());
         assertEquals(759, instruction.maxX());

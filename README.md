@@ -51,18 +51,18 @@ and a ```Nice.isNicer(String)``` method that combine the required property check
 ## Day 6
 A great puzzle to solve using functional programming techniques. You have a 1000x1000 lightGrid with elements to which an 
 instruction must be applied. The instruction can be turn-on, turn-off and toggle (whatever that may mean).
-The ```LightInstructionFactory``` can  translate an input line into an ```LightInstruction``` (toggle, turn-off, 
+The ```LightInstructionFactory``` translates an input line into an ```LightInstruction``` (toggle, turn-off, 
 turn-on). The ```LightInstructionProcessor``` can initialize a lightGrid with initial values, and can ```execute(...)``` 
 ```LightInstructions``` on that lightGrid. As the processor class maintains and changes state, it's not truly functional 
 programming, but solving that could be another exercise.
 
-Part 1 can be solved using a ```OnOffLightInstructionFactory```, that creates simple set instructions on boolean values 
-(set to true, false, of not-value). Transform the input strings, using that on-off factory, and use the processor to 
-execute  the instructions on the lightGrid. At the end, just count the number of lightGrid elements with value ```true```.
+Part 1 can be solved using an on-off ```LightInstructionFactory<Boolean>```, that creates simple set instructions on 
+boolean values(set to true, false, of not-value). Transform the input strings, using that on-off factory, and use the 
+processor to execute  the instructions on the lightGrid. At the end, just sums the values of lightGrid elements,
+were ```true``` translates to 1 and ```false``` to 0.
 
-Part 2 can be solved using a ```IntensityLightInstructionFactory``` which creates instructions to add 1, subtract 1 
-or add 2, to integer lightGrid elements. The processing is the same as for part 1, but using  a  lightGrid with a different type
-of elements. After processing, simply sum the value of all elements in  the lightGrid. 
+Part 2 can be solved using an intensity ```LightInstructionFactory<Integer>``` which creates instructions to add 1, 
+subtract 1 or add 2, to integer lightGrid elements. The processing is the same as for part 1. 
 
 ## Day 7
 Another challenge to be solved using functional programming techniques. Each instruction can be translated into a 
