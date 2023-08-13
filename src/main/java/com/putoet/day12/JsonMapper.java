@@ -7,13 +7,12 @@ import com.putoet.resources.ResourceLines;
 
 import java.util.Map;
 
-public class JsonMapper {
+class JsonMapper {
     public static Map<String, Object> fromJson(String resourceName) {
         try {
-            final String data = ResourceLines.line(resourceName);
-            final String json = "{\"data\":" + data + "}";
-
-            final ObjectMapper mapper = new ObjectMapper();
+            final var data = ResourceLines.line(resourceName);
+            final var json = "{\"data\":" + data + "}";
+            final var mapper = new ObjectMapper();
             return mapper.readValue(json, new TypeReference<>() {});
         } catch (JsonProcessingException e) {
             throw new IllegalStateException("Couldn't read or parse '" + resourceName + "'", e);
