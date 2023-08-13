@@ -15,13 +15,13 @@ class DistanceTest {
 
     @Test
     void fromDescription() {
-        final Distance other = Distance.fromDescription("Faerun to Tristram = 65");
+        final var other = Distance.of("Faerun to Tristram = 65");
         assertEquals(distance, other);
     }
 
     @Test
     void fromInvalidDescription() {
-        assertThrows(IllegalArgumentException.class, () -> Distance.fromDescription("Faerun to Tristram 65"));
+        assertThrows(IllegalArgumentException.class, () -> Distance.of("Faerun to Tristram 65"));
     }
 
     @Test

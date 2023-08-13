@@ -23,9 +23,9 @@ class DistanceMapTest {
 
     @Test
     void distance() {
-        assertEquals(65, distanceMap.distance("Faerun", "Tristram").get());
-        assertEquals(63, distanceMap.distance("Tristram", "Tambi").get());
-        assertEquals(107, distanceMap.distance("AlphaCentauri", "Straylight").get());
+        assertEquals(65, distanceMap.distance("Faerun", "Tristram").orElseThrow());
+        assertEquals(63, distanceMap.distance("Tristram", "Tambi").orElseThrow());
+        assertEquals(107, distanceMap.distance("AlphaCentauri", "Straylight").orElseThrow());
 
         assertFalse(distanceMap.distance("Tambi", "Tambi").isPresent());
     }
@@ -37,13 +37,13 @@ class DistanceMapTest {
 
     @Test
     public void routeDistance() {
-        final List<String> route = List.of("Faerun", "Tristram", "Arbre", "Faerun");
+        final var route = List.of("Faerun", "Tristram", "Arbre", "Faerun");
         assertEquals(65 + 11 + 149, distanceMap.routeDistance(route));
     }
 
     @Test
     public void invallidRouteDistance() {
-        final List<String> route = List.of("Faerun", "Tristram", "Arbre", "Bla", "Faerun");
+        final var route = List.of("Faerun", "Tristram", "Arbre", "Bla", "Faerun");
         assertThrows(IllegalArgumentException.class, () -> distanceMap.routeDistance(route));
     }
 
