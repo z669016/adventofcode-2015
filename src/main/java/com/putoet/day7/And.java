@@ -2,7 +2,7 @@ package com.putoet.day7;
 
 import static utilities.IntegerUtils.unsigned16Bit;
 
-public class And implements NamedSupplier {
+class And implements NamedSupplier {
     private final String name;
     private final NamedSupplier left;
     private final NamedSupplier right;

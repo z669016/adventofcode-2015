@@ -2,9 +2,9 @@ package com.putoet.day7;
 
 import java.util.function.Supplier;
 
-public class Wire implements NamedSupplier {
+class Wire implements NamedSupplier {
     private final String name;
-    private Supplier<Integer> from = null;
+    private final Supplier<Integer> from;
     private Integer value = null;
 
     public Wire(String name, Supplier<Integer> from) {

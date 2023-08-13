@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class Circuit {
+class Circuit {
     public static final String ASSIGNMENT_PATTERN = "[a-z0-9]+";
     public static final String NOT_PATTERN = "NOT [a-z0-9]+";
     public static final String LSHIFT_PATTERN = "[a-z0-9]+ LSHIFT [a-z0-9]+";
@@ -19,7 +19,7 @@ public class Circuit {
     private final Map<String, NamedSupplier> namedSuppliers = new HashMap<>();
 
     public static Circuit from(final List<String> wiring) {
-        final Circuit circuit = new Circuit();
+        final var circuit = new Circuit();
         wiring.stream().map(line -> line.split(" -> ")).forEach(s -> circuit.encodings.put(s[1], s[0]));
         return circuit;
     }
@@ -82,13 +82,13 @@ public class Circuit {
     }
 
     public NamedSupplier forOperand(String code, Function<String[],NamedSupplier> function) {
-        final String[] operands = code.split(" ");
+        final var operands = code.split(" ");
         return function.apply(operands);
     }
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer();
+        final var sb = new StringBuffer();
         encodings.forEach((key, value) -> sb.append(value).append(" -> ").append(key).append("\n"));
         return sb.toString();
     }

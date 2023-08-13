@@ -2,7 +2,7 @@ package com.putoet.day7;
 
 import static utilities.IntegerUtils.unsigned16Bit;
 
-public class Not extends Wire {
+class Not extends Wire {
     private Integer value = null;
 
     public Not(String name, NamedSupplier from) {
