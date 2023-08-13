@@ -1,15 +1,17 @@
 package com.putoet.day16;
 
+import com.putoet.Timer;
 import com.putoet.resources.ResourceLines;
 
 import java.util.List;
 
 public class Day16 {
     public static void main(String[] args) {
-        final List<String> descriptions = ResourceLines.list("/day16.txt");
-
-        final Aunt unknownAunt = new Aunt("", 0);
-        final List<String> properties = List.of(
+        final var descriptions = ResourceLines.stream("/day16.txt")
+                .map(Aunt::of)
+                .toList();
+        final var unknownAunt = new Aunt("", 0);
+        final var properties = List.of(
                 "children: 3",
                 "cats: 7",
                 "samoyeds: 2",
@@ -22,16 +24,18 @@ public class Day16 {
                 "perfumes: 1");
         properties.forEach(unknownAunt::setProperty);
 
-        final List<Aunt> matchStrict = descriptions.stream()
-                .map(Aunt::fromDescription)
+        final var matchStrict = Timer.run(() -> descriptions.stream()
                 .filter(aunt -> aunt.couldMatch(unknownAunt))
-                .toList();
-        System.out.println("Strict match: " + matchStrict.stream().findFirst().orElseThrow().number());
+                .findFirst()
+                .orElseThrow()
+        );
+        System.out.println("Strict match: " + matchStrict.number());
 
-        final List<Aunt> match = descriptions.stream()
-                .map(Aunt::fromDescription)
+        final var match = Timer.run(() -> descriptions.stream()
                 .filter(aunt -> aunt.retroencabulatorMatch(unknownAunt))
-                .toList();
-        System.out.println("Retroencabulator match: " + match.stream().findFirst().orElseThrow().number());
+                .findFirst()
+                .orElseThrow()
+        );
+        System.out.println("Retroencabulator match: " + match.number());
     }
 }

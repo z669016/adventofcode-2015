@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AuntTest {
     @Test
-    void fromDescription() {
-        final Aunt aunt = Aunt.fromDescription("Sue 24: goldfish: 7, pomeranians: 9, akitas: 4");
+    void of() {
+        final var aunt = Aunt.of("Sue 24: goldfish: 7, pomeranians: 9, akitas: 4");
         assertEquals("Sue", aunt.name());
         assertEquals(24, aunt.number());
         assertEquals(7, aunt.goldfish());
@@ -23,14 +23,13 @@ class AuntTest {
         assertFalse(aunt.catsKnown());
         assertFalse(aunt.perfumesKnown());
 
-        assertThrows(AssertionError.class, () -> Aunt.fromDescription(null));
-        assertThrows(AssertionError.class, () -> Aunt.fromDescription(""));
-        assertThrows(AssertionError.class, () -> Aunt.fromDescription("Sue 24, goldfish 7, pomeranians 9, akitas 4"));
+        assertThrows(AssertionError.class, () -> Aunt.of(""));
+        assertThrows(AssertionError.class, () -> Aunt.of("Sue 24, goldfish 7, pomeranians 9, akitas 4"));
     }
 
     @Test
     void setProperty() {
-        final List<String> properties = List.of(
+        final var properties = List.of(
                 "children: 1",
                 "cats: 2",
                 "samoyeds: 3",
@@ -42,7 +41,7 @@ class AuntTest {
                 "cars: 9",
                 "perfumes: 10");
 
-        final Aunt aunt = new Aunt("Bla", 1);
+        final var aunt = new Aunt("Bla", 1);
         properties.forEach(aunt::setProperty);
 
         assertEquals(1, aunt.children());
@@ -67,7 +66,6 @@ class AuntTest {
         assertTrue(aunt.carsKnown());
         assertTrue(aunt.perfumesKnown());
 
-        assertThrows(AssertionError.class, () -> aunt.setProperty(null));
         assertThrows(NumberFormatException.class, () -> aunt.setProperty("bla: a"));
         assertThrows(IllegalArgumentException.class, () -> aunt.setProperty("horses: 11"));
         assertThrows(IllegalArgumentException.class, () -> aunt.setProperty(""));
@@ -76,8 +74,8 @@ class AuntTest {
 
     @Test
     void couldMatch() {
-        final Aunt aunt = Aunt.fromDescription("Sue 24: goldfish: 7, pomeranians: 9, akitas: 4");
-        final List<String> properties = List.of(
+        final var aunt = Aunt.of("Sue 24: goldfish: 7, pomeranians: 9, akitas: 4");
+        final var properties = List.of(
                 "children: 1",
                 "cats: 1",
                 "samoyeds: 1",
@@ -89,7 +87,7 @@ class AuntTest {
                 "cars: 1",
                 "perfumes: 1");
 
-        final Aunt unknownAunt = new Aunt("", 0);
+        final var unknownAunt = new Aunt("", 0);
         properties.forEach(unknownAunt::setProperty);
 
         assertTrue(aunt.couldMatch(unknownAunt));

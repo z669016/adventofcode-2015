@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 
-public class Aunt {
+class Aunt {
     private final String name;
     private final int number;
     private int children;
@@ -28,31 +28,17 @@ public class Aunt {
     private boolean carsKnown;
     private boolean perfumesKnown;
 
-    /**
-     * Create an Aunt object from a description string with a possibly incomplete list of properties. The description
-     * could look like "Sue 24: goldfish: 7, pomeranians: 9, akitas: 4". Correct formatting of the description is vital.
-     * The description ia asserted to start with a name, followed by a space, a number and a semicolon
-     * @param description String
-     * @return Aunt with name, number and the provided properties set
-     */
-    public static Aunt fromDescription(String description) {
+    public static Aunt of(String description) {
         assert description != null && description.length() > 2 && description.indexOf(':') > 0;
 
-        final String[] words = description.substring(0, description.toLowerCase().indexOf(':')).split(" ");
+        final var words = description.substring(0, description.toLowerCase().indexOf(':')).split(" ");
         if (words.length != 2)
             throw new IllegalArgumentException("Improperly formatted aunt decription '" + description + "'");
 
-        final Aunt aunt = new Aunt(words[0].trim(), Integer.parseInt(words[1].trim()));
+        final var aunt = new Aunt(words[0].trim(), Integer.parseInt(words[1].trim()));
         return setProperties(aunt,  description.substring(description.indexOf(':') + 2));
     }
 
-    /**
-     * Set the provided properties for the aunt. Properties is a comma seperated list with a property name, a
-     * semicolon and an integer property value, for example "goldfish: 7, pomeranians: 9, akitas: 4".
-     * @param aunt Aunt
-     * @param properties Comma seperated Property descriptions
-     * @return Aunt the updated aunt object
-     */
     public static Aunt setProperties(Aunt aunt, String properties) {
         for (String property : properties.split(", ")) {
             aunt.setProperty(property);
@@ -92,12 +78,12 @@ public class Aunt {
     protected void setProperty(String propertyValue) {
         assert propertyValue != null;
 
-        final String[] words = propertyValue.split(":");
+        final var words = propertyValue.split(":");
         if (words.length != 2)
             throw new IllegalArgumentException("Improperly formatted property definition '" + propertyValue + "'");
 
-        final String property = words[0].toLowerCase().trim();
-        final int value = Integer.parseInt(words[1].trim());
+        final var property = words[0].toLowerCase().trim();
+        final var value = Integer.parseInt(words[1].trim());
 
         switch (property) {
             case "children" -> {
@@ -144,15 +130,6 @@ public class Aunt {
         }
     }
 
-    /**
-     * Compare all properties (excluding name and number) to see if the aunts could be the same (match). If a property
-     * on 'this' is unknown it means it's not 0 but the actual value is unknown. So in that case there could be a match
-     * if for the unknown aunt (for which all properties are known) the value of that property is non 0. If a property
-     * of 'this' is known, it's value must match the value of the unknown aunt.
-     *
-     * @param unknownAunt Aunt with all properties known
-     * @return boolean indicating there could be a match (at least no violation of properties comparison rules)
-     */
     public boolean couldMatch(Aunt unknownAunt) {
         final BiPredicate<Integer, Integer> equal = Objects::equals;
         final BiPredicate<Integer, Integer> greaterThan = Objects::equals;
