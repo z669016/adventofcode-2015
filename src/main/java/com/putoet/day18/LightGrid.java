@@ -5,7 +5,7 @@ import com.putoet.grid.GridUtils;
 
 import java.util.List;
 
-public class LightGrid {
+class LightGrid {
     private static final char ON = '#';
     private static final char OFF = '.';
 

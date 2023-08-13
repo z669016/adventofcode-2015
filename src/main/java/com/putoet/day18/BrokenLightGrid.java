@@ -5,7 +5,7 @@ import com.putoet.grid.GridUtils;
 
 import java.util.List;
 
-public class BrokenLightGrid extends LightGrid {
+class BrokenLightGrid extends LightGrid {
     public BrokenLightGrid(Grid grid) {
         super(grid);
     }
