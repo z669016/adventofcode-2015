@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PersonToPersonHappinessTest {
 
     @Test
-    void happynessImpact() {
+    void happinessImpact() {
         final Person from = new Person("a");
         final Person to = new Person("b");
         final PersonToPersonHappiness happiness = new PersonToPersonHappiness(from, to, -10);

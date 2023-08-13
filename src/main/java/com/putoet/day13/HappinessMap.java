@@ -1,77 +1,65 @@
 package com.putoet.day13;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-public class HappinessMap {
+record HappinessMap(Map<String, Person> relationships) {
     public static final String MYSELF = "Myself";
-    private final Map<String, Person> persons = new HashMap<>();
 
-    private HappinessMap() {
+    public static HappinessMap of(List<String> happinessDescriptions) {
+        return new HappinessMap(relationships(happinessDescriptions));
     }
 
-    public static HappinessMap fromList(List<String> happinessDescriptions) {
-        final HappinessMap map = new HappinessMap();
+    public static HappinessMap ofIncludingMyself(List<String> happinessDescriptions) {
+        final var relationships = relationships(happinessDescriptions);
 
-        happinessDescriptions.forEach(description -> {
-            final String[] words = description.split(" ");
-            final String fromName = words[0];
-            final boolean negative = words[2].equals("lose");
-            final int value = Integer.parseInt(words[3]);
-            final String toName = words[10].substring(0, words[10].length() - 1);
-
-            updatePersons(map, fromName, (negative ? -1 * value : value), toName);
-        });
-
-        return map;
-    }
-
-    public static HappinessMap fromListIncludingMyself(List<String> happinessDescriptions) {
-        final HappinessMap map = fromList(happinessDescriptions);
-
-        final Person myself = new Person(MYSELF);
-        map.persons.values().forEach(person -> {
+        final var myself = new Person(MYSELF);
+        relationships.values().forEach(person -> {
             person.addHappinessRelationShip(new PersonToPersonHappiness(person, myself, 0));
             myself.addHappinessRelationShip(new PersonToPersonHappiness(myself, person, 0));
         });
-        map.persons.put(MYSELF, myself);
+        relationships.put(MYSELF, myself);
 
-        return map;
+        return new HappinessMap(relationships);
     }
 
-    private static void updatePersons(HappinessMap map, String fromName, int value, String toName) {
-        final Person from = getOrCreatePerson(map, fromName);
-        final Person to = getOrCreatePerson(map, toName);
+    private static HashMap<String, Person> relationships(List<String> happinessDescriptions) {
+        final var relationships = new HashMap<String, Person>();
+
+        happinessDescriptions.forEach(description -> {
+            final var words = description.split(" ");
+            final var fromName = words[0];
+            final var negative = words[2].equals("lose");
+            final var value = Integer.parseInt(words[3]);
+            final var toName = words[10].substring(0, words[10].length() - 1);
+
+            updatePersons(relationships, fromName, (negative ? -1 * value : value), toName);
+        });
+
+        return relationships;
+    }
+
+    private static void updatePersons(Map<String, Person> relationships, String fromName, int value, String toName) {
+        final var from = relationships.computeIfAbsent(fromName, Person::new);
+        final var to = relationships.computeIfAbsent(toName, Person::new);
 
         from.addHappinessRelationShip(new PersonToPersonHappiness(from, to, value));
     }
 
-    private static Person getOrCreatePerson(HappinessMap map, String name) {
-        Person person = map.persons.get(name);
-        if (person == null) {
-            person = new Person(name);
-            map.persons.put(name, person);
-        }
-        return person;
-    }
-
     public Set<String> persons() {
-        return persons.keySet();
+        return Collections.unmodifiableSet(relationships.keySet());
     }
 
     public Person person(String name) {
-        return persons.get(name);
+        return relationships.get(name);
     }
 
     public int happiness(List<String> seatingPlan) {
         int happiness = 0;
         int size = seatingPlan.size();
         for (int idx = 0; idx < seatingPlan.size(); idx++) {
-            final Person from = persons.get(seatingPlan.get(idx));
-            final Person left = persons.get(idx == 0 ? seatingPlan.get(size - 1) : seatingPlan.get(idx - 1));
-            final Person right = persons.get(idx == size - 1 ? seatingPlan.get(0) : seatingPlan.get(idx + 1));
+            final Person from = relationships.get(seatingPlan.get(idx));
+            final Person left = relationships.get(idx == 0 ? seatingPlan.get(size - 1) : seatingPlan.get(idx - 1));
+            final Person right = relationships.get(idx == size - 1 ? seatingPlan.get(0) : seatingPlan.get(idx + 1));
 
             int additionalHappiness = from.happiness(left, right) ;
             happiness += additionalHappiness;

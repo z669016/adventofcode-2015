@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class Person {
+class Person {
     private final String name;
     private final Map<Person, PersonToPersonHappiness> happiness = new HashMap<>();
 

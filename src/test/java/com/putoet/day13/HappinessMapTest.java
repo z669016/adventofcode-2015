@@ -17,19 +17,19 @@ class HappinessMapTest {
 
     @BeforeEach
     void setup() {
-        final List<String> descriptions = ResourceLines.list("/day13.txt");
-        map = HappinessMap.fromList(descriptions);
+        final var descriptions = ResourceLines.list("/day13.txt");
+        map = HappinessMap.of(descriptions);
     }
 
     @Test
     void persons() {
-        final Set<String> names = map.persons();
+        final var names = map.persons();
         assertEquals(Set.of("Alice", "Bob", "Carol", "David", "Eric", "Frank", "George", "Mallory"), names);
     }
 
     @Test
     void hapiness() {
-        List<String> seatingPlan = List.of("Alice", "Bob", "Carol", "David", "Eric", "Frank", "George", "Mallory");
+        final var seatingPlan = List.of("Alice", "Bob", "Carol", "David", "Eric", "Frank", "George", "Mallory");
         // Mallory (39) - Alice - Bob (2)
         // Alice (40) - Bob - Carol (-61)
         // Bob (-99) - Carol - David (-51)
@@ -44,8 +44,8 @@ class HappinessMapTest {
 
     @Test
     void fromList() {
-        final String[] seatingPlan = {"Carol", "David", "Alice", "Bob"};
-        final List<String> descriptions = List.of(
+        final var seatingPlan = new String[] {"Carol", "David", "Alice", "Bob"};
+        final var descriptions = List.of(
                 "Alice would gain 54 happiness units by sitting next to Bob.",
                 "Alice would lose 79 happiness units by sitting next to Carol.",
                 "Alice would lose 2 happiness units by sitting next to David.",
@@ -58,9 +58,8 @@ class HappinessMapTest {
                 "David would gain 46 happiness units by sitting next to Alice.",
                 "David would lose 7 happiness units by sitting next to Bob.",
                 "David would gain 41 happiness units by sitting next to Carol.");
-        final HappinessMap map = HappinessMap.fromList(descriptions);
-
-        int optimized =  Generator.permutation(seatingPlan).simple().stream().map(map::happiness)
+        final var map = HappinessMap.of(descriptions);
+        final var optimized =  Generator.permutation(seatingPlan).simple().stream().map(map::happiness)
                 .mapToInt(i -> i)
                 .max()
                 .orElseThrow();
@@ -71,9 +70,9 @@ class HappinessMapTest {
 
     @Test
     void fromListIncludingMyself() {
-        final HappinessMap mapIncludingMyself = HappinessMap.fromListIncludingMyself(ResourceLines.list("/day13.txt"));
+        final var mapIncludingMyself = HappinessMap.ofIncludingMyself(ResourceLines.list("/day13.txt"));
 
-        final Set<String> persons = new HashSet<>(mapIncludingMyself.persons());
+        final var persons = new HashSet<>(mapIncludingMyself.persons());
         persons.remove(HappinessMap.MYSELF);
 
         final Person myself = mapIncludingMyself.person(HappinessMap.MYSELF);
