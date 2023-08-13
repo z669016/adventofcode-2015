@@ -4,18 +4,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LeadScoreSystem implements ScoreSystem {
-    final Map<Reindeer,Integer> score = new HashMap<>();
+class LeadScoreSystem implements ScoreSystem {
+    private final Map<Reindeer,Integer> score = new HashMap<>();
 
     @Override
     public void update(int elapsedTime, List<Reindeer> reindeer) {
         assert elapsedTime > 0;
-        assert reindeer != null && reindeer.size() > 0;
+        assert reindeer != null && !reindeer.isEmpty();
 
-        final Map<Reindeer,Integer> distance = new HashMap<>();
+        final var distance = new HashMap<Reindeer,Integer>();
         reindeer.forEach(r -> distance.put(r, r.distance(elapsedTime)));
 
-        final int max = distance.values().stream().mapToInt(i -> i).max().orElseThrow();
+        final var max = distance.values().stream().mapToInt(i -> i).max().orElseThrow();
         distance.entrySet().stream()
                 .filter(e -> e.getValue() == max)
                 .map(Map.Entry::getKey)
@@ -24,7 +24,7 @@ public class LeadScoreSystem implements ScoreSystem {
 
     @Override
     public Reindeer winner() {
-        if (score.size() == 0)
+        if (score.isEmpty())
             throw new IllegalStateException("No contenders on the race");
 
         return score.entrySet().stream()

@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DistanceScoreSystem implements ScoreSystem {
-    final Map<Reindeer,Integer> distance = new HashMap<>();
+class DistanceScoreSystem implements ScoreSystem {
+    private final Map<Reindeer,Integer> distance = new HashMap<>();
 
     @Override
     public void update(int elapsedTime, List<Reindeer> reindeer) {
@@ -14,7 +14,7 @@ public class DistanceScoreSystem implements ScoreSystem {
 
     @Override
     public Reindeer winner() {
-        if (distance.size() == 0)
+        if (distance.isEmpty())
             throw new IllegalStateException("No contenders on the race");
 
         return distance.entrySet().stream()

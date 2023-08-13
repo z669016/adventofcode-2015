@@ -2,7 +2,7 @@ package com.putoet.day14;
 
 import java.util.List;
 
-public class ReindeerRace {
+class ReindeerRace {
     private final List<Reindeer> reindeer;
 
     public ReindeerRace(List<Reindeer> reindeer) {
