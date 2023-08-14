@@ -5,9 +5,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class Cargo {
+class Cargo {
     public final List<List<Integer>> containers;
 
+    @SafeVarargs
     public Cargo(List<Integer> ... containers) {
         assert containers != null;
         assert Arrays.stream(containers).noneMatch(Objects::isNull);

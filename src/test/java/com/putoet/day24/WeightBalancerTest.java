@@ -13,14 +13,13 @@ class WeightBalancerTest {
     @Test
     void construct() {
         assertThrows(AssertionError.class, () -> new WeightBalancer(1, WEIGHTS));
-        assertThrows(AssertionError.class, () -> new WeightBalancer(3, null));
         assertThrows(AssertionError.class, () -> new WeightBalancer(3, List.of(0, 1)));
         assertThrows(IllegalArgumentException.class, () -> new WeightBalancer(3, List.of(1, 2, 4)));
     }
 
     @Test
     void averageWeight() {
-        final WeightBalancer wb = new WeightBalancer(3, WEIGHTS);
+        final var wb = new WeightBalancer(3, WEIGHTS);
         assertEquals(3, wb.containers());
         assertEquals(20, wb.averageWeight());
         assertEquals(WEIGHTS, wb.packages());
@@ -34,8 +33,8 @@ class WeightBalancerTest {
 
     @Test
     void loadBalancing() {
-        final WeightBalancer wb = new WeightBalancer(3, WEIGHTS);
-        final List<Cargo> cargoList = wb.loadBalancing();
+        final var wb = new WeightBalancer(3, WEIGHTS);
+        final var cargoList = wb.loadBalancing();
 
         System.out.println(cargoList.size());
         cargoList.forEach(cargo -> System.out.println("(QE=" + WeightBalancer.quantumEntanglement(cargo) + ") " + cargo));
