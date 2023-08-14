@@ -3,13 +3,12 @@ package com.putoet.day22;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game implements Comparable<Game> {
+class Game implements Comparable<Game> {
     private final Wizard wizard;
     private final Boss boss;
     private final List<Effect> activeEffects = new ArrayList<>();
-
-    private boolean bossTurn = false;
     private final boolean hard;
+    private boolean bossTurn = false;
 
     public Game(Wizard wizard, Boss boss) {
         this(wizard, boss, false);
@@ -100,14 +99,16 @@ public class Game implements Comparable<Game> {
     }
 
     public Game duplicate() {
-        final Game copy = new Game(new Wizard(wizard), new Boss(boss), hard);
+        final var copy = new Game(new Wizard(wizard), new Boss(boss), hard);
         activeEffects.forEach(effect -> copy.activeEffects.add(effect.duplicate()));
         copy.bossTurn = !this.bossTurn;
 
         return copy;
     }
 
-    public boolean done() { return wizard.lost() || boss.lost(); }
+    public boolean done() {
+        return wizard.lost() || boss.lost();
+    }
 
     @Override
     public int compareTo(Game other) {

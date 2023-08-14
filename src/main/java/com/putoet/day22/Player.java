@@ -1,6 +1,6 @@
 package com.putoet.day22;
 
-public abstract class Player {
+abstract class Player {
     private final String name;
     private int hitPoints;
 

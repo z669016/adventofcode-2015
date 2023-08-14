@@ -1,6 +1,6 @@
 package com.putoet.day22;
 
-public class Shield {
+class Shield {
     static String name() { return "Shield"; }
     static int costs() { return 113; }
     static int armor() { return 7; }

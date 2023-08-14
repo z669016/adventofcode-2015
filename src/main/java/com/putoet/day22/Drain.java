@@ -1,6 +1,6 @@
 package com.putoet.day22;
 
-public class Drain {
+class Drain {
     static String name() { return "Drain"; }
     static int costs() { return 73; }
     static int damage() { return 2; }

@@ -1,6 +1,6 @@
 package com.putoet.day22;
 
-public interface Effect {
+interface Effect {
     String name();
     void apply(Wizard wizard, Boss boss);
     Effect duplicate();

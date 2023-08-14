@@ -1,6 +1,6 @@
 package com.putoet.day22;
 
-public class Wizard extends Player {
+class Wizard extends Player {
     private int spend;
     private int mana;
     private int armor;

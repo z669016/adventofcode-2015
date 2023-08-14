@@ -1,6 +1,6 @@
 package com.putoet.day22;
 
-public class MagicMissile {
+class MagicMissile {
     static String name() { return "Magic Missile"; }
     static int costs() { return 53; }
     static int damage() { return 4; }

@@ -1,12 +1,12 @@
 package com.putoet.day22;
 
-public class Poison {
+class Poison {
     static String name() { return "Poison"; }
     static int costs() { return 173; }
     static int damage() { return 3; }
     static int timer() { return 6; }
 
-    public static Effect cast(Wizard wizard, Boss boss) {
+    public static Effect cast(Wizard wizard, Boss ignoredBoss) {
         if (wizard.mana() >= costs()) {
             wizard.charge(costs());
             return effect();

@@ -1,6 +1,6 @@
 package com.putoet.day22;
 
-public class Boss extends Player {
+class Boss extends Player {
     private final int damage;
 
     public Boss(int hitPoints, int damage) {

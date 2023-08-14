@@ -1,12 +1,12 @@
 package com.putoet.day22;
 
-public class Recharge {
+class Recharge {
     static String name() { return "Recharge"; }
     static int costs() { return 229; }
     static int mana() { return 101; }
     static int timer() { return 5; }
 
-    public static Effect cast(Wizard wizard, Boss boss) {
+    public static Effect cast(Wizard wizard, Boss ignoredBoss) {
         if (wizard.mana() >= costs()) {
             wizard.charge(costs());
             return effect();
