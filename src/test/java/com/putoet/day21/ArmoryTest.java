@@ -10,7 +10,7 @@ class ArmoryTest {
 
     @Test
     void stock() {
-        final Armory armory = new Armory();
+        final var armory = new Armory();
 
         assertEquals(16, armory.stock().length);
         assertEquals(5, armory.stock(Armament.Type.WEAPON).length);

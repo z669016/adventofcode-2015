@@ -9,11 +9,11 @@ class DrainTest {
 
     @Test
     void cast() {
-        final Wizard wizard = mock(Wizard.class);
-        final Boss boss = mock(Boss.class);
+        final var wizard = mock(Wizard.class);
+        final var boss = mock(Boss.class);
         when(wizard.mana()).thenReturn(Drain.costs());
 
-        final Effect effect = Drain.cast(wizard, boss);
+        final var effect = Drain.cast(wizard, boss);
         effect.apply(wizard, boss);
 
         verify(boss, times(1)).damage(Drain.damage());
@@ -24,19 +24,19 @@ class DrainTest {
 
     @Test
     void duplicate() {
-        final Wizard wizard = mock(Wizard.class);
-        final Boss boss = mock(Boss.class);
+        final var wizard = mock(Wizard.class);
+        final var boss = mock(Boss.class);
         when(wizard.mana()).thenReturn(Drain.costs());
 
-        final Effect copy = Drain.cast(wizard, boss).duplicate();
+        final var copy = Drain.cast(wizard, boss).duplicate();
         assertFalse(copy.active());
         assertTrue(copy.ended());
     }
 
     @Test
     void castFail() {
-        final Wizard wizard = mock(Wizard.class);
-        final Boss boss = mock(Boss.class);
+        final var wizard = mock(Wizard.class);
+        final var boss = mock(Boss.class);
         when(wizard.mana()).thenReturn(Drain.costs() - 1);
 
         assertThrows(IllegalStateException.class, () -> Drain.cast(wizard,boss));

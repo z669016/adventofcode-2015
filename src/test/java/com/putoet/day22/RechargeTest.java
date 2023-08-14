@@ -9,11 +9,11 @@ class RechargeTest {
 
     @Test
     void cast() {
-        final Wizard wizard = mock(Wizard.class);
-        final Boss boss = mock(Boss.class);
+        final var wizard = mock(Wizard.class);
+        final var boss = mock(Boss.class);
         when(wizard.mana()).thenReturn(Recharge.costs());
 
-        final Effect effect = Recharge.cast(wizard, boss);
+        final var effect = Recharge.cast(wizard, boss);
 
         verify(wizard, times(1)).mana();
         verify(wizard, times(1)).charge(Recharge.costs());
@@ -26,25 +26,24 @@ class RechargeTest {
 
     @Test
     void duplicate() {
-        final Wizard wizard = mock(Wizard.class);
-        final Boss boss = mock(Boss.class);
+        final var wizard = mock(Wizard.class);
+        final var boss = mock(Boss.class);
         when(wizard.mana()).thenReturn(Recharge.costs());
 
-        final Effect effect = Recharge.cast(wizard, boss);
+        final var effect = Recharge.cast(wizard, boss);
         effect.apply(wizard, boss);
 
-        final Effect copy = effect.duplicate();
+        final var copy = effect.duplicate();
         assertEquals(4, copy.timer());
     }
 
     @Test
     void castFail() {
-        final Wizard wizard = mock(Wizard.class);
-        final Boss boss = mock(Boss.class);
+        final var wizard = mock(Wizard.class);
+        final var boss = mock(Boss.class);
 
         when(wizard.mana()).thenReturn(Recharge.costs() - 1);
 
         assertThrows(IllegalStateException.class, () -> Recharge.cast(wizard, boss));
     }
-
 }

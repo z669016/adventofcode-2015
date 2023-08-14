@@ -10,9 +10,8 @@ class PlayerTest {
 
     @Test
     void pick() {
-        final Player player = new Player("One");
-        final Armament sword = new Armament(Armament.Type.WEAPON, "Sword", 99, 1, 2);
-        final Armament dagger = new Armament(Armament.Type.WEAPON, "Dagger", 2, 1, 2);
+        final var player = new Player("One");
+        final var sword = new Armament(Armament.Type.WEAPON, "Sword", 99, 1, 2);
 
         player.pick(sword);
         assertTrue(player.armaments().contains(sword));
@@ -20,12 +19,12 @@ class PlayerTest {
 
     @Test
     void attackDefend() {
-        final Player one = new Player("One");
-        final Armament sword = new Armament(Armament.Type.WEAPON, "Sword", 99, 4, 2);
+        final var one = new Player("One");
+        final var sword = new Armament(Armament.Type.WEAPON, "Sword", 99, 4, 2);
         one.pick(sword);
 
-        final Player two = new Player("Two");
-        final Armament dagger = new Armament(Armament.Type.WEAPON, "Dagger", 2, 1, 2);
+        final var two = new Player("Two");
+        final var dagger = new Armament(Armament.Type.WEAPON, "Dagger", 2, 1, 2);
         two.pick(dagger);
 
         one.attack(two);
@@ -47,18 +46,21 @@ class PlayerTest {
 
     @Test
     void boss() {
-        final List<String> descriptions = List.of(
+        final var descriptions = List.of(
                 "Hit Points: 109",
                 "Damage: 8",
                 "Armor: 2");
 
-        final Player boss = Player.boss();
-        assertEquals(boss, Player.boss(List.of()));
+        var boss = Player.boss();
+        assertEquals(100, boss.hitPoints());
+        assertEquals(6, boss.damage());
+        assertEquals(1, boss.defence());
+        assertTrue(boss.armaments().isEmpty());
 
-        final Player newBoss = Player.boss(descriptions);
-        assertNotEquals(boss, newBoss);
-        assertEquals(109, newBoss.hitPoints());
-        assertEquals(8, newBoss.damage());
-        assertEquals(2, newBoss.defence());
+        boss = Player.boss(descriptions);
+        assertEquals(109, boss.hitPoints());
+        assertEquals(8, boss.damage());
+        assertEquals(2, boss.defence());
+        assertTrue(boss.armaments().isEmpty());
     }
 }

@@ -9,11 +9,11 @@ class ShieldTest {
 
     @Test
     void cast() {
-        final Wizard wizard = mock(Wizard.class);
-        final Boss boss = mock(Boss.class);
+        final var wizard = mock(Wizard.class);
+        final var boss = mock(Boss.class);
         when(wizard.mana()).thenReturn(Shield.costs());
 
-        final Effect effect = Shield.cast(wizard, boss);
+        final var effect = Shield.cast(wizard, boss);
 
         verify(wizard,times(1)).armor(Shield.armor());
         verify(wizard, times(1)).mana();
@@ -36,22 +36,21 @@ class ShieldTest {
 
     @Test
     void duplicate() {
-        final Wizard wizard = mock(Wizard.class);
-        final Boss boss = mock(Boss.class);
+        final var wizard = mock(Wizard.class);
+        final var boss = mock(Boss.class);
         when(wizard.mana()).thenReturn(Shield.costs());
 
-        final Effect copy = Shield.cast(wizard, boss).duplicate();
+        final var copy = Shield.cast(wizard, boss).duplicate();
         assertEquals(6, copy.timer());
     }
 
     @Test
     void castFail() {
-        final Wizard wizard = mock(Wizard.class);
-        final Boss boss = mock(Boss.class);
+        final var wizard = mock(Wizard.class);
+        final var boss = mock(Boss.class);
 
         when(wizard.mana()).thenReturn(Drain.costs() - 1);
 
         assertThrows(IllegalStateException.class, () -> Shield.cast(wizard, boss));
     }
-
 }
