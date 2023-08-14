@@ -8,11 +8,11 @@ class INCTest {
 
     @Test
     void run() {
-        final Register ip = new Register(Processor.IP);
-        final Register a = new Register(Processor.A);
+        final var ip = new Register(Processor.IP);
+        final var a = new Register(Processor.A);
         a.accept(9);
 
-        final INC inc = new INC(ip, a);
+        final var inc = new INC(ip, a);
         inc.run();
 
         assertEquals(1, ip.get());
@@ -21,10 +21,9 @@ class INCTest {
 
     @Test
     void runOnZero() {
-        final Register ip = new Register(Processor.IP);
-        final Register a = new Register(Processor.A);
-
-        final INC inc = new INC(ip, a);
+        final var ip = new Register(Processor.IP);
+        final var a = new Register(Processor.A);
+        final var inc = new INC(ip, a);
         inc.run();
 
         assertEquals(1, ip.get());

@@ -12,10 +12,10 @@ class JMPTest {
 
     @Test
     void run() {
-        final Register ip = new Register(Processor.IP);
+        final var ip = new Register(Processor.IP);
         ip.accept(3);
 
-        final JMP jmp = new JMP(ip, 2);
+        final var jmp = new JMP(ip, 2);
         jmp.run();
 
         assertEquals(5, ip.get());

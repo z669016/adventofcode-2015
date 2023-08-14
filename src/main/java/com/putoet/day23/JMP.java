@@ -1,6 +1,6 @@
 package com.putoet.day23;
 
-public class JMP extends Instruction implements Runnable {
+class JMP extends Instruction implements Runnable {
     private final int offset;
 
     public JMP(Register ip, int offset) {

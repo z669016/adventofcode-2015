@@ -1,6 +1,6 @@
 package com.putoet.day23;
 
-public class HLF extends Instruction implements Runnable {
+class HLF extends Instruction implements Runnable {
     private final Register r;
 
     public HLF(Register ip, Register r) {

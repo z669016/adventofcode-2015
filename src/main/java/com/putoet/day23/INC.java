@@ -1,6 +1,6 @@
 package com.putoet.day23;
 
-public class INC extends Instruction implements Runnable {
+class INC extends Instruction implements Runnable {
     private final Register r;
 
     public INC(Register ip, Register r) {

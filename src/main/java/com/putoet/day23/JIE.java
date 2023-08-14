@@ -1,6 +1,6 @@
 package com.putoet.day23;
 
-public class JIE extends Instruction implements Runnable {
+class JIE extends Instruction implements Runnable {
     private final int offset;
     private final Register r;
 

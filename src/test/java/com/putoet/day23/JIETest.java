@@ -8,12 +8,12 @@ class JIETest {
 
     @Test
     void runEven() {
-        final Register ip = new Register(Processor.IP);
-        final Register a = new Register(Processor.A);
+        final var ip = new Register(Processor.IP);
+        final var a = new Register(Processor.A);
         ip.accept(11);
         a.accept(4);
 
-        final JIE jie = new JIE(ip, a, -3);
+        final var jie = new JIE(ip, a, -3);
         jie.run();
 
         assertEquals(8, ip.get());
@@ -21,12 +21,12 @@ class JIETest {
 
     @Test
     void runOdd() {
-        final Register ip = new Register(Processor.IP);
-        final Register a = new Register(Processor.A);
+        final var ip = new Register(Processor.IP);
+        final var a = new Register(Processor.A);
         ip.accept(11);
         a.accept(3);
 
-        final JIE jie = new JIE(ip, a, -3);
+        final var jie = new JIE(ip, a, -3);
         jie.run();
 
         assertEquals(12, ip.get());

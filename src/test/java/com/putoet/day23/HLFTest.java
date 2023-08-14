@@ -7,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class HLFTest {
     @Test
     void run() {
-        final Register ip = new Register(Processor.IP);
-        final Register a = new Register(Processor.A);
+        final var ip = new Register(Processor.IP);
+        final var a = new Register(Processor.A);
         a.accept(9);
 
-        final HLF hlf = new HLF(ip, a);
+        final var hlf = new HLF(ip, a);
         hlf.run();
 
         assertEquals(1, ip.get());
@@ -20,10 +20,9 @@ class HLFTest {
 
     @Test
     void runOnZero() {
-        final Register ip = new Register(Processor.IP);
-        final Register a = new Register(Processor.A);
-
-        final HLF hlf = new HLF(ip, a);
+        final var ip = new Register(Processor.IP);
+        final var a = new Register(Processor.A);
+        final var hlf = new HLF(ip, a);
         hlf.run();
 
         assertEquals(1, ip.get());

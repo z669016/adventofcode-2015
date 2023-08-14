@@ -1,6 +1,6 @@
 package com.putoet.day23;
 
-public class TPL extends Instruction implements Runnable {
+class TPL extends Instruction implements Runnable {
     private final Register r;
 
     public TPL(Register ip, Register r) {

@@ -3,7 +3,7 @@ package com.putoet.day23;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class Register implements Supplier<Integer>, Consumer<Integer> {
+class Register implements Supplier<Integer>, Consumer<Integer> {
     private final String name;
     private Integer value = 0;
 

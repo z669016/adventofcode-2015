@@ -42,14 +42,14 @@ class ProcessorTest {
     void register() {
         assertThrows(IllegalArgumentException.class, () -> processor.register("x"));
 
-        final Register ip = processor.register(Processor.IP);
+        final var ip = processor.register(Processor.IP);
         assertEquals(ip, processor.register(Processor.IP));
 
-        final Register a = processor.register(Processor.A);
+        final var a = processor.register(Processor.A);
         assertEquals(a, processor.register(Processor.A));
         assertNotEquals(a, ip);
 
-        final Register b = processor.register(Processor.B);
+        final var b = processor.register(Processor.B);
         assertEquals(b, processor.register(Processor.B));
         assertNotEquals(b, ip);
         assertNotEquals(b, a);

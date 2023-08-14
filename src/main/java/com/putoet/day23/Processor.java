@@ -3,7 +3,7 @@ package com.putoet.day23;
 import java.util.List;
 import java.util.Map;
 
-public class Processor implements Runnable {
+class Processor implements Runnable {
     public static final String IP = "ip";
     public static final String A = "a";
     public static final String B = "b";
@@ -16,7 +16,7 @@ public class Processor implements Runnable {
     @Override
     public void run() {
         while (ip.get() < instr.size()) {
-            final Runnable runnable = instr.get(ip.get());
+            final var runnable = instr.get(ip.get());
             if (verbose)
                 System.out.println(runnable);
 
@@ -34,28 +34,16 @@ public class Processor implements Runnable {
     }
 
     private Runnable compile(String line) {
-        final String[] words = line.split(" ");
-        switch (words[0]) {
-            case "hlf":
-                return new HLF(ip, register(clean(words[1])));
-
-            case "tpl":
-                return new TPL(ip, register(clean(words[1])));
-
-            case "inc":
-                return new INC(ip, register(clean(words[1])));
-
-            case "jmp":
-                return new JMP(ip, offset(clean(words[1])));
-
-            case "jie":
-                return new JIE(ip, register(clean(words[1])), offset(clean(words[2])));
-
-            case "jio":
-                return new JIO(ip, register(clean(words[1])), offset(clean(words[2])));
-        }
-
-        throw new IllegalArgumentException("Invalid instruction '" + line + "'");
+        final var words = line.split(" ");
+        return switch (words[0]) {
+            case "hlf" -> new HLF(ip, register(clean(words[1])));
+            case "tpl" -> new TPL(ip, register(clean(words[1])));
+            case "inc" -> new INC(ip, register(clean(words[1])));
+            case "jmp" -> new JMP(ip, offset(clean(words[1])));
+            case "jie" -> new JIE(ip, register(clean(words[1])), offset(clean(words[2])));
+            case "jio" -> new JIO(ip, register(clean(words[1])), offset(clean(words[2])));
+            default -> throw new IllegalArgumentException("Invalid instruction '" + line + "'");
+        };
     }
 
     private int offset(String word) {
