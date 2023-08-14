@@ -1,9 +1,10 @@
 package com.putoet.day21;
 
-import com.putoet.Timer;
 import com.putoet.resources.ResourceLines;
+import com.putoet.utils.Timer;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
 
 public class Day21 {
     public static void main(String[] args) {

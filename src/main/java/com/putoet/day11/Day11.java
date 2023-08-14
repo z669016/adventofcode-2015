@@ -1,6 +1,6 @@
 package com.putoet.day11;
 
-import com.putoet.Timer;
+import com.putoet.utils.Timer;
 
 public class Day11 {
     public static void main(String[] args) {
@@ -13,7 +13,7 @@ public class Day11 {
         });
 
         Timer.run(() ->
-            System.out.println("Next password after " + nextPassword + " is '" + nextPassword.next() + "'")
+                System.out.println("Next password after " + nextPassword + " is '" + nextPassword.next() + "'")
         );
     }
 }

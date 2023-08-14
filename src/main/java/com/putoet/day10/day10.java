@@ -1,6 +1,6 @@
 package com.putoet.day10;
 
-import com.putoet.Timer;
+import com.putoet.utils.Timer;
 
 public class day10 {
     public static void main(String[] args) {

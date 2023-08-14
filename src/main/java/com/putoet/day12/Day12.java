@@ -1,6 +1,6 @@
 package com.putoet.day12;
 
-import com.putoet.Timer;
+import com.putoet.utils.Timer;
 
 import java.util.Map;
 

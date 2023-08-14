@@ -1,7 +1,7 @@
 package com.putoet.day1;
 
-import com.putoet.Timer;
 import com.putoet.resources.ResourceLines;
+import com.putoet.utils.Timer;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -42,7 +42,7 @@ public class Day1 {
         final var input = ResourceLines.line("/day1.txt");
 
         Timer.run(() ->
-            System.out.println("Solution day 1: " + finalFloor(input, new AtomicInteger(1)))
+                System.out.println("Solution day 1: " + finalFloor(input, new AtomicInteger(1)))
         );
 
         Timer.run(() -> {

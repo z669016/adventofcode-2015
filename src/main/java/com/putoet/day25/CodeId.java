@@ -1,6 +1,6 @@
 package com.putoet.day25;
 
-public class CodeId {
+class CodeId {
     public static long START_VALUE = 20151125;
     public static long MULTIPLIER = 252533;
     public static long DIVIDER = 33554393;

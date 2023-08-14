@@ -1,7 +1,7 @@
 package com.putoet.day4;
 
-import com.putoet.Timer;
 import com.putoet.security.MD5;
+import com.putoet.utils.Timer;
 
 import java.security.NoSuchAlgorithmException;
 

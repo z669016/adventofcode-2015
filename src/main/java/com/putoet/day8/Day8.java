@@ -1,7 +1,7 @@
 package com.putoet.day8;
 
-import com.putoet.Timer;
 import com.putoet.resources.ResourceLines;
+import com.putoet.utils.Timer;
 import utilities.StringUtils;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.putoet.day5;
 
-import com.putoet.Timer;
 import com.putoet.resources.ResourceLines;
+import com.putoet.utils.Timer;
 
 public class Day5 {
     public static void main(String[] args) {

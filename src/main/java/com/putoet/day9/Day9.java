@@ -1,7 +1,7 @@
 package com.putoet.day9;
 
-import com.putoet.Timer;
 import com.putoet.resources.ResourceLines;
+import com.putoet.utils.Timer;
 import org.paukov.combinatorics3.Generator;
 
 import java.util.Arrays;

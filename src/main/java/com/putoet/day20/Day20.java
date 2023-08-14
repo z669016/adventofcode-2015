@@ -2,8 +2,8 @@ package com.putoet.day20;
 
 import java.util.function.Function;
 
-import com.putoet.Timer;
 import com.putoet.math.Factors;
+import com.putoet.utils.Timer;
 
 public class Day20 {
     public static void main(String[] args) {
