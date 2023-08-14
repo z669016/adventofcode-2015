@@ -6,7 +6,7 @@ public class Tokenizer implements Iterator<String> {
     private final String line;
     private int ptr = 0;
     private int tokenCount = 0;
-    private int parentesesCount = 0;
+    private int parenthesisCount = 0;
     private int commaCount = 0;
 
     public Tokenizer(String line) {
@@ -20,8 +20,8 @@ public class Tokenizer implements Iterator<String> {
 
     @Override
     public String next() {
-        int len = tokenLength();
-        final String next = line.substring(ptr, ptr + len);
+        final var len = tokenLength();
+        final var next = line.substring(ptr, ptr + len);
         ptr += len;
 
         return token(next);
@@ -36,15 +36,24 @@ public class Tokenizer implements Iterator<String> {
 
     private String token(String next) {
         tokenCount++;
-        switch(next) {
-            case "Rn": parentesesCount++; return "(";
-            case "Ar": parentesesCount++; return ")";
-            case "Y": commaCount++; return ",";
-            default: return next;
-        }
+        return switch (next) {
+            case "Rn" -> {
+                parenthesisCount++;
+                yield "(";
+            }
+            case "Ar" -> {
+                parenthesisCount++;
+                yield ")";
+            }
+            case "Y" -> {
+                commaCount++;
+                yield ",";
+            }
+            default -> next;
+        };
     }
 
-    public int parenthesesCount() { return parentesesCount; }
+    public int parenthesesCount() { return parenthesisCount; }
     public int commaCount() { return commaCount; }
     public int tokenCount() { return tokenCount; }
 }

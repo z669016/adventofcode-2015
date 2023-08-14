@@ -8,9 +8,9 @@ public class Molecule {
         assert list != null;
 
         return list.stream()
-                .filter(text -> text.trim().length() > 0)
-                .filter(text -> !text.contains(Transformations.SPLIT_ELEMENT))
                 .map(String::trim)
+                .filter(text -> !text.isEmpty())
+                .filter(text -> !text.contains(Transformations.SPLIT_ELEMENT))
                 .findFirst();
     }
 }

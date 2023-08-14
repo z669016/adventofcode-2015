@@ -10,18 +10,19 @@ public record Transformation(String from, String to) {
     }
 
     public List<String> apply(String molecule) {
-        final StringBuilder start = new StringBuilder();
-        String end = molecule;
+        final var start = new StringBuilder();
+        var end = molecule;
 
-        final String element = from;
+        final var element = from;
         if (!end.contains(element)) {
             return List.of();
         }
 
-        final List<String> transformedMolecules = new ArrayList<>();
+        final var transformedMolecules = new ArrayList<String>();
         while (end.contains(element)) {
-            final int pos = end.indexOf(element);
-            final String before = start + end.substring(0, pos);
+            final var pos = end.indexOf(element);
+            final var before = start + end.substring(0, pos);
+
             start.append(end, 0, pos + element.length());
             end = end.substring(pos + element.length());
             transformedMolecules.add(before + to() + end);

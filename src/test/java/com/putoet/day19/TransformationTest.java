@@ -2,8 +2,6 @@ package com.putoet.day19;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class TransformationTest {
@@ -14,13 +12,13 @@ class TransformationTest {
 
     @Test
     void applyNotFound() {
-        final List<String> transformedMolecules = transformation.apply("BLA");
+        final var transformedMolecules = transformation.apply("BLA");
         assertEquals(0, transformedMolecules.size());
     }
 
     @Test
     void apply() {
-        final List<String> transformedMolecules = transformation.apply(hoh);
+        final var transformedMolecules = transformation.apply(hoh);
         assertEquals(2, transformedMolecules.size());
         assertTrue(transformedMolecules.contains(hooh));
         assertTrue(transformedMolecules.contains(hoho));
@@ -28,7 +26,7 @@ class TransformationTest {
 
     @Test
     void reverse() {
-        final Transformation t = new Transformation("from", "to");
+        final var t = new Transformation("from", "to");
         assertEquals(new Transformation("to", "from"), t.reverse());
     }
 }
