@@ -14,14 +14,12 @@ public class Day14 {
             final var distanceScoreSystem = new DistanceScoreSystem();
             final var winnerOnDistance = race.race(2503, distanceScoreSystem);
             System.out.println("The race was won by " + winnerOnDistance.name() + " with a distance of " + distanceScoreSystem.score(winnerOnDistance));
-            return null;
         });
 
         Timer.run(() -> {
             final var leadScoreSystem = new LeadScoreSystem();
             final var winnerOnLead = race.race(2503, leadScoreSystem);
             System.out.println("The race was won by " + winnerOnLead.name() + " with a distance of " + leadScoreSystem.score(winnerOnLead));
-            return null;
         });
     }
 }

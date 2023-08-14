@@ -17,7 +17,6 @@ public class Day8 {
             System.out.println("Total length of the strings: " + stringSizeSum);
             System.out.println("Total length of the sanitized strings: " + sanitizedSizeSum);
             System.out.println("The difference: " + (stringSizeSum - sanitizedSizeSum));
-            return null;
         });
 
         Timer.run(() -> {
@@ -26,7 +25,6 @@ public class Day8 {
             System.out.println("Total length of the strings: " + stringSizeSum);
             System.out.println("Total length of the encoded strings: " + encodedSizeSum);
             System.out.println("The difference: " + (encodedSizeSum - stringSizeSum));
-            return null;
         });
     }
 }

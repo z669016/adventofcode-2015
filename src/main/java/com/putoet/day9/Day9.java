@@ -18,16 +18,20 @@ public class Day9 {
                     .toArray();
         });
 
-        final var minDistance = Arrays.stream(distances).min();
-        if (minDistance.isPresent())
-            System.out.println("The shortest route is: " + minDistance.getAsInt());
-        else
-            System.out.println("Hmmm ... I fucked up somewhere!");
+        Timer.run(() -> {
+            final var minDistance = Arrays.stream(distances).min();
+            if (minDistance.isPresent())
+                System.out.println("The shortest route is: " + minDistance.getAsInt());
+            else
+                System.out.println("Hmmm ... I fucked up somewhere!");
+        });
 
-        final var maxDistance = Arrays.stream(distances).max();
-        if (maxDistance.isPresent())
-            System.out.println("The longest route is: " + maxDistance.getAsInt());
-        else
-            System.out.println("Hmmm ... I fucked up somewhere else!");
+        Timer.run(() -> {
+            final var maxDistance = Arrays.stream(distances).max();
+            if (maxDistance.isPresent())
+                System.out.println("The longest route is: " + maxDistance.getAsInt());
+            else
+                System.out.println("Hmmm ... I fucked up somewhere else!");
+        });
     }
 }

@@ -16,13 +16,11 @@ public class Day15 {
         Timer.run(() -> {
             var cookie = ingredientList.maxCookie(calories -> true);
             System.out.println("Maximum score is " + cookie.score());
-            return null;
         });
 
         Timer.run(() -> {
             var cookie = ingredientList.maxCookie(calories -> calories <= 500);
             System.out.println("Maximum score for 500 calories is " + cookie.score());
-            return null;
         });
     }
 }

@@ -1,9 +1,10 @@
 package com.putoet.day19;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public record Transformations(List<Transformation> transformations) implements Iterable<Transformation> {
     public static final String SPLIT_ELEMENT = " => ";
@@ -33,7 +34,7 @@ public record Transformations(List<Transformation> transformations) implements I
     }
 
     @Override
-    public Iterator<Transformation> iterator() {
+    public @NotNull Iterator<Transformation> iterator() {
         return transformations.iterator();
     }
 }

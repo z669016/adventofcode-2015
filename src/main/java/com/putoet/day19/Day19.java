@@ -3,8 +3,6 @@ package com.putoet.day19;
 import com.putoet.Timer;
 import com.putoet.resources.ResourceLines;
 
-import java.util.List;
-
 public class Day19 {
     public static void main(String[] args) {
         final var list = ResourceLines.list("/day19.txt");

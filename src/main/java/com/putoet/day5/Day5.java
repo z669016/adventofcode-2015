@@ -5,18 +5,16 @@ import com.putoet.resources.ResourceLines;
 
 public class Day5 {
     public static void main(String[] args) {
-        Timer.run(() -> {
+        Timer.run(() ->
             System.out.println("Number of nice strings: " + ResourceLines.stream("/day5.txt")
                     .filter(Nice::isNice)
-                    .count());
-            return null;
-        });
+                    .count())
+        );
 
-        Timer.run(() -> {
+        Timer.run(() ->
             System.out.println("Number of nicer strings: " + ResourceLines.stream("/day5.txt")
                     .filter(Nice::isNicer)
-                    .count());
-            return null;
-        });
+                    .count())
+        );
     }
 }

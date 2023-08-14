@@ -10,15 +10,8 @@ public class Day13 {
     public static void main(String[] args) {
         final var input = ResourceLines.list("/day13.txt");
 
-        run(HappinessMap.of(input));
-        run(HappinessMap.ofIncludingMyself(input));
-    }
-
-    private static void run(HappinessMap map) {
-        Timer.run(() -> {
-            optimize(map);
-            return null;
-        });
+        Timer.run(() -> optimize(HappinessMap.of(input)));
+        Timer.run(() -> optimize(HappinessMap.ofIncludingMyself(input)));
     }
 
     private static void optimize(HappinessMap map) {

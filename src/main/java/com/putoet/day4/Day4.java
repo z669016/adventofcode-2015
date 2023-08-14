@@ -15,7 +15,6 @@ public class Day4 {
                 code++;
             }
             System.out.println("Code " + code + " provides hash " + MD5.hash(input + code));
-            return null;
         });
 
         Timer.run(() -> {
@@ -24,7 +23,6 @@ public class Day4 {
                 code++;
             }
             System.out.println("Code " + code + " provides hash " + MD5.hash(input + code));
-            return null;
         });
     }
 }

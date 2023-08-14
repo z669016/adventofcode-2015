@@ -27,7 +27,6 @@ public class Day17 {
                     .count();
 
             System.out.println("Minimum size is " + minimumSize + " which can be filled in " + count + " different ways.");
-            return null;
         });
     }
 }

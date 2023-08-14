@@ -14,14 +14,12 @@ public class Day3 {
             final var route = new RouteInclusive();
             directions.forEach(route::add);
             System.out.println("Visited addresses is " + route.visitedAddresses());
-            return null;
         });
 
         Timer.run(() -> {
             final var route = new RouteSantaAndRobot();
             directions.forEach(route::add);
             System.out.println("Visited addresses by Santa and robot is " + route.visitedAddresses());
-            return null;
         });
     }
 }

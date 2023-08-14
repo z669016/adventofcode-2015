@@ -14,7 +14,6 @@ public class Day18 {
                 nextLightGrid = nextLightGrid.next();
 
             System.out.println("Number of burning lights after 100 steps is " + nextLightGrid.burningLights());
-            return null;
         });
 
         Timer.run(() -> {
@@ -24,7 +23,6 @@ public class Day18 {
                 nextLightGrid = nextLightGrid.next();
 
             System.out.println("Number of burning lights on the broken grid after 100 steps is " + nextLightGrid.burningLights());
-            return null;
         });
     }
 }

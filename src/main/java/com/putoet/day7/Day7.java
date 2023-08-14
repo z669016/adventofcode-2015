@@ -18,7 +18,6 @@ public class Day7 {
             final var a = circuit.get("a");
             final var b = circuit.get("b");
             System.out.println("The value for wire a after is resetting b to '" + b + "' is " + a);
-            return null;
         });
     }
 }

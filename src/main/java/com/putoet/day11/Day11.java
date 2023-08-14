@@ -12,9 +12,8 @@ public class Day11 {
             return next;
         });
 
-        Timer.run(() -> {
-            System.out.println("Next password after " + nextPassword + " is '" + nextPassword.next() + "'");
-            return null;
-        });
+        Timer.run(() ->
+            System.out.println("Next password after " + nextPassword + " is '" + nextPassword.next() + "'")
+        );
     }
 }

@@ -12,7 +12,7 @@ public class Day6 {
         Timer.run(Day6::part2);
     }
 
-    private static Void part1() {
+    private static void part1() {
         final var factoryOne = onOffInstructionFactory();
         final var processorOne = new LightInstructionProcessor<>(false, () -> new Boolean[1000][1000], b -> b ? 1 : 0);
 
@@ -21,11 +21,9 @@ public class Day6 {
                 .forEach(processorOne::execute);
 
         System.out.println("Number of lights burning: " + processorOne.count());
-
-        return null;
     }
 
-    private static Void part2() {
+    private static void part2() {
         final var factoryTwo = intensityInstructionFactory();
         final var processorTwo = new LightInstructionProcessor<>(0, () -> new Integer[1000][1000], v -> v);
 
@@ -34,8 +32,6 @@ public class Day6 {
                 .forEach(processorTwo::execute);
 
         System.out.println("Number of lights burning: " + processorTwo.count());
-
-        return null;
     }
 
     static LightInstructionFactory<Boolean> onOffInstructionFactory() {

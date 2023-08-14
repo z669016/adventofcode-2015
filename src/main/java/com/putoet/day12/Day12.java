@@ -12,14 +12,12 @@ public class Day12 {
             var sumVisitor = new SumVisitor();
             MapWalker.walk(json, sumVisitor, false);
             System.out.println("Sum of all integers is: " + sumVisitor.sum());
-            return null;
         });
 
         Timer.run(() -> {
             var sumVisitor = new SumVisitor();
             MapWalker.walk(json, sumVisitor, true);
             System.out.println("Sum of all integers while ignoring 'red' is: " + sumVisitor.sum());
-            return null;
         });
     }
 }

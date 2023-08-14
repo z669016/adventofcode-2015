@@ -41,11 +41,9 @@ public class Day1 {
     public static void main(final String[] args) {
         final var input = ResourceLines.line("/day1.txt");
 
-        Timer.run(() -> {
-            System.out.println("Solution day 1: " + finalFloor(input, new AtomicInteger(1)));
-
-            return null;
-        });
+        Timer.run(() ->
+            System.out.println("Solution day 1: " + finalFloor(input, new AtomicInteger(1)))
+        );
 
         Timer.run(() -> {
             final var basement = basement(input, new AtomicInteger(1));
@@ -53,8 +51,6 @@ public class Day1 {
                 System.out.println("Entered the basement at position " + basement.get());
             else
                 System.out.println("Never entered the basement");
-
-            return null;
         });
     }
 }
