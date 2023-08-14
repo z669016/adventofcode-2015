@@ -4,7 +4,7 @@ import org.paukov.combinatorics3.Generator;
 
 import java.util.*;
 
-public class Armory {
+class Armory {
     private final static Armament[] ARMAMENTS = {
             new Armament(Armament.Type.WEAPON, "Dagger", 8, 4, 0),
             new Armament(Armament.Type.WEAPON, "Shortsword", 10, 5, 0),
@@ -40,36 +40,37 @@ public class Armory {
                 .toArray(Armament[]::new);
     }
 
-    public record ArmamentCombination(int costs, List<Armament> armaments) {
-    }
-
     public List<ArmamentCombination> combinations() {
-        final List<ArmamentCombination> armamentCombinations = new ArrayList<>();
+        final var armamentCombinations = new ArrayList<ArmamentCombination>();
 
         // Exactly one weapon
-        for (Armament weapon : stock(Armament.Type.WEAPON)) {
+        for (var weapon : stock(Armament.Type.WEAPON)) {
             // Try without armor, and without rings
             armamentCombinations.add(new ArmamentCombination(weapon.cost(), List.of(weapon)));
 
             // Try with a single ring
-            for (Armament ring : stock(Armament.Type.RING)) {
+            for (var ring : stock(Armament.Type.RING)) {
                 armamentCombinations.add(new ArmamentCombination(weapon.cost() + ring.cost(), List.of(weapon, ring)));
 
                 // And a single ring with a piece of armor
-                for (Armament armor : stock(Armament.Type.ARMOR))
+                for (var armor : stock(Armament.Type.ARMOR))
                     armamentCombinations.add(new ArmamentCombination(weapon.cost() + ring.cost() + armor.cost(),
                             List.of(weapon, ring, armor)));
             }
 
             // Try with two rings
             Generator.combination(stock(Armament.Type.RING)).simple(2).stream().forEach(rings -> {
-                armamentCombinations.add(new ArmamentCombination(weapon.cost() + rings.get(0).cost() + rings.get(1).cost(),
-                        List.of(weapon, rings.get(0), rings.get(1))));
+                armamentCombinations.add(
+                        new ArmamentCombination(weapon.cost() + rings.get(0).cost() + rings.get(1).cost(),
+                                List.of(weapon, rings.get(0), rings.get(1)))
+                );
 
                 // And a double ring with a piece of armor
-                for (Armament armor : stock(Armament.Type.ARMOR))
-                    armamentCombinations.add(new ArmamentCombination(weapon.cost() + rings.get(0).cost() + rings.get(1).cost() + armor.cost(),
-                            List.of(weapon, rings.get(0), rings.get(1), armor)));
+                for (var armor : stock(Armament.Type.ARMOR))
+                    armamentCombinations.add(
+                            new ArmamentCombination(weapon.cost() + rings.get(0).cost() + rings.get(1).cost() + armor.cost(),
+                                    List.of(weapon, rings.get(0), rings.get(1), armor))
+                    );
             });
         }
 

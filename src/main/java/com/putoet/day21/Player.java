@@ -2,9 +2,8 @@ package com.putoet.day21;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-public class Player {
+class Player {
     private final String name;
     private int hitPoints = 100;
     private int damage = -1;
@@ -32,7 +31,7 @@ public class Player {
     public int hitPoints() { return hitPoints; }
 
     public void attack(Player player) {
-        final int damage = damage();
+        final var damage = damage();
         player.defend(damage);
     }
 
@@ -43,8 +42,8 @@ public class Player {
     }
 
     public void defend(int damage) {
-        final int defence = defence();
-        final int impact = defence > damage ? 1 : damage - defence;
+        final var defence = defence();
+        final var impact = defence > damage ? 1 : damage - defence;
 
         hitPoints -= impact;
     }
@@ -60,28 +59,12 @@ public class Player {
         return hitPoints <= 0;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Player player)) return false;
-        return hitPoints == player.hitPoints &&
-                damage == player.damage &&
-                armor == player.armor &&
-                name.equals(player.name) &&
-                armaments.equals(player.armaments);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, hitPoints, armaments);
-    }
-
     public static Player boss(List<String> descriptions) {
-        final Player player = boss();
+        final var player = boss();
 
         try {
             descriptions.forEach(description -> {
-                final String[] words = description.split(":");
+                final var words = description.split(":");
                 if (words[0].startsWith("Hit Points")) player.hitPoints = Integer.parseInt(words[1].trim());
                 else if (words[0].startsWith("Damage")) player.damage = Integer.parseInt(words[1].trim());
                 else if (words[0].startsWith("Armor")) player.armor = Integer.parseInt(words[1].trim());
