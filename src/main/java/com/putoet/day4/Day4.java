@@ -3,10 +3,8 @@ package com.putoet.day4;
 import com.putoet.security.MD5;
 import com.putoet.utils.Timer;
 
-import java.security.NoSuchAlgorithmException;
-
 public class Day4 {
-    public static void main(String[] args) throws NoSuchAlgorithmException {
+    public static void main(String[] args) {
         final var input = "bgvyzdsv";
 
         Timer.run(() -> {

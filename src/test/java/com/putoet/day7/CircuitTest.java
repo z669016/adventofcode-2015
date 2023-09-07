@@ -27,14 +27,14 @@ class CircuitTest {
     @Test
     public void from() {
         assertEquals(8, circuit.encodingsCount());
-        assertEquals("123", circuit.encoding("x").get());
-        assertEquals("456", circuit.encoding("y").get());
-        assertEquals("x AND y", circuit.encoding("d").get());
-        assertEquals("x OR y", circuit.encoding("e").get());
-        assertEquals("x LSHIFT 2", circuit.encoding("f").get());
-        assertEquals("y RSHIFT 2", circuit.encoding("g").get());
-        assertEquals("NOT x", circuit.encoding("h").get());
-        assertEquals("NOT y", circuit.encoding("i").get());
+        assertEquals("123", circuit.encoding("x").orElseThrow());
+        assertEquals("456", circuit.encoding("y").orElseThrow());
+        assertEquals("x AND y", circuit.encoding("d").orElseThrow());
+        assertEquals("x OR y", circuit.encoding("e").orElseThrow());
+        assertEquals("x LSHIFT 2", circuit.encoding("f").orElseThrow());
+        assertEquals("y RSHIFT 2", circuit.encoding("g").orElseThrow());
+        assertEquals("NOT x", circuit.encoding("h").orElseThrow());
+        assertEquals("NOT y", circuit.encoding("i").orElseThrow());
         assertFalse(circuit.encoding("bla").isPresent());
     }
 
